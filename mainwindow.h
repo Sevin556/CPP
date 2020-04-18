@@ -16,7 +16,14 @@ public:
     ~MainWindow();
     void createMap();
 
+
 private:
     Ui::MainWindow *ui;
+
+private slots:
+    void zoomIN();
+    void zoomOUT();
+    void zoomSLider(int value);
+    void resetView();
 };
 #endif // MAINWINDOW_H

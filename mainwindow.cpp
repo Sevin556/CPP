@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <QFile>
 #include <QGraphicsScene>
+#include <QPushButton>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -12,6 +14,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     qDebug() << "Idem na to";
     createMap();
+    connect(ui->zoomINBtn,&QPushButton::clicked,this,&MainWindow::zoomIN);
+    connect(ui->zoomOUTBtn,&QPushButton::clicked,this,&MainWindow::zoomOUT);
+    connect(ui->zoomSlider,&QAbstractSlider::valueChanged,this,&MainWindow::zoomSLider);
+    connect(ui->resetBtn,&QPushButton::clicked,this,&MainWindow::resetView);
 }
 
 MainWindow::~MainWindow()
@@ -53,3 +59,36 @@ void MainWindow::createMap()
     return;
 
 }
+
+void MainWindow::zoomIN()
+{
+    ui->graphicsView->scale(1.25,1.25);
+    ui->zoomSlider->setValue(ui->zoomSlider->sliderPosition()*1.25);
+
+}
+
+void MainWindow::zoomOUT()
+{
+    ui->graphicsView->scale(0.8,0.8);
+    ui->zoomSlider->setValue(ui->zoomSlider->sliderPosition()*0.8);
+
+}
+
+void MainWindow::zoomSLider(int value)
+{
+    auto original = ui->graphicsView->transform();
+    qreal scale = value/10.0;
+    QString labelText = "Zoom: ";
+    labelText.append(QString::number(scale));
+    ui->labelZoom->setText(labelText);
+    ui->graphicsView->setTransform(QTransform(scale,original.m12(),original.m21(),scale,original.dx(),original.dy()));
+}
+
+void MainWindow::resetView()
+{
+    ui->graphicsView->resetMatrix();
+    ui->labelZoom->setText("Zoom: 1.0");
+
+
+}
+
