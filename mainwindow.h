@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,8 +15,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void createMap();
-
+    void createMap(QGraphicsScene *scene);
+    void generateBusStops(QGraphicsScene * scene, QVector<QVector<int>> stops);
 
 private:
     Ui::MainWindow *ui;

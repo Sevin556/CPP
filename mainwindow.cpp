@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QGraphicsScene>
 #include <QPushButton>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,7 +14,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     qDebug() << "Idem na to";
-    createMap();
+    auto * scene = new QGraphicsScene(ui->graphicsView);
+    ui->graphicsView->setScene(scene);
+
+    createMap(scene);
+
+    QVector<QVector<int>> stops;
+    generateBusStops(scene, stops);
+
     connect(ui->zoomINBtn,&QPushButton::clicked,this,&MainWindow::zoomIN);
     connect(ui->zoomOUTBtn,&QPushButton::clicked,this,&MainWindow::zoomOUT);
     connect(ui->zoomSlider,&QAbstractSlider::valueChanged,this,&MainWindow::zoomSLider);
@@ -25,10 +33,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::createMap()
+void MainWindow::createMap(QGraphicsScene * scene)
 {
-    auto * scene = new QGraphicsScene(ui->graphicsView);
-    ui->graphicsView->setScene(scene);
     QFile file("test.txt");
 
     if(!file.open(QIODevice::ReadOnly))
@@ -40,7 +46,7 @@ void MainWindow::createMap()
     QTextStream instream(&file);
     QString line = instream.readLine(50);
     while (line != nullptr){
-        if (line[0] == "#"){
+        if (line[0] == '#'){
             line = instream.readLine(50);
         }
         QStringList splitedLine= line.split(" ");
@@ -53,8 +59,6 @@ void MainWindow::createMap()
         scene->addLine(x1,y1,x2,y2,QPen({Qt::black},4));
         line = instream.readLine(50);
     }
-
-
     file.close();
     return;
 
@@ -88,7 +92,33 @@ void MainWindow::resetView()
 {
     ui->graphicsView->resetMatrix();
     ui->labelZoom->setText("Zoom: 1.0");
+}
+void MainWindow::generateBusStops(QGraphicsScene * scene, QVector<QVector<int>> stops)
+{
+    QFile file("zastavky.txt");
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        qDebug() << "error opening file: " << file.error();
+        return;
+    }
 
+    QTextStream instream(&file);
+    QString line = instream.readLine(50);
+    while (line != nullptr){
+        if (line[0] == '#'){
+            line = instream.readLine(50);
+        }
+        QStringList splitedLine= line.split(";");
+
+        int id = splitedLine[0].toInt();
+        int x = splitedLine[1].toInt();
+        int y = splitedLine[2].toInt();
+        scene->addEllipse(x,y,4, 4, QPen({Qt::red}, 6));
+
+        stops.append(QVector<int>{id, x, y});
+        line = instream.readLine(50);
+    }
+    file.close();
+    return;
 
 }
-
