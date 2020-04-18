@@ -18,9 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->setScene(scene);
 
     createMap(scene);
-
-    QVector<QVector<int>> stops;
-    generateBusStops(scene, stops);
+    generateBusStops(scene);
 
     connect(ui->zoomINBtn,&QPushButton::clicked,this,&MainWindow::zoomIN);
     connect(ui->zoomOUTBtn,&QPushButton::clicked,this,&MainWindow::zoomOUT);
@@ -93,7 +91,7 @@ void MainWindow::resetView()
     ui->graphicsView->resetMatrix();
     ui->labelZoom->setText("Zoom: 1.0");
 }
-void MainWindow::generateBusStops(QGraphicsScene * scene, QVector<QVector<int>> stops)
+void MainWindow::generateBusStops(QGraphicsScene * scene)
 {
     QFile file("zastavky.txt");
     if(!file.open(QIODevice::ReadOnly))
@@ -108,14 +106,12 @@ void MainWindow::generateBusStops(QGraphicsScene * scene, QVector<QVector<int>> 
         if (line[0] == '#'){
             line = instream.readLine(50);
         }
-        QStringList splitedLine= line.split(";");
-
-        int id = splitedLine[0].toInt();
-        int x = splitedLine[1].toInt();
-        int y = splitedLine[2].toInt();
+        QStringList splitedLine= line.split(" ");
+        int x = splitedLine[0].toInt();
+        int y = splitedLine[1].toInt();
+        qDebug() << x, y;
         scene->addEllipse(x,y,4, 4, QPen({Qt::red}, 6));
 
-        stops.append(QVector<int>{id, x, y});
         line = instream.readLine(50);
     }
     file.close();

@@ -16,7 +16,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void createMap(QGraphicsScene *scene);
-    void generateBusStops(QGraphicsScene * scene, QVector<QVector<int>> stops);
+    void generateBusStops(QGraphicsScene * scene);
 
 private:
     Ui::MainWindow *ui;
