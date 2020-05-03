@@ -19,9 +19,9 @@ public:
     QGraphicsScene *scene ;
     autobusClass *autobus ;
     QMap <int,ulicaClass*>zoznamUlic;
+    QList<autobusClass*> zoznamAutobusov;
     void createMap(QGraphicsScene *scene);
     void generateBusStops(QGraphicsScene * scene);
-
 
 private:
     Ui::MainWindow *ui;
@@ -33,5 +33,7 @@ private slots:
     void resetView();
     void start();
     void timerBus();
+    void vytvorAutobus();
+
 };
 #endif // MAINWINDOW_H

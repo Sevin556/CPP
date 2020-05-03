@@ -10,24 +10,37 @@ class autobusClass: public QObject
 {
     Q_OBJECT
 public:
-    qreal vzdialenostY;
-    qreal vzdialenostX;
+
+    //inicializacia
     int zaciatokTrasyX;
     int zaciatokTrasyY;
     QList<int> zoznamUlicLinky;
+
     QMap<int,ulicaClass*>zoznamUlicMesta;
     QGraphicsEllipseItem *autobusItem;
     QGraphicsScene *scene;
-    QTimer *timer ;
-    QList<QPoint> bodyPohybu;
+
+    //pohyb
+    int smerX;
+    int smerY;
+    int index =0;
+
+    QList<QPointF> bodyPohybu;//mozno by bolo dobre ulozit body dopredu a len ich nacitavat doradu z tohoto zoznamu...zatial ho nevyuzivvam
+    QPointF aktualnaPozicia;
+    QPointF dalsiBod;
+
+    qreal koeficientX;
+    qreal koeficientY;
+
+    //funkcie
     autobusClass(QGraphicsScene *parentScene,QMap<int,ulicaClass*> *zoznamUlic,QObject * parent);
-    void updateBus(qreal x,qreal y);
-    void pocitajTrasu(int index);
+    void posunAutobus();
+    int pocitajTrasu();
+    int vykonajTrasu();
 
 private:
     QGraphicsEllipseItem* createBus(QGraphicsScene *scene);
 private slots:
-    void vykonajTrasu();
 
 };
 

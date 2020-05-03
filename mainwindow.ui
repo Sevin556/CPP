@@ -97,6 +97,20 @@
        </layout>
       </item>
       <item>
+       <widget class="QPushButton" name="startBtn">
+        <property name="text">
+         <string>Štart</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pridajBtn">
+        <property name="text">
+         <string>Pridaj Autobus</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -126,7 +140,7 @@
      <x>0</x>
      <y>0</y>
      <width>1349</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

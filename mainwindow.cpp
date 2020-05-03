@@ -24,8 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     createMap(scene);
     generateBusStops(scene);
-    qDebug() <<"deklarujem autobus";
+    //vytvori prvy autobus
     autobus = new autobusClass(scene,&zoznamUlic,nullptr) ;
+    zoznamAutobusov.append(autobus);
   //  auto *line = scene->addLine(100,200,200,100);
     //QGraphicsLineItem linka = *line;
 //
@@ -35,6 +36,9 @@ MainWindow::MainWindow(QWidget *parent)
     //connect(ui->farbaBtn,SIGNAL(clicked()),this,&MainWindow::farba(scene,&linka));
     connect(ui->zoomOUTBtn,&QPushButton::clicked,this,&MainWindow::zoomOUT);
     connect(ui->startBtn,&QPushButton::clicked,this,&MainWindow::start);
+
+    connect(ui->pridajBtn,&QPushButton::clicked,this,&MainWindow::vytvorAutobus);
+
 }
 
 
@@ -76,10 +80,10 @@ void MainWindow::resetView()
 void MainWindow::start()
 {
 
-
+    //vytvori timer podla ktoreho idu...treba nejako prerobit na čas aby sa mohlo riadit rozvrhom linky
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerBus()));
-    timer->start(2000);
+    timer->start(10);
 
       // autobus->pocitajTrasu();
 
@@ -87,13 +91,24 @@ void MainWindow::start()
 
 void MainWindow::timerBus()
 {
-/*    static QGraphicsEllipseItem *autobusik = autobus->createBus(scene);
-    autobus->updateBus(autobusik);
-*/
-    static int i = 0;
-    qDebug() <<"Toto je index:"<<i;
-    autobus->pocitajTrasu(i);
-    i++;
+    //prejde zoznam autobusov a posunie ich vpre, potom updatne scenu
+    for (int i =0;i< zoznamAutobusov.size();i++){
+        if (zoznamAutobusov[i] != nullptr){
+            if (zoznamAutobusov[i]->vykonajTrasu()==1){
+                zoznamAutobusov[i]=nullptr;
+            }
+
+        }
+    }
+    scene->update();
+
+}
+
+
+//prida autobus do zoznamu aby som otestoval ci to zvlada viac autobusov naraz
+void MainWindow::vytvorAutobus()
+{
+  zoznamAutobusov.append(new autobusClass(scene,&zoznamUlic,nullptr))  ;
 
 }
 
@@ -131,7 +146,10 @@ void MainWindow::generateBusStops(QGraphicsScene * scene)
 
 }
 
-
+/**
+* Vytvorenie zoznamu ulíc a ich zakreslenie na mapu
+* @param scéna na, ktorú sa vykreslia ulice
+*/
 void MainWindow::createMap(QGraphicsScene * scene)
 {
     QFile file("test.txt");
