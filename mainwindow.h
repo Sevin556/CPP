@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-
+#include "autobusclass.h"
+#include "ulicaclass.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -15,8 +16,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QGraphicsScene *scene ;
+    autobusClass *autobus ;
+    QMap <int,ulicaClass*>zoznamUlic;
     void createMap(QGraphicsScene *scene);
     void generateBusStops(QGraphicsScene * scene);
+
 
 private:
     Ui::MainWindow *ui;
@@ -26,5 +31,7 @@ private slots:
     void zoomOUT();
     void zoomSLider(int value);
     void resetView();
+    void start();
+    void timerBus();
 };
 #endif // MAINWINDOW_H
