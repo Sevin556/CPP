@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QMouseEvent>
 #include <QtMath>
+
 /**
 * Konstruktor triedy
 * @param scena na ktorej ma byt zobrazený grafický objekt-autobus
@@ -33,8 +34,7 @@ autobusClass::autobusClass(QGraphicsScene *parentScene,QMap<int,ulicaClass*> *zo
 
     QStringList splitedLine= line.split(" ");
 
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(vykonajTrasu()));
+
     //-10 kvoli tomu aby bol v strede cesty, kedze objekt ma 20x20 pixelov
     zaciatokTrasyX = splitedLine[0].toInt()-10;
     zaciatokTrasyY = splitedLine[1].toInt()-10;
