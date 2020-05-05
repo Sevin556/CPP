@@ -2,9 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QGraphicsScene>
 #include "autobusclass.h"
 #include "ulicaclass.h"
+#include "zastavkaclass.h"
+#include "myscene.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -16,12 +17,13 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QGraphicsScene *scene ;
+    MyScene *scene ;
     autobusClass *autobus ;
     QMap <int,ulicaClass*>zoznamUlic;
     QList<autobusClass*> zoznamAutobusov;
-    void createMap(QGraphicsScene *scene);
-    void generateBusStops(QGraphicsScene * scene);
+    QMap <int,zastavkaClass*>zoznamZastavok;
+    void createMap(MyScene *scene);
+    void generateBusStops(MyScene * scene);
 
 private:
     Ui::MainWindow *ui;

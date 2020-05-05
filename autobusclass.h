@@ -3,9 +3,10 @@
 
 #include <QObject>
 #include <QWidget>
-#include <QGraphicsScene>
+#include "myscene.h"
 #include <QGraphicsEllipseItem>
 #include "ulicaclass.h"
+#include "zastavkaclass.h"
 class autobusClass: public QObject
 {
     Q_OBJECT
@@ -18,7 +19,7 @@ public:
 
     QMap<int,ulicaClass*>zoznamUlicMesta;
     QGraphicsEllipseItem *autobusItem;
-    QGraphicsScene *scene;
+    MyScene *scene;
 
     //pohyb
     int smerX;
@@ -33,13 +34,13 @@ public:
     qreal koeficientY;
 
     //funkcie
-    autobusClass(QGraphicsScene *parentScene,QMap<int,ulicaClass*> *zoznamUlic,QObject * parent);
+    autobusClass(MyScene *parentScene,QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,QObject * parent);
     void posunAutobus();
     int pocitajTrasu();
     int vykonajTrasu();
 
 private:
-    QGraphicsEllipseItem* createBus(QGraphicsScene *scene);
+    QGraphicsEllipseItem* createBus(MyScene *scene);
 private slots:
 
 };

@@ -20,4 +20,19 @@ ulicaClass::ulicaClass(int startX, int startY, int endX, int endY, QString nazov
     rychlostPremavky = 1;
 }
 
+void ulicaClass::vypisInfo()
+{
+    qDebug() << "Funkcia";
+
+    if (ulicaItem->isSelected()){
+        qDebug() <<"Moje ID je :"<< ID_ulice ;
+    }
+    else
+        qDebug() <<"DONE";
+
+}
+
+
+
+
 

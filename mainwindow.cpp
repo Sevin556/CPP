@@ -2,14 +2,15 @@
 #include "ui_mainwindow.h"
 #include "autobusclass.h"
 #include "ulicaclass.h"
+#include "zastavkaclass.h"
+#include "myscene.h"
+
 #include <QObject>
 #include <QDebug>
 #include <QFile>
-#include <QGraphicsScene>
 #include <QPushButton>
 #include <QTimer>
 #include <QGraphicsLineItem>
-#include <QThread>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -17,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    scene = new QGraphicsScene(ui->graphicsView);
+    scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setRenderHints( QPainter::Antialiasing | QPainter::HighQualityAntialiasing );
 
     ui->graphicsView->setScene(scene);
@@ -25,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     createMap(scene);
     generateBusStops(scene);
     //vytvori prvy autobus
-    autobus = new autobusClass(scene,&zoznamUlic,nullptr) ;
+    autobus = new autobusClass(scene,&zoznamUlic,zoznamZastavok,nullptr) ;
     zoznamAutobusov.append(autobus);
   //  auto *line = scene->addLine(100,200,200,100);
     //QGraphicsLineItem linka = *line;
@@ -100,6 +101,10 @@ void MainWindow::timerBus()
 
         }
     }
+    //qDebug() << "Posunul som bod";
+   /* for (int i = 0;i<zoznamUlic.size();i++){
+      zoznamUlic[i]->vypisInfo();
+    }*/
     scene->update();
 
 }
@@ -108,13 +113,13 @@ void MainWindow::timerBus()
 //prida autobus do zoznamu aby som otestoval ci to zvlada viac autobusov naraz
 void MainWindow::vytvorAutobus()
 {
-  zoznamAutobusov.append(new autobusClass(scene,&zoznamUlic,nullptr))  ;
+  zoznamAutobusov.append(new autobusClass(scene,&zoznamUlic,zoznamZastavok,nullptr))  ;
 
 }
 
 
 
-void MainWindow::generateBusStops(QGraphicsScene * scene)
+void MainWindow::generateBusStops(MyScene * scene)
 {
     QFile file("zastavky.txt");
     if(!file.open(QIODevice::ReadOnly))
@@ -130,14 +135,14 @@ void MainWindow::generateBusStops(QGraphicsScene * scene)
             line = instream.readLine(50);
         }
         QStringList splitedLine= line.split(" ");
-        int x = splitedLine[0].toInt();
-        int y = splitedLine[1].toInt();
-        qDebug() << x << y;
-        auto *zastavka = new QGraphicsRectItem(x,y,20,15);
-        zastavka ->setBrush(Qt::red);
-        scene->addItem(zastavka);
+        QString nazov = splitedLine[0];
+        int x = splitedLine[1].toInt();
+        int y = splitedLine[2].toInt();
+        int ID = splitedLine[3].toInt();
 
-        //scene->addRect(x,y,15, 10, QPen({Qt::black},2)),QBrush(Qt::yellow);
+        qDebug() << x << y;
+        auto *zastavka =new zastavkaClass(x,y,nazov,ID,scene);
+        zoznamZastavok.insert(ID,zastavka);
 
         line = instream.readLine(50);
     }
@@ -150,7 +155,7 @@ void MainWindow::generateBusStops(QGraphicsScene * scene)
 * Vytvorenie zoznamu ulíc a ich zakreslenie na mapu
 * @param scéna na, ktorú sa vykreslia ulice
 */
-void MainWindow::createMap(QGraphicsScene * scene)
+void MainWindow::createMap(MyScene * scene)
 {
     QFile file("test.txt");
 

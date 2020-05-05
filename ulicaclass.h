@@ -21,6 +21,10 @@ public:
     QGraphicsLineItem * ulicaItem;
     int rychlostPremavky;
     ulicaClass vytvorUlicu(int startX,int startY,int endX, int endY,QString nazov, int ID);
+    void vypisInfo();
+
+
+private:
 
 protected:
 };

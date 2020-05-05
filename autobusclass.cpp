@@ -1,8 +1,8 @@
 #include "autobusclass.h"
+#include "myscene.h"
 #include <QPainter>
 #include <QDebug>
 #include <QPointF>
-#include <QGraphicsScene>
 #include <QFile>
 #include <QGraphicsEllipseItem>
 #include <QTimer>
@@ -16,13 +16,13 @@
 * @param zoznam ulic mesta, aby bolo možné načítavať body z nich
 * @param objekt z ktorého sa dedia signaly
 */
-autobusClass::autobusClass(QGraphicsScene *parentScene,QMap<int,ulicaClass*> *zoznamUlic,QObject * parent):
+autobusClass::autobusClass(MyScene *parentScene,QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,QObject * parent):
     QObject(parent)
 {
    //scene = parentScene;
 
     QFile file("linka.txt");
-    zoznamUlicMesta = *zoznamUlic;
+    //zoznamUlicMesta = *zoznamUlic;
     if(!file.open(QIODevice::ReadOnly))
     {
         qDebug() << "error opening file: " << file.error();
@@ -48,8 +48,41 @@ autobusClass::autobusClass(QGraphicsScene *parentScene,QMap<int,ulicaClass*> *zo
     //nacitanie vsetkych ulic zo zoznamu a ulozenie do QList odkial sa budu brat pri hladani dalsieho bodu
     int i =0;
     while (line != nullptr){
+        QStringList splitedLine = line.split(" ");
 
-        zoznamUlicLinky.insert(i,line.toInt());
+        qDebug() <<splitedLine.size()<<"index :"<<i;
+        if (splitedLine.size() ==1){ // bod nacitavam z ulice
+            auto * ulica = zoznamUlic->value(splitedLine[0].toInt());
+            if (i == 0){
+                if (zaciatokTrasyX == ulica->x1 && (zaciatokTrasyY == ulica->y1)){
+                    bodyPohybu.insert(i,QPointF(ulica->x2,ulica->y2));
+                }else {
+                    bodyPohybu.insert(i,QPointF(ulica->x1,ulica->y1));
+                }
+            }else {
+                if (i > 2){
+
+                    if ((bodyPohybu[i-1].x() == ulica->x1 && bodyPohybu[i-1].y() == ulica->y1) ||
+                            (bodyPohybu[i-2].x() == ulica->x1 && bodyPohybu[i-2].y() == ulica->y1) ){
+                        bodyPohybu.insert(i,QPointF(ulica->x2,ulica->y2));
+                    }else {
+                        bodyPohybu.insert(i,QPointF(ulica->x1,ulica->y1));
+                    }
+                }else {//druha ulica...nemoze byt i-2
+                    if (bodyPohybu[i-1].x() == ulica->x1 && bodyPohybu[i-1].y() == ulica->y1){
+                        bodyPohybu.insert(i,QPointF(ulica->x2,ulica->y2));
+                    }else {
+                        bodyPohybu.insert(i,QPointF(ulica->x1,ulica->y1));
+                    }
+                }
+
+            }
+
+        }else { // bod nacitavam zo zastavky
+            auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
+            bodyPohybu.insert(i,QPointF(zastavka->X,zastavka->Y));
+        }
+
         line = instream.readLine(50);
         i++;
     }
@@ -63,7 +96,7 @@ autobusClass::autobusClass(QGraphicsScene *parentScene,QMap<int,ulicaClass*> *zo
 * @param scena na ktorej má byť objekt vytvorený
 * @return grafický objekt autobusu na scéne
 */
-QGraphicsEllipseItem *autobusClass::createBus(QGraphicsScene *scene)
+QGraphicsEllipseItem *autobusClass::createBus(MyScene *scene)
 {
     auto * bus = scene->addEllipse(zaciatokTrasyX,zaciatokTrasyY,20,20,QPen(Qt::black,2),QBrush(Qt::green));
     scene->update();
@@ -90,24 +123,24 @@ void autobusClass::posunAutobus()
 int autobusClass::pocitajTrasu()
 {
     //static int index = 0;
-    qDebug() << index << zoznamUlicLinky.size();
-    if (index == zoznamUlicLinky.size()){
+    //qDebug() << index << zoznamUlicLinky.size();
+    if (index == bodyPohybu.size()){
         autobusItem->hide();
         return 1;
     }
-    int temp = zoznamUlicLinky[index];
+   // int temp = zoznamUlicLinky[index];
    // qDebug() <<"ID je :"<< zoznamUlicMesta.value(temp)->ID_ulice << "a I je :" << i;
-    dalsiBod.setX(zoznamUlicMesta.value(temp)->x2);
-    dalsiBod.setY(zoznamUlicMesta.value(temp)->y2) ;
+    dalsiBod.setX(bodyPohybu.value(index).x());
+    dalsiBod.setY(bodyPohybu.value(index).y());
 
     //pocitanie koeficientu na postup k dalsiemu bodu pod istym uhlom
-    qreal trasa = (zoznamUlicMesta.value(temp)->x2-aktualnaPozicia.x())*(zoznamUlicMesta.value(temp)->x2-aktualnaPozicia.x()) + (zoznamUlicMesta.value(temp)->y2-aktualnaPozicia.y())*(zoznamUlicMesta.value(temp)->y2-aktualnaPozicia.y());
+    qreal trasa = qPow(dalsiBod.x()-aktualnaPozicia.x(),2) + qPow(dalsiBod.y()-aktualnaPozicia.y(),2);
     trasa = qSqrt(trasa) ;
-    koeficientX = (zoznamUlicMesta.value(temp)->x2-aktualnaPozicia.x())/trasa;
-    koeficientY =  (zoznamUlicMesta.value(temp)->y2-aktualnaPozicia.y())/trasa;
+    koeficientX = (dalsiBod.x()-aktualnaPozicia.x())/trasa;
+    koeficientY =  (dalsiBod.y()-aktualnaPozicia.y())/trasa;
 
-    qDebug() <<zoznamUlicMesta.value(temp)->x2-aktualnaPozicia.x();
-    qDebug() <<zoznamUlicMesta.value(temp)->y2-aktualnaPozicia.y();
+    //qDebug() <<zoznamUlicMesta.value(temp)->x2-aktualnaPozicia.x();
+    //qDebug() <<zoznamUlicMesta.value(temp)->y2-aktualnaPozicia.y();
     qDebug() <<trasa << koeficientX << koeficientY;
 
     //vykonajTrasu(vzdialenostX,vzdialenostY);
