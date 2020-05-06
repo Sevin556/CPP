@@ -16,11 +16,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    autobusclass.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    mydialog.cpp \
+    myscene.cpp \
+    ulicaclass.cpp \
+    zastavkaclass.cpp
 
 HEADERS += \
-    mainwindow.h
+    autobusclass.h \
+    mainwindow.h \
+    mydialog.h \
+    myscene.h \
+    ulicaclass.h \
+    zastavkaclass.h
 
 FORMS += \
     mainwindow.ui
@@ -31,5 +41,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    linka \
     test.txt \
     zastavky.txt

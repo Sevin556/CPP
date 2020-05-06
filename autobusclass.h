@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QWidget>
-#include "myscene.h"
+//#include "myscene.h"
 #include <QGraphicsEllipseItem>
 #include "ulicaclass.h"
 #include "zastavkaclass.h"
@@ -15,11 +15,11 @@ public:
     //inicializacia
     int zaciatokTrasyX;
     int zaciatokTrasyY;
-    QList<int> zoznamUlicLinky;
+    QList<ulicaClass*> zoznamUlicLinky;
 
     QMap<int,ulicaClass*>zoznamUlicMesta;
     QGraphicsEllipseItem *autobusItem;
-    MyScene *scene;
+   // MyScene *scene;
 
     //pohyb
     int smerX;
@@ -34,13 +34,13 @@ public:
     qreal koeficientY;
 
     //funkcie
-    autobusClass(MyScene *parentScene,QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,QObject * parent);
+    autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,QObject * parent);
     void posunAutobus();
     int pocitajTrasu();
     int vykonajTrasu();
 
 private:
-    QGraphicsEllipseItem* createBus(MyScene *scene);
+    QGraphicsEllipseItem* createBus();
 private slots:
 
 };

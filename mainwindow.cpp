@@ -4,6 +4,7 @@
 #include "ulicaclass.h"
 #include "zastavkaclass.h"
 #include "myscene.h"
+#include "mydialog.h"
 
 #include <QObject>
 #include <QDebug>
@@ -11,6 +12,7 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QGraphicsLineItem>
+#include <QMap>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -23,23 +25,25 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->graphicsView->setScene(scene);
 
-    createMap(scene);
-    generateBusStops(scene);
+    createMap();
+    generateBusStops();
     //vytvori prvy autobus
-    autobus = new autobusClass(scene,&zoznamUlic,zoznamZastavok,nullptr) ;
+    autobus = new autobusClass(&zoznamUlic,zoznamZastavok,nullptr) ;
+    scene->addItem(autobus->autobusItem);
     zoznamAutobusov.append(autobus);
-  //  auto *line = scene->addLine(100,200,200,100);
-    //QGraphicsLineItem linka = *line;
-//
+
     connect(ui->zoomINBtn,&QPushButton::clicked,this,&MainWindow::zoomIN);
     connect(ui->zoomSlider,&QAbstractSlider::valueChanged,this,&MainWindow::zoomSLider);
     connect(ui->resetBtn,&QPushButton::clicked,this,&MainWindow::resetView);
-    //connect(ui->farbaBtn,SIGNAL(clicked()),this,&MainWindow::farba(scene,&linka));
     connect(ui->zoomOUTBtn,&QPushButton::clicked,this,&MainWindow::zoomOUT);
     connect(ui->startBtn,&QPushButton::clicked,this,&MainWindow::start);
-
     connect(ui->pridajBtn,&QPushButton::clicked,this,&MainWindow::vytvorAutobus);
+    connect(scene,&MyScene::infoZmeneneUlica,this,&MainWindow::zmenPopisUlice);
+    connect(scene,&MyScene::infoZmeneneZastavka,this,&MainWindow::zmenPopisZastavky);
+    connect(scene,&MyScene::infoZmeneneAutobus,this,&MainWindow::zmenPopisAutbobusu);
 
+    //posle informacii o aktualnych zoznamoch objektov na scene
+    scene->addInfo(zoznamUlic,zoznamZastavok,&zoznamAutobusov);
 }
 
 
@@ -113,13 +117,59 @@ void MainWindow::timerBus()
 //prida autobus do zoznamu aby som otestoval ci to zvlada viac autobusov naraz
 void MainWindow::vytvorAutobus()
 {
-  zoznamAutobusov.append(new autobusClass(scene,&zoznamUlic,zoznamZastavok,nullptr))  ;
+  zoznamAutobusov.append(new autobusClass(&zoznamUlic,zoznamZastavok,nullptr))  ;
+   scene->addItem(zoznamAutobusov.last()->autobusItem);
+}
+
+/**
+* Slot, ktory zachytava signal o kliknuti na ulicu, zobrazi dialoogove okno a vypise info o ulici
+* @param trieda kliknutej ulice
+*/
+void MainWindow::zmenPopisUlice(ulicaClass *ulica)
+{
+    //vytvori dialogove okno s vyberom rychlosti premavky na zadanej ulici
+    auto * dialogWindow = new myDialog(ulica);
+    dialogWindow->exec();
+     QString textik ;
+    QTextStream text(&textik);
+   // qDebug() <<ulica->nazovUlice;
+    text <<"ID ulice :" <<ulica->ID_ulice <<"\n Nazov ulice :"<< ulica->nazovUlice <<"\n Zaciatok :" <<ulica->x1 << ulica->y2 <<"\n Koniec :" <<ulica->x2 << ulica->y2<<"\n Rychlost premavky:"<<ulica->rychlostPremavky;
+    ui->plainTextEdit->setPlainText(textik);
 
 }
 
 
+/**
+* Slot, ktory zachytava signal o kliknuti na ulicu, zobrazi info o ulici
+* @param trieda kliknutej zastavky
+*/
+void MainWindow::zmenPopisZastavky(zastavkaClass *zastavka)
+{
+   QString textik ;
+   QTextStream text(&textik);
+   qDebug() <<zastavka->ID_zastavky;
+   text <<"ID zastavky :" <<zastavka->ID_zastavky <<"\n Nazov zastavky :"<< zastavka->nazovZastavky <<"\n Pozicia :" <<zastavka->X <<zastavka->Y;
+   ui->plainTextEdit->setPlainText(textik);
+}
 
-void MainWindow::generateBusStops(MyScene * scene)
+/**
+* Slot, ktory zachytava signal o kliknuti na autobus, zobrazi info o autobuse
+* @param trieda kliknuteho autobusu
+*/
+void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
+{
+    QString textik ;
+   QTextStream text(&textik);
+   qDebug() <<autobus->index;
+   text <<"ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y();
+   ui->plainTextEdit->setPlainText(textik);
+}
+
+
+/**
+* Nacita a prida do sceny a zoznamu zastavok autobusove zastavky
+*/
+void MainWindow::generateBusStops()
 {
     QFile file("zastavky.txt");
     if(!file.open(QIODevice::ReadOnly))
@@ -141,7 +191,8 @@ void MainWindow::generateBusStops(MyScene * scene)
         int ID = splitedLine[3].toInt();
 
         qDebug() << x << y;
-        auto *zastavka =new zastavkaClass(x,y,nazov,ID,scene);
+        auto *zastavka =new zastavkaClass(x,y,nazov,ID);
+        scene->addItem(zastavka->zastavkaItem);
         zoznamZastavok.insert(ID,zastavka);
 
         line = instream.readLine(50);
@@ -151,11 +202,12 @@ void MainWindow::generateBusStops(MyScene * scene)
 
 }
 
+
 /**
 * Vytvorenie zoznamu ulíc a ich zakreslenie na mapu
-* @param scéna na, ktorú sa vykreslia ulice
+* ulice načítava zo súboru
 */
-void MainWindow::createMap(MyScene * scene)
+void MainWindow::createMap()
 {
     QFile file("test.txt");
 

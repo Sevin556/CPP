@@ -6,6 +6,7 @@
 #include "ulicaclass.h"
 #include "zastavkaclass.h"
 #include "myscene.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -22,8 +23,9 @@ public:
     QMap <int,ulicaClass*>zoznamUlic;
     QList<autobusClass*> zoznamAutobusov;
     QMap <int,zastavkaClass*>zoznamZastavok;
-    void createMap(MyScene *scene);
-    void generateBusStops(MyScene * scene);
+    void createMap();
+    void generateBusStops();
+    void zobrazInfo(QGraphicsItem *kliknutyItem);
 
 private:
     Ui::MainWindow *ui;
@@ -36,6 +38,9 @@ private slots:
     void start();
     void timerBus();
     void vytvorAutobus();
+    void zmenPopisUlice(ulicaClass* ulica);
+    void zmenPopisZastavky(zastavkaClass *zastavka);
+    void zmenPopisAutbobusu(autobusClass *autobus);
 
 };
 #endif // MAINWINDOW_H
