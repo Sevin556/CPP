@@ -1,0 +1,19 @@
+#ifndef AUTOBUS_H
+#define AUTOBUS_H
+
+#include <QObject>
+#include <QWidget>
+#include <QGraphicsRectItem>
+
+class autobus : public QGraphicsRectItem
+{
+public:
+    autobus(QGraphicsRectItem *parent = nullptr);
+    QGraphicsEllipseItem* createBus(QGraphicsScene *scene);
+    void updateBus(QGraphicsEllipseItem *bus);
+
+protected:
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = Q_NULLPTR) override;
+};
+
+#endif // AUTOBUS_H
