@@ -6,6 +6,8 @@
 #include <QGraphicsRectItem>
 #include "myscene.h"
 
+class MyScene;
+
 class zastavkaClass
 {
 public:

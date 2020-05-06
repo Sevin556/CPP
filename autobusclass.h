@@ -7,6 +7,8 @@
 #include <QGraphicsEllipseItem>
 #include "ulicaclass.h"
 #include "zastavkaclass.h"
+
+class zastavkaClass;
 class autobusClass: public QObject
 {
     Q_OBJECT

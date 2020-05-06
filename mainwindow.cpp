@@ -191,7 +191,7 @@ void MainWindow::generateBusStops()
         int ID = splitedLine[3].toInt();
 
         qDebug() << x << y;
-        auto *zastavka =new zastavkaClass(x,y,nazov,ID);
+        auto *zastavka =new zastavkaClass(x,y,nazov,ID, scene);
         scene->addItem(zastavka->zastavkaItem);
         zoznamZastavok.insert(ID,zastavka);
 

@@ -6,6 +6,12 @@
 #include "zastavkaclass.h"
 #include "autobusclass.h"
 
+class MyScene;
+
+class ulicaClass;
+class zastavkaClass;
+class autobusClass;
+
 class MyScene : public QGraphicsScene
 {
     Q_OBJECT
