@@ -1,8 +1,11 @@
 # x y
-28 -110
-10 -53
--178 22
-112 -252
--535 120
-348 390
--524 390
+Ferkova 28 -110 1
+Ferkova 10 -53 2
+Ferkova -178 22 3
+Ferkova 112 -252 4
+Ferkova -535 120 5
+Ferkova 348 390 6
+Ferkova -524 390 7
+Jozkova -200 500 8
+Fialkova 400 230 10
+Skacelova 0 -300 11
