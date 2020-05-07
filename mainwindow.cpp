@@ -28,14 +28,18 @@ MainWindow::MainWindow(QWidget *parent)
     createMap();
     generateBusStops();
     linky = new linkaClass();
-    linky->create();
+    linky->vytvor();
 
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(timerBus()));
+    timer->setInterval(20);
     connect(ui->zoomINBtn,&QPushButton::clicked,this,&MainWindow::zoomIN);
     connect(ui->zoomSlider,&QAbstractSlider::valueChanged,this,&MainWindow::zoomSLider);
     connect(ui->resetBtn,&QPushButton::clicked,this,&MainWindow::resetView);
     connect(ui->zoomOUTBtn,&QPushButton::clicked,this,&MainWindow::zoomOUT);
     connect(ui->startBtn,&QPushButton::clicked,this,&MainWindow::start);
     connect(ui->stopBtn,&QPushButton::clicked,this,&MainWindow::stop);
+    connect(ui->speedSlider,&QAbstractSlider::valueChanged,this,&MainWindow::speed);
     connect(ui->pridajBtn,&QPushButton::clicked,this,&MainWindow::vytvorAutobus);
     connect(scene,&MyScene::infoZmeneneUlica,this,&MainWindow::zmenPopisUlice);
     connect(scene,&MyScene::infoZmeneneZastavka,this,&MainWindow::zmenPopisZastavky);
@@ -83,10 +87,8 @@ void MainWindow::resetView()
 
 void MainWindow::start()
 {
-    //vytvori timer podla ktoreho idu...treba nejako prerobit na čas aby sa mohlo riadit rozvrhom linky
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(timerBus()));
-    timer->start(10);
+
+    timer->start();
 
       // autobus->pocitajTrasu();
 
@@ -95,6 +97,10 @@ void MainWindow::start()
 void MainWindow::stop()
 {
     timer->stop();
+}
+
+void MainWindow::speed(int value){
+    timer->setInterval(50 - value);
 }
 
 void MainWindow::timerBus()

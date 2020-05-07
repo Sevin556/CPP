@@ -31,7 +31,6 @@ public:
     void generateBusStops();
     void zobrazInfo(QGraphicsItem *kliknutyItem);
 
-
 private:
     Ui::MainWindow *ui;
 
@@ -42,6 +41,7 @@ private slots:
     void resetView();
     void start();
     void stop();
+    void speed(int value);
     void timerBus();
     void vytvorAutobus();
     void zmenPopisUlice(ulicaClass* ulica);

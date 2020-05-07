@@ -9,7 +9,7 @@
 linkaClass::linkaClass()
 {
 }
-void linkaClass::create()
+void linkaClass::vytvor()
 {
     QFile file("linky-seznam.txt");
     if(!file.open(QIODevice::ReadOnly))
