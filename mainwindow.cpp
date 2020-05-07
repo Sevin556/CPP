@@ -13,6 +13,7 @@
 #include <QTimer>
 #include <QGraphicsLineItem>
 #include <QMap>
+#include <QTime>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -28,9 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
     createMap();
     generateBusStops();
     //vytvori prvy autobus
-    autobus = new autobusClass(&zoznamUlic,zoznamZastavok,nullptr) ;
-    scene->addItem(autobus->autobusItem);
-    zoznamAutobusov.append(autobus);
+    linky = new linkaClass();
+    linky->create();
 
     connect(ui->zoomINBtn,&QPushButton::clicked,this,&MainWindow::zoomIN);
     connect(ui->zoomSlider,&QAbstractSlider::valueChanged,this,&MainWindow::zoomSLider);
@@ -84,7 +84,6 @@ void MainWindow::resetView()
 
 void MainWindow::start()
 {
-
     //vytvori timer podla ktoreho idu...treba nejako prerobit na čas aby sa mohlo riadit rozvrhom linky
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerBus()));
@@ -96,6 +95,8 @@ void MainWindow::start()
 
 void MainWindow::timerBus()
 {
+    ui->labelTime->setText(QTime::fromMSecsSinceStartOfDay(time * 1000).toString("hh:mm:ss"));
+    linky->appendBus(&zoznamAutobusov, &zoznamUlic, zoznamZastavok, time, scene);
     //prejde zoznam autobusov a posunie ich vpre, potom updatne scenu
     for (int i =0;i< zoznamAutobusov.size();i++){
         if (zoznamAutobusov[i] != nullptr){
@@ -110,6 +111,7 @@ void MainWindow::timerBus()
       zoznamUlic[i]->vypisInfo();
     }*/
     scene->update();
+    time++;
 
 }
 
@@ -117,7 +119,7 @@ void MainWindow::timerBus()
 //prida autobus do zoznamu aby som otestoval ci to zvlada viac autobusov naraz
 void MainWindow::vytvorAutobus()
 {
-  zoznamAutobusov.append(new autobusClass(&zoznamUlic,zoznamZastavok,nullptr))  ;
+  zoznamAutobusov.append(new autobusClass(&zoznamUlic,zoznamZastavok, nullptr,nullptr))  ;
    scene->addItem(zoznamAutobusov.last()->autobusItem);
 }
 

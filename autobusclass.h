@@ -36,7 +36,7 @@ public:
     qreal koeficientY;
 
     //funkcie
-    autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,QObject * parent);
+    autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok, QString linka,QObject * parent);
     void posunAutobus();
     int pocitajTrasu();
     int vykonajTrasu();

@@ -6,6 +6,7 @@
 #include "ulicaclass.h"
 #include "zastavkaclass.h"
 #include "myscene.h"
+#include "linkaclass.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,6 +21,8 @@ public:
     ~MainWindow();
     MyScene *scene ;
     autobusClass *autobus ;
+    int time = 0;
+    linkaClass *linky;
     QMap <int,ulicaClass*>zoznamUlic;
     QList<autobusClass*> zoznamAutobusov;
     QMap <int,zastavkaClass*>zoznamZastavok;

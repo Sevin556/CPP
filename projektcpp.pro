@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     autobusclass.cpp \
+    linkaclass.cpp \
     main.cpp \
     mainwindow.cpp \
     mydialog.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     autobusclass.h \
+    linkaclass.h \
     mainwindow.h \
     mydialog.h \
     myscene.h \

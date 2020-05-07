@@ -16,12 +16,15 @@
 * @param zoznam ulic mesta, aby bolo možné načítavať body z nich
 * @param objekt z ktorého sa dedia signaly
 */
-autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,QObject * parent):
+autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok, QString linka,QObject * parent):
     QObject(parent)
 {
    //scene = parentScene;
 
-    QFile file("linka.txt");
+	if (linka == nullptr){
+		linka = "linka.txt";
+	}
+    QFile file(linka);
     //zoznamUlicMesta = *zoznamUlic;
     if(!file.open(QIODevice::ReadOnly))
     {
