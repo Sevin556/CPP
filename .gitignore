@@ -1,2 +1,5 @@
 *.user
 *.user.*
+*.swp
+*.o
+moc_*
