@@ -23,12 +23,14 @@ public:
     autobusClass *autobus ;
     int time = 0;
     linkaClass *linky;
+    QTimer *timer;
     QMap <int,ulicaClass*>zoznamUlic;
     QList<autobusClass*> zoznamAutobusov;
     QMap <int,zastavkaClass*>zoznamZastavok;
     void createMap();
     void generateBusStops();
     void zobrazInfo(QGraphicsItem *kliknutyItem);
+
 
 private:
     Ui::MainWindow *ui;
@@ -39,6 +41,7 @@ private slots:
     void zoomSLider(int value);
     void resetView();
     void start();
+    void stop();
     void timerBus();
     void vytvorAutobus();
     void zmenPopisUlice(ulicaClass* ulica);

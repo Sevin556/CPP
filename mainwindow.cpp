@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->resetBtn,&QPushButton::clicked,this,&MainWindow::resetView);
     connect(ui->zoomOUTBtn,&QPushButton::clicked,this,&MainWindow::zoomOUT);
     connect(ui->startBtn,&QPushButton::clicked,this,&MainWindow::start);
+    connect(ui->stopBtn,&QPushButton::clicked,this,&MainWindow::stop);
     connect(ui->pridajBtn,&QPushButton::clicked,this,&MainWindow::vytvorAutobus);
     connect(scene,&MyScene::infoZmeneneUlica,this,&MainWindow::zmenPopisUlice);
     connect(scene,&MyScene::infoZmeneneZastavka,this,&MainWindow::zmenPopisZastavky);
@@ -83,12 +84,17 @@ void MainWindow::resetView()
 void MainWindow::start()
 {
     //vytvori timer podla ktoreho idu...treba nejako prerobit na čas aby sa mohlo riadit rozvrhom linky
-    QTimer *timer = new QTimer(this);
+    timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerBus()));
     timer->start(10);
 
       // autobus->pocitajTrasu();
 
+}
+
+void MainWindow::stop()
+{
+    timer->stop();
 }
 
 void MainWindow::timerBus()

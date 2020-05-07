@@ -63,36 +63,36 @@ autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaCl
             auto * ulica = zoznamUlic->value(splitedLine[0].toInt());
             if (i == 0){
                 if (zaciatokTrasyX+10 == ulica->x1 && (zaciatokTrasyY+10 == ulica->y1)){
-                    bodyPohybu.insert(i,QPointF(ulica->x2,ulica->y2));
+                    bodyPohybu.insert(i,QPoint(ulica->x2,ulica->y2));
                 }else {
-                    bodyPohybu.insert(i,QPointF(ulica->x1,ulica->y1));
+                    bodyPohybu.insert(i,QPoint(ulica->x1,ulica->y1));
                 }
             }else {
                 if (i > 2){
 
                     if ((bodyPohybu[i-1].x() == ulica->x1 && bodyPohybu[i-1].y() == ulica->y1) ||
                             (bodyPohybu[i-2].x() == ulica->x1 && bodyPohybu[i-2].y() == ulica->y1) ){
-                        bodyPohybu.insert(i,QPointF(ulica->x2,ulica->y2));
+                        bodyPohybu.insert(i,QPoint(ulica->x2,ulica->y2));
                     }else {
-                        bodyPohybu.insert(i,QPointF(ulica->x1,ulica->y1));
+                        bodyPohybu.insert(i,QPoint(ulica->x1,ulica->y1));
                     }
                 }else {//druha ulica...nemoze byt i-2
                     if (bodyPohybu[i-1].x() == ulica->x1 && bodyPohybu[i-1].y() == ulica->y1){
-                        bodyPohybu.insert(i,QPointF(ulica->x2,ulica->y2));
+                        bodyPohybu.insert(i,QPoint(ulica->x2,ulica->y2));
                     }else {
-                        bodyPohybu.insert(i,QPointF(ulica->x1,ulica->y1));
+                        bodyPohybu.insert(i,QPoint(ulica->x1,ulica->y1));
                     }
                 }
 
             }
             //bude brat rychlost premavky z tade
-            zoznamUlicLinky.insert(i,ulica);
+            zoznamUlicLinky.append(ulica);
 
         }else { // bod nacitavam zo zastavky
             auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
-            bodyPohybu.insert(i,QPointF(zastavka->X,zastavka->Y));
+            bodyPohybu.insert(i,QPoint(zastavka->X,zastavka->Y));
             //pridani zastavky do seznamu zastavek, kterymi projede bus
-            zastavkyNaLince.append(qMakePair(zastavka, time + splitedLine[2].toInt()));
+            zastavkyNaLince.append(qMakePair(zastavka, (time + splitedLine[2].toInt()) % 86400));
         }
         line = instream.readLine(50);
         i++;
@@ -135,8 +135,8 @@ void autobusClass::posunAutobus()
 int autobusClass::pocitajTrasu()
 {
     //static int index = 0;
-    //qDebug() << "index: " << index << zoznamUlicLinky.size();
-    if (index + 1 >= bodyPohybu.size()){
+    qDebug() << "index: " << index << zoznamUlicLinky.size();
+    if (index >= bodyPohybu.size() || index >= zoznamUlicLinky.size()){
         autobusItem->hide();
         return 1;
     }
@@ -153,10 +153,10 @@ int autobusClass::pocitajTrasu()
     trasa = qSqrt(trasa) ;
     koeficientX = (dalsiBod.x()-aktualnaPozicia.x())/(trasa*premavka);
     koeficientY =  (dalsiBod.y()-aktualnaPozicia.y())/(trasa*premavka);
-    //qDebug() <<dalsiBod.x() << aktualnaPozicia.x();
+    qDebug() <<dalsiBod.x() << aktualnaPozicia.x();
     //qDebug() <<zoznamUlicMesta.value(temp)->x2-aktualnaPozicia.x();
     //qDebug() <<zoznamUlicMesta.value(temp)->y2-aktualnaPozicia.y();
-    //qDebug() <<"\n PREMAVKA JE :" <<premavka << index <<zoznamUlicLinky.value(index)->ID_ulice;
+    qDebug() <<"\n PREMAVKA JE :" <<premavka << index <<zoznamUlicLinky.value(index)->ID_ulice;
 
     //vykonajTrasu(vzdialenostX,vzdialenostY);
     return 0;

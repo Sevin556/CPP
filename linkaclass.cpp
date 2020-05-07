@@ -34,7 +34,6 @@ void linkaClass::create()
         pair.second += time[1].toInt() * 60; //minuty
         pair.second += time[2].toInt(); //sekundy
 
-        qDebug() << pair.first << pair.second;
         seznamLinek.append(pair);
 
         line = instream.readLine(50);

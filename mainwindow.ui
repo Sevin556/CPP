@@ -97,11 +97,22 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="startBtn">
-        <property name="text">
-         <string>Štart</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QPushButton" name="startBtn">
+          <property name="text">
+           <string>Štart</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="stopBtn">
+          <property name="text">
+           <string>Stop</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QPushButton" name="pridajBtn">

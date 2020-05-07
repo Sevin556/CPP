@@ -28,7 +28,7 @@ public:
     int smerY;
     int index =0;
 
-    QList<QPointF> bodyPohybu;//mozno by bolo dobre ulozit body dopredu a len ich nacitavat doradu z tohoto zoznamu...zatial ho nevyuzivvam
+    QList<QPoint> bodyPohybu;//mozno by bolo dobre ulozit body dopredu a len ich nacitavat doradu z tohoto zoznamu...zatial ho nevyuzivvam
     QPointF aktualnaPozicia;
     QPointF dalsiBod;
 
