@@ -48,5 +48,6 @@ private slots:
     void zmenPopisZastavky(zastavkaClass *zastavka);
     void zmenPopisAutbobusu(autobusClass *autobus);
 
+    void editTime(QString string);
 };
 #endif // MAINWINDOW_H

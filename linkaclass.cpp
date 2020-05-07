@@ -8,9 +8,7 @@
 
 linkaClass::linkaClass()
 {
-}
-void linkaClass::vytvor()
-{
+
     QFile file("linky-seznam.txt");
     if(!file.open(QIODevice::ReadOnly))
     {
@@ -55,6 +53,27 @@ void linkaClass::appendBus(QList<autobusClass *> *seznamBusu, QMap<int, ulicaCla
     for (int i = 0; i < seznamLinek.size(); i++){
         if(seznamLinek[i].second == time){
             autobusClass *autobus = new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, time, nullptr) ;
+            scene->addItem(autobus->autobusItem);
+            seznamBusu->append(autobus);
+        }
+    }
+}
+
+void linkaClass::setTime(QList<autobusClass *> *seznamBusu, QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek, int time, MyScene *scene){
+    int casLinky;
+    for (int i = 0; i < seznamLinek.size(); i++){
+        casLinky = seznamLinek[i].second;
+        autobusClass *autobus = new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, casLinky, nullptr);
+        while(autobus != nullptr && casLinky != time){
+            if(autobus->vykonajTrasu(casLinky) == 1){
+                autobus = nullptr;
+            }
+
+            casLinky = (casLinky+1)%86400;
+
+        }
+        if(autobus != nullptr){
+
             scene->addItem(autobus->autobusItem);
             seznamBusu->append(autobus);
         }

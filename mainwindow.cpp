@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent)
     createMap();
     generateBusStops();
     linky = new linkaClass();
-    linky->vytvor();
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerBus()));
@@ -40,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->startBtn,&QPushButton::clicked,this,&MainWindow::start);
     connect(ui->stopBtn,&QPushButton::clicked,this,&MainWindow::stop);
     connect(ui->speedSlider,&QAbstractSlider::valueChanged,this,&MainWindow::speed);
+    connect(ui->lineEditTime, &QLineEdit::textEdited, this, &MainWindow::editTime);
     connect(ui->pridajBtn,&QPushButton::clicked,this,&MainWindow::vytvorAutobus);
     connect(scene,&MyScene::infoZmeneneUlica,this,&MainWindow::zmenPopisUlice);
     connect(scene,&MyScene::infoZmeneneZastavka,this,&MainWindow::zmenPopisZastavky);
@@ -123,8 +123,24 @@ void MainWindow::timerBus()
     }*/
     scene->update();
     ui->labelTime->setText(QTime::fromMSecsSinceStartOfDay(time * 1000).toString("hh:mm:ss"));
+    ui->lineEditTime->setText(QTime::fromMSecsSinceStartOfDay(time * 1000).toString("hh:mm:ss"));
     time = (time + 1) % 86400; //86400 sekund == 1 den
 
+}
+
+void MainWindow::editTime(QString text){
+    QStringList list = text.split(":");
+    time = list[0].toInt() * 3600; //hodiny
+    time = time + list[1].toInt() * 60; //minuty
+    time = time + list[2].toInt(); //sekundy
+
+    for (int i =0;i< zoznamAutobusov.size();i++){
+        if (zoznamAutobusov[i] != nullptr){
+            zoznamAutobusov[i]->autobusItem->hide();
+            zoznamAutobusov[i] = nullptr;
+        }
+    }
+    linky->setTime(&zoznamAutobusov, &zoznamUlic, zoznamZastavok, time, scene);
 }
 
 

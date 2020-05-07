@@ -9,8 +9,8 @@ class linkaClass
 {
 public:
     linkaClass();
-    void vytvor();
     void appendBus(QList<autobusClass *> *seznamBusu, QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek, int time, MyScene *scene);
+    void setTime(QList<autobusClass *> *seznamBusu, QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek, int time, MyScene *scene);
 private:
     QVector<QPair<QString, int>> seznamLinek;
 };

@@ -167,6 +167,9 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QLineEdit" name="lineEditTime"/>
+      </item>
      </layout>
     </item>
     <item>
