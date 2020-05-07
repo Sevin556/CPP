@@ -35,11 +35,14 @@ public:
     qreal koeficientX;
     qreal koeficientY;
 
+    //zastavky na dane lince + doba, za kterou by mel vyrazit z dane zastavky
+    QVector<QPair<zastavkaClass*, int>>zastavkyNaLince;
+
     //funkcie
-    autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok, QString linka,QObject * parent);
+    autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok, QString linka, int time, QObject * parent);
     void posunAutobus();
     int pocitajTrasu();
-    int vykonajTrasu();
+    int vykonajTrasu(int time);
 
 private:
     QGraphicsEllipseItem* createBus();

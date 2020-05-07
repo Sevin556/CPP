@@ -16,7 +16,7 @@
 * @param zoznam ulic mesta, aby bolo možné načítavať body z nich
 * @param objekt z ktorého sa dedia signaly
 */
-autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok, QString linka,QObject * parent):
+autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok, QString linka, int time, QObject * parent):
     QObject(parent)
 {
    //scene = parentScene;
@@ -52,6 +52,10 @@ autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaCl
     //nacitanie vsetkych ulic zo zoznamu a ulozenie do QList odkial sa budu brat pri hladani dalsieho bodu
     int i =0;
     while (line != nullptr){
+        if (line[0] == '#'){
+            line = instream.readLine(50);
+            continue;
+        }
         QStringList splitedLine = line.split(" ");
 
        // qDebug() <<splitedLine.size()<<"index :"<<i;
@@ -87,6 +91,8 @@ autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaCl
         }else { // bod nacitavam zo zastavky
             auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
             bodyPohybu.insert(i,QPointF(zastavka->X,zastavka->Y));
+            //pridani zastavky do seznamu zastavek, kterymi projede bus
+            zastavkyNaLince.append(qMakePair(zastavka, time + splitedLine[2].toInt()));
         }
         line = instream.readLine(50);
         i++;
@@ -129,8 +135,8 @@ void autobusClass::posunAutobus()
 int autobusClass::pocitajTrasu()
 {
     //static int index = 0;
-    //qDebug() << index << zoznamUlicLinky.size();
-    if (index == bodyPohybu.size()){
+    //qDebug() << "index: " << index << zoznamUlicLinky.size();
+    if (index + 1 >= bodyPohybu.size()){
         autobusItem->hide();
         return 1;
     }
@@ -147,10 +153,10 @@ int autobusClass::pocitajTrasu()
     trasa = qSqrt(trasa) ;
     koeficientX = (dalsiBod.x()-aktualnaPozicia.x())/(trasa*premavka);
     koeficientY =  (dalsiBod.y()-aktualnaPozicia.y())/(trasa*premavka);
-    qDebug() <<dalsiBod.x() << aktualnaPozicia.x();
+    //qDebug() <<dalsiBod.x() << aktualnaPozicia.x();
     //qDebug() <<zoznamUlicMesta.value(temp)->x2-aktualnaPozicia.x();
     //qDebug() <<zoznamUlicMesta.value(temp)->y2-aktualnaPozicia.y();
-    qDebug() <<"\n PREMAVKA JE :" <<premavka << index <<zoznamUlicLinky.value(index)->ID_ulice;
+    //qDebug() <<"\n PREMAVKA JE :" <<premavka << index <<zoznamUlicLinky.value(index)->ID_ulice;
 
     //vykonajTrasu(vzdialenostX,vzdialenostY);
     return 0;
@@ -160,8 +166,19 @@ int autobusClass::pocitajTrasu()
 * Volana timerom, vola vykonanie pohybu alebo vypocet noveho cieloveho bodu
 * returnuje 1 ak je autobus v cielovom bode
 */
-int autobusClass::vykonajTrasu()
+int autobusClass::vykonajTrasu(int time)
 {
+    // cekani na zastavce
+    QPoint pozice = aktualnaPozicia.toPoint();
+    for(int i = 0; i < zastavkyNaLince.size(); i++){// projde vsechny zastavky
+        // je na zastavce:
+        if(pozice.x() == zastavkyNaLince[i].first->X && pozice.y() == zastavkyNaLince[i].first->Y){
+            //ceka (pokud nema zpozdeni)
+            if(time < zastavkyNaLince[i].second){
+                return 0;
+            }
+        }
+    }
     //mozno staci len bod, preistotu je to takto zatial
     if (!(aktualnaPozicia.x() <= dalsiBod.x()+0.5 && aktualnaPozicia.x() >= dalsiBod.x()-0.5  && aktualnaPozicia.y() <= dalsiBod.y()+0.5 && aktualnaPozicia.y() >= dalsiBod.y()-0.5)){
         posunAutobus();

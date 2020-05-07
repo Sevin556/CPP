@@ -23,12 +23,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setRenderHints( QPainter::Antialiasing | QPainter::HighQualityAntialiasing );
-
     ui->graphicsView->setScene(scene);
 
     createMap();
     generateBusStops();
-    //vytvori prvy autobus
     linky = new linkaClass();
     linky->create();
 
@@ -95,12 +93,13 @@ void MainWindow::start()
 
 void MainWindow::timerBus()
 {
-    ui->labelTime->setText(QTime::fromMSecsSinceStartOfDay(time * 1000).toString("hh:mm:ss"));
+
     linky->appendBus(&zoznamAutobusov, &zoznamUlic, zoznamZastavok, time, scene);
+
     //prejde zoznam autobusov a posunie ich vpre, potom updatne scenu
     for (int i =0;i< zoznamAutobusov.size();i++){
         if (zoznamAutobusov[i] != nullptr){
-            if (zoznamAutobusov[i]->vykonajTrasu()==1){
+            if (zoznamAutobusov[i]->vykonajTrasu(time) == 1){
                 zoznamAutobusov[i]=nullptr;
             }
 
@@ -111,7 +110,8 @@ void MainWindow::timerBus()
       zoznamUlic[i]->vypisInfo();
     }*/
     scene->update();
-    time++;
+    ui->labelTime->setText(QTime::fromMSecsSinceStartOfDay(time * 1000).toString("hh:mm:ss"));
+    time = (time + 1) % 86400; //86400 sekund == 1 den
 
 }
 
@@ -119,7 +119,7 @@ void MainWindow::timerBus()
 //prida autobus do zoznamu aby som otestoval ci to zvlada viac autobusov naraz
 void MainWindow::vytvorAutobus()
 {
-  zoznamAutobusov.append(new autobusClass(&zoznamUlic,zoznamZastavok, nullptr,nullptr))  ;
+  zoznamAutobusov.append(new autobusClass(&zoznamUlic,zoznamZastavok, nullptr, time, nullptr));
    scene->addItem(zoznamAutobusov.last()->autobusItem);
 }
 

@@ -3,7 +3,9 @@
 57
 58
 19
-Jozkova 8
+# treti parametr je doba za ktero by mel vyrazit
+# z dane zastavky(od zacatku trasy)
+Jozkova 8 1800
 59
 60
 49
@@ -17,4 +19,3 @@ Jozkova 8
 16
 17
 18
-Ferkova 1

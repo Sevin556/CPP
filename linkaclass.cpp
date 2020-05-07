@@ -55,7 +55,7 @@ void linkaClass::appendBus(QList<autobusClass *> *seznamBusu, QMap<int, ulicaCla
 {
     for (int i = 0; i < seznamLinek.size(); i++){
         if(seznamLinek[i].second == time){
-            autobusClass *autobus = new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, nullptr) ;
+            autobusClass *autobus = new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, time, nullptr) ;
             scene->addItem(autobus->autobusItem);
             seznamBusu->append(autobus);
         }
