@@ -39,7 +39,7 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
     }
     file.close();
     for (int i = 0; i < seznamLinek.size(); i++){
-        autobusClass *autobus = new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, seznamLinek[i].second, nullptr);
+        autobusClass *autobus =  new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, seznamLinek[i].second, nullptr);
         busList.append(autobus);
     }
 
@@ -71,20 +71,22 @@ void linkaClass::appendBus(QList<autobusClass *> *seznamBusu, int time, MyScene 
 void linkaClass::setTime(QList<autobusClass *> *seznamBusu, int time, MyScene *scene){
 
     int casLinky;
+    autobusClass * autobus;
 
     for (int i = 0; i < seznamLinek.size(); i++){
         casLinky = seznamLinek[i].second;
-        autobusClass *autobus = busList[i];
+        autobus = busList[i];
         while(autobus != nullptr && casLinky != time){
+
             if(autobus->vykonajTrasu(casLinky) == 1){
+                autobus->index = 0;
                 autobus = nullptr;
             }
-
             casLinky = (casLinky+1)%86400;
 
         }
         if(autobus != nullptr){
-
+            autobus->autobusItem->show();
             scene->addItem(autobus->autobusItem);
             seznamBusu->append(autobus);
         }

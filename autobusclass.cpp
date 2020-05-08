@@ -135,7 +135,7 @@ void autobusClass::posunAutobus()
 int autobusClass::pocitajTrasu()
 {
     //static int index = 0;
-    qDebug() << "index: " << index << zoznamUlicLinky.size();
+    //qDebug() << "index: " << index << zoznamUlicLinky.size();
     if (index >= bodyPohybu.size() || index >= zoznamUlicLinky.size()){
         autobusItem->hide();
         return 1;
@@ -153,10 +153,10 @@ int autobusClass::pocitajTrasu()
     trasa = qSqrt(trasa) ;
     koeficientX = (dalsiBod.x()-aktualnaPozicia.x())/(trasa*premavka);
     koeficientY =  (dalsiBod.y()-aktualnaPozicia.y())/(trasa*premavka);
-    qDebug() <<dalsiBod.x() << aktualnaPozicia.x();
+    //qDebug() <<dalsiBod.x() << aktualnaPozicia.x();
     //qDebug() <<zoznamUlicMesta.value(temp)->x2-aktualnaPozicia.x();
     //qDebug() <<zoznamUlicMesta.value(temp)->y2-aktualnaPozicia.y();
-    qDebug() <<"\n PREMAVKA JE :" <<premavka << index <<zoznamUlicLinky.value(index)->ID_ulice;
+    //qDebug() <<"\n PREMAVKA JE :" <<premavka << index <<zoznamUlicLinky.value(index)->ID_ulice;
 
     //vykonajTrasu(vzdialenostX,vzdialenostY);
     return 0;
@@ -168,6 +168,7 @@ int autobusClass::pocitajTrasu()
 */
 int autobusClass::vykonajTrasu(int time)
 {
+
     // cekani na zastavce
     QPoint pozice = aktualnaPozicia.toPoint();
     for(int i = 0; i < zastavkyNaLince.size(); i++){// projde vsechny zastavky
@@ -179,6 +180,7 @@ int autobusClass::vykonajTrasu(int time)
             }
         }
     }
+
     //mozno staci len bod, preistotu je to takto zatial
     if (!(aktualnaPozicia.x() <= dalsiBod.x()+0.5 && aktualnaPozicia.x() >= dalsiBod.x()-0.5  && aktualnaPozicia.y() <= dalsiBod.y()+0.5 && aktualnaPozicia.y() >= dalsiBod.y()-0.5)){
         posunAutobus();

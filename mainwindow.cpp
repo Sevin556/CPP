@@ -55,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    delete linky;
     delete ui;
 }
 
@@ -146,9 +147,11 @@ void MainWindow::editTime(QString text)
     for (int i =0;i< zoznamAutobusov.size();i++){
         if (zoznamAutobusov[i] != nullptr){
             zoznamAutobusov[i]->autobusItem->hide();
+            scene->removeItem(zoznamAutobusov[i]->autobusItem);
             zoznamAutobusov[i] = nullptr;
         }
     }
+    zoznamAutobusov.clear();
 
     // nastaveni novych autobusu
     linky->setTime(&zoznamAutobusov, time, scene);
@@ -241,9 +244,7 @@ void MainWindow::generateBusStops()
         int y = splitedLine[2].toInt();
         int ID = splitedLine[3].toInt();
 
-        qDebug() << x << y;
         auto *zastavka =new zastavkaClass(x,y,nazov,ID, scene);
-        scene->addItem(zastavka->zastavkaItem);
         zoznamZastavok.insert(ID,zastavka);
 
         line = instream.readLine(50);
