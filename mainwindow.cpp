@@ -27,14 +27,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->setScene(scene);
 
 
+
     createMap();
     generateBusStops();
-    linky = new linkaClass(&zoznamUlic, zoznamZastavok, time);
+    linky = new linkaClass(&zoznamUlic, zoznamZastavok);
     timer = new QTimer(this);
-
+    timer->setInterval(20);
 
     connect(timer, SIGNAL(timeout()), this, SLOT(timerBus()));
-    timer->setInterval(20);
+
     connect(ui->zoomINBtn,&QPushButton::clicked,this,&MainWindow::zoomIN);
     connect(ui->zoomSlider,&QAbstractSlider::valueChanged,this,&MainWindow::zoomSLider);
     connect(ui->resetBtn,&QPushButton::clicked,this,&MainWindow::resetView);
@@ -43,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->speedSlider,&QAbstractSlider::valueChanged,this,&MainWindow::speed);
     connect(ui->lineEditTime, &QLineEdit::textEdited, this, &MainWindow::editTime);
     connect(ui->pridajBtn,&QPushButton::clicked,this,&MainWindow::vytvorAutobus);
+    connect(ui->jizdniRadBtn, &QPushButton::clicked, this, &MainWindow::jizdniRadDialog);
     connect(scene,&MyScene::infoZmeneneUlica,this,&MainWindow::zmenPopisUlice);
     connect(scene,&MyScene::infoZmeneneZastavka,this,&MainWindow::zmenPopisZastavky);
     connect(scene,&MyScene::infoZmeneneAutobus,this,&MainWindow::zmenPopisAutbobusu);
@@ -89,7 +91,6 @@ void MainWindow::resetView()
 
 void MainWindow::start_stop()
 {
-
     if(timer->isActive()){
         timer->stop();
         ui->startstopBtn->setText("Štart");
@@ -100,7 +101,6 @@ void MainWindow::start_stop()
     }
 
       // autobus->pocitajTrasu();
-
 }
 
 void MainWindow::speed(int value){
@@ -110,7 +110,7 @@ void MainWindow::speed(int value){
 void MainWindow::timerBus()
 {
 
-    linky->appendBus(&zoznamAutobusov, &zoznamUlic, zoznamZastavok, time, scene);
+    linky->appendBus(&zoznamAutobusov, time, scene);
 
     //prejde zoznam autobusov a posunie ich vpre, potom updatne scenu
     for (int i =0;i< zoznamAutobusov.size();i++){
@@ -118,7 +118,6 @@ void MainWindow::timerBus()
             if (zoznamAutobusov[i]->vykonajTrasu(time) == 1){
                 zoznamAutobusov[i]=nullptr;
             }
-
         }
     }
     //qDebug() << "Posunul som bod";
@@ -131,10 +130,18 @@ void MainWindow::timerBus()
 
 }
 
-void MainWindow::editTime(QString text){
+/**
+ * @brief MainWindow::editTime rucni urava casu, slot vymaze vsechny aktivni autobusy
+ * a nastavi scenu novymi
+ * @param text cas ve formatu hh:mm:ss
+ */
+void MainWindow::editTime(QString text)
+{
+
+    // prevedeni casu z formatu hh:mm:ss na sekundy
     QStringList list = text.split(":");
-    time = list[0].toInt() * 3600; //hodiny
-    time = time + list[1].toInt() * 60; //minuty
+    time = list[0].toInt() * 3600; //hodiny->sekundy
+    time = time + list[1].toInt() * 60; //minuty->sekundy
     time = time + list[2].toInt(); //sekundy
 
     // odstaneni aktivnich autobusu na scene
@@ -146,7 +153,7 @@ void MainWindow::editTime(QString text){
     }
 
     // nastaveni novych autobusu
-    linky->setTime(&zoznamAutobusov, &zoznamUlic, zoznamZastavok, time, scene);
+    linky->setTime(&zoznamAutobusov, time, scene);
 }
 
 
@@ -155,6 +162,12 @@ void MainWindow::vytvorAutobus()
 {
   zoznamAutobusov.append(new autobusClass(&zoznamUlic,zoznamZastavok, nullptr, time, nullptr));
    scene->addItem(zoznamAutobusov.last()->autobusItem);
+}
+
+void MainWindow::jizdniRadDialog()
+{
+    QDialog * dialogWindow = new QDialog();
+    dialogWindow->show();
 }
 
 /**

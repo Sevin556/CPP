@@ -47,7 +47,7 @@ private slots:
     void zmenPopisUlice(ulicaClass* ulica);
     void zmenPopisZastavky(zastavkaClass *zastavka);
     void zmenPopisAutbobusu(autobusClass *autobus);
-
     void editTime(QString string);
+    void jizdniRadDialog();
 };
 #endif // MAINWINDOW_H

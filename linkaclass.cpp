@@ -6,7 +6,7 @@
 #include <QDebug>
 
 
-linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek, int time)
+linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek)
 {
 
     // nacteni linek ze souboru
@@ -39,7 +39,7 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
     }
     file.close();
     for (int i = 0; i < seznamLinek.size(); i++){
-        autobusClass *autobus = new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, time, nullptr) ;
+        autobusClass *autobus = new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, seznamLinek[i].second, nullptr);
         busList.append(autobus);
     }
 
@@ -49,16 +49,14 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
 /**
  * @brief linkaClass::appendBus pridani autobusu, pokud je cas jeho vyjezdu
  * @param seznamBusu seznam autobusu
- * @param seznamUlic parametr predavany tride autobusClass
- * @param seznamZastavek parametr predavany tride autobusClass
  * @param time aktualni cas
  * @param scene scena
  */
-void linkaClass::appendBus(QList<autobusClass *> *seznamBusu, QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek, int time, MyScene *scene)
+void linkaClass::appendBus(QList<autobusClass *> *seznamBusu, int time, MyScene *scene)
 {
     for (int i = 0; i < seznamLinek.size(); i++){
         if(seznamLinek[i].second == time){
-            autobusClass *autobus = new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, time, nullptr) ;
+            autobusClass *autobus = busList[i];
             scene->addItem(autobus->autobusItem);
             seznamBusu->append(autobus);
         }
@@ -67,16 +65,16 @@ void linkaClass::appendBus(QList<autobusClass *> *seznamBusu, QMap<int, ulicaCla
 /**
  * @brief linkaClass::setTime spusteni simulace do nastaveneho casu
  * @param seznamBusu seznam aktivnich autobusu
- * @param seznamUlic parametr predavany tride autobusClass
- * @param seznamZastavek parametr predavany tride autobusClass
  * @param time aktualni cas (vnitrni hodiny)
  * @param scene scena, na kterou se autobus zobrazi
  */
-void linkaClass::setTime(QList<autobusClass *> *seznamBusu, QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek, int time, MyScene *scene){
+void linkaClass::setTime(QList<autobusClass *> *seznamBusu, int time, MyScene *scene){
+
     int casLinky;
+
     for (int i = 0; i < seznamLinek.size(); i++){
         casLinky = seznamLinek[i].second;
-        autobusClass *autobus = new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, casLinky, nullptr);
+        autobusClass *autobus = busList[i];
         while(autobus != nullptr && casLinky != time){
             if(autobus->vykonajTrasu(casLinky) == 1){
                 autobus = nullptr;

@@ -97,25 +97,49 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="startstopBtn">
-        <property name="text">
-         <string>Štart</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pridajBtn">
-        <property name="text">
-         <string>Pridaj Autobus</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QPushButton" name="startstopBtn">
+          <property name="text">
+           <string>Štart</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pridajBtn">
+          <property name="text">
+           <string>Pridaj Autobus</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="jizdniRadBtn">
+          <property name="text">
+           <string>Jízdní řád</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Čas:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEditTime"/>
+        </item>
+        <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Rychlost</string>
+           <string>Rychlost:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -145,9 +169,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEditTime"/>
       </item>
      </layout>
     </item>
