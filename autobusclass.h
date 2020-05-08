@@ -3,12 +3,14 @@
 
 #include <QObject>
 #include <QWidget>
-//#include "myscene.h"
 #include <QGraphicsEllipseItem>
 #include "ulicaclass.h"
 #include "zastavkaclass.h"
+#include "bodylinky.h"
+
 
 class zastavkaClass;
+class bodyLinky;
 class autobusClass: public QObject
 {
     Q_OBJECT
@@ -18,6 +20,7 @@ public:
     int zaciatokTrasyX;
     int zaciatokTrasyY;
     QList<ulicaClass*> zoznamUlicLinky;
+    int MojeID;
 
     QMap<int,ulicaClass*>zoznamUlicMesta;
     QGraphicsEllipseItem *autobusItem;
@@ -27,6 +30,7 @@ public:
     int smerX;
     int smerY;
     int index =0;
+    int stojim =0;
 
     QList<QPoint> bodyPohybu;//mozno by bolo dobre ulozit body dopredu a len ich nacitavat doradu z tohoto zoznamu...zatial ho nevyuzivvam
     QPointF aktualnaPozicia;
@@ -39,7 +43,7 @@ public:
     QVector<QPair<zastavkaClass*, int>>zastavkyNaLince;
 
     //funkcie
-    autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok, QString linka, int time, QObject * parent);
+    autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,bodyLinky *linka, int time,int ID, QObject * parent);
     void posunAutobus();
     int pocitajTrasu();
     int vykonajTrasu(int time);

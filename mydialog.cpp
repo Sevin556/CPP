@@ -62,7 +62,7 @@ myDialog::myDialog(linkaClass* linky, QWidget *parent):
 
 
     // pocet (stejnych) linek
-    for(int i = 0; i < linky->seznamLinek.size(); i++){
+    /*for(int i = 0; i < linky->seznamLinek.size(); i++){
         if(!list.contains(linky->seznamLinek[i].first)){
             list.append(linky->seznamLinek[i].first);
         }
@@ -137,6 +137,7 @@ myDialog::myDialog(linkaClass* linky, QWidget *parent):
     okBtn->setText("Ok");
     dialogLayout->addWidget(okBtn);
     connect(okBtn, SIGNAL(clicked()), this, SLOT(accept()));
+    */
 }
 
 void myDialog::nastavNormalnu()

@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QMouseEvent>
 #include <QtMath>
+#include "bodylinky.h"
 
 /**
 * Konstruktor triedy
@@ -16,31 +17,16 @@
 * @param zoznam ulic mesta, aby bolo možné načítavať body z nich
 * @param objekt z ktorého sa dedia signaly
 */
-autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok, QString linka, int time, QObject * parent):
+autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok, bodyLinky* linka, int time,int ID, QObject * parent):
     QObject(parent)
 {
-   //scene = parentScene;
 
-	if (linka == nullptr){
-		linka = "linka.txt";
-	}
-    QFile file(linka);
-    //zoznamUlicMesta = *zoznamUlic;
-    if(!file.open(QIODevice::ReadOnly))
-    {
-        qDebug() << "error opening file: " << file.error();
-        return;
-    }
 
-    QTextStream instream(&file);
-    QString line = instream.readLine(50);
-
-    QStringList splitedLine= line.split(" ");
-
+    MojeID = ID;
 
     //-10 kvoli tomu aby bol v strede cesty, kedze objekt ma 20x20 pixelov
-    zaciatokTrasyX = splitedLine[0].toInt()-10;
-    zaciatokTrasyY = splitedLine[1].toInt()-10;
+    zaciatokTrasyX = linka->zaciatokX;
+    zaciatokTrasyY = linka->zaciatokY;
     autobusItem = createBus();
     //tu treba priratat to co sa odcitalo aby sedeli stredy bodov a cesty
     aktualnaPozicia.setX(zaciatokTrasyX+10);
@@ -48,58 +34,19 @@ autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaCl
 
    // qDebug() <<zaciatokTrasyX <<zaciatokTrasyY;
    // qDebug() <<zaciatokTrasyX <<zaciatokTrasyY;
-    line = instream.readLine(50);
     //nacitanie vsetkych ulic zo zoznamu a ulozenie do QList odkial sa budu brat pri hladani dalsieho bodu
-    int i =0;
-    while (line != nullptr){
-        if (line[0] == '#'){
-            line = instream.readLine(50);
-            continue;
-        }
-        QStringList splitedLine = line.split(" ");
-
-       // qDebug() <<splitedLine.size()<<"index :"<<i;
-        if (splitedLine.size() ==1){ // bod nacitavam z ulice
-            auto * ulica = zoznamUlic->value(splitedLine[0].toInt());
-            if (i == 0){
-                if (zaciatokTrasyX+10 == ulica->x1 && (zaciatokTrasyY+10 == ulica->y1)){
-                    bodyPohybu.insert(i,QPoint(ulica->x2,ulica->y2));
-                }else {
-                    bodyPohybu.insert(i,QPoint(ulica->x1,ulica->y1));
-                }
-            }else {
-                if (i > 2){
-
-                    if ((bodyPohybu[i-1].x() == ulica->x1 && bodyPohybu[i-1].y() == ulica->y1) ||
-                            (bodyPohybu[i-2].x() == ulica->x1 && bodyPohybu[i-2].y() == ulica->y1) ){
-                        bodyPohybu.insert(i,QPoint(ulica->x2,ulica->y2));
-                    }else {
-                        bodyPohybu.insert(i,QPoint(ulica->x1,ulica->y1));
-                    }
-                }else {//druha ulica...nemoze byt i-2
-                    if (bodyPohybu[i-1].x() == ulica->x1 && bodyPohybu[i-1].y() == ulica->y1){
-                        bodyPohybu.insert(i,QPoint(ulica->x2,ulica->y2));
-                    }else {
-                        bodyPohybu.insert(i,QPoint(ulica->x1,ulica->y1));
-                    }
-                }
-
-            }
+    bodyPohybu=linka->bodyPohybu;
             //bude brat rychlost premavky z tade
-            zoznamUlicLinky.append(ulica);
+    zoznamUlicLinky=linka->zoznamUlicLinky;
 
-        }else { // bod nacitavam zo zastavky
-            auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
-            bodyPohybu.insert(i,QPoint(zastavka->X,zastavka->Y));
-            //pridani zastavky do seznamu zastavek, kterymi projede bus
-            zastavkyNaLince.append(qMakePair(zastavka, (time + splitedLine[2].toInt()) % 86400));
-        }
-        line = instream.readLine(50);
-        i++;
+    zastavkyNaLince = linka->zastavkyNaLince;
+    for(int i = 0; i < zastavkyNaLince.size(); i++){// projde vsechny zastavky
+    zastavkyNaLince[i].second += time;
+    qDebug()<< "ID JE : "<<MojeID <<" cas "<<zastavkyNaLince[i].second;
     }
+
     //aby splnilo podmienku v dalsom kroku
     dalsiBod = aktualnaPozicia;
-    file.close();
 }
 
 /**
@@ -176,6 +123,11 @@ int autobusClass::vykonajTrasu(int time)
         if(pozice.x() == zastavkyNaLince[i].first->X && pozice.y() == zastavkyNaLince[i].first->Y){
             //ceka (pokud nema zpozdeni)
             if(time < zastavkyNaLince[i].second){
+                qDebug() <<time << "odchod " <<zastavkyNaLince[i].second <<"ID mam "<<MojeID;
+                return 0;
+            }else if (stojim <50){
+                qDebug() <<stojim;
+                stojim++;
                 return 0;
             }
         }
@@ -184,12 +136,12 @@ int autobusClass::vykonajTrasu(int time)
     //mozno staci len bod, preistotu je to takto zatial
     if (!(aktualnaPozicia.x() <= dalsiBod.x()+0.5 && aktualnaPozicia.x() >= dalsiBod.x()-0.5  && aktualnaPozicia.y() <= dalsiBod.y()+0.5 && aktualnaPozicia.y() >= dalsiBod.y()-0.5)){
         posunAutobus();
+        stojim = 0;
     }else{
 
         if (pocitajTrasu() == 1){
             return 1;
         }
-
         index++;
    }
 

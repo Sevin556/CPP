@@ -34,7 +34,9 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     qDebug() <<items(event->scenePos());
     //skusi nacitat itemy na kliknutej pozicii na scene
     QList<QGraphicsItem*>  temp = items(event->scenePos());
-
+    for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
+        i.value()->ulicaItem->setPen(QPen(Qt::black,4));
+    }
     //ak je temp nenulove znamena ze nasiel nejake itemy, ak ich je viac tak pouziva ten najvrchensi (posledny vykresleny)
     if (temp.size()>0){
         qDebug()<<"idem porovnavat";

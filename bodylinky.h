@@ -1,0 +1,24 @@
+#ifndef BODYLINKY_H
+#define BODYLINKY_H
+
+#include <QMap>
+#include "ulicaclass.h"
+#include "zastavkaclass.h"
+
+class ulicaClass;
+class zastavkaClass;
+
+class bodyLinky
+{
+public:
+    bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,QString subor);
+    int zaciatokX;
+    int zaciatokY;
+    QList<QPoint> bodyPohybu;
+    QList<ulicaClass*> zoznamUlicLinky;
+
+    //zastavky na dane lince + doba, za kterou by mel vyrazit z dane zastavky
+    QVector<QPair<zastavkaClass*, int>>zastavkyNaLince;
+};
+
+#endif // BODYLINKY_H

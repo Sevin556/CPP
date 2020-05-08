@@ -5,6 +5,10 @@
 #include "ulicaclass.h"
 #include "zastavkaclass.h"
 #include "myscene.h"
+#include "vecitem.h"
+
+class zoznamLiniekClass;
+
 class linkaClass
 {
 public:
@@ -12,11 +16,14 @@ public:
     ~linkaClass();
 
     // list vsech autobusu (aktivnich i neaktivnich)
-    QList<autobusClass*> busList;
+    QMap<int,autobusClass*> busList;
 
     void appendBus(QList<autobusClass *> *seznamBusu, int time, MyScene *scene);
     void setTime(QList<autobusClass *> *seznamBusu, int time, MyScene *scene);
-    QVector<QPair<QString, int>> seznamLinek;
+
+
+    QVector<vecItem*> seznamLinek;
+
 };
 
 #endif // LINKYCLASS_H

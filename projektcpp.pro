@@ -17,21 +17,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     autobusclass.cpp \
+    bodylinky.cpp \
     linkaclass.cpp \
     main.cpp \
     mainwindow.cpp \
     mydialog.cpp \
     myscene.cpp \
     ulicaclass.cpp \
+    vecitem.cpp \
     zastavkaclass.cpp
 
 HEADERS += \
     autobusclass.h \
+    bodylinky.h \
     linkaclass.h \
     mainwindow.h \
     mydialog.h \
     myscene.h \
     ulicaclass.h \
+    vecitem.h \
     zastavkaclass.h
 
 FORMS += \

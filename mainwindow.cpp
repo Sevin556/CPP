@@ -170,7 +170,7 @@ void MainWindow::editTime(QString text)
 //prida autobus do zoznamu aby som otestoval ci to zvlada viac autobusov naraz
 void MainWindow::vytvorAutobus()
 {
-  zoznamAutobusov.append(new autobusClass(&zoznamUlic,zoznamZastavok, nullptr, time, nullptr));
+  zoznamAutobusov.append(new autobusClass(&zoznamUlic,zoznamZastavok, nullptr, time,0, nullptr));
    scene->addItem(zoznamAutobusov.last()->autobusItem);
 }
 
@@ -213,7 +213,7 @@ void MainWindow::zmenPopisZastavky(zastavkaClass *zastavka)
    QTextStream text(&textik);
    qDebug() <<zastavka->ID_zastavky;
    text <<"ID zastavky :" <<zastavka->ID_zastavky <<"\n Nazov zastavky :"<< zastavka->nazovZastavky <<"\n Pozicia :" <<zastavka->X <<zastavka->Y;
-  ui->infoLabel->setText(textik);
+    ui->infoLabel->setText(textik);
 }
 
 /**
@@ -225,8 +225,11 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
     QString textik ;
    QTextStream text(&textik);
    qDebug() <<autobus->index;
-   text <<"ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y();
+   text <<"ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y()<<"\n Moje ID :" <<autobus->MojeID << autobus->stojim;
   ui->infoLabel->setText(textik);
+    for (int i = 0; i < autobus->zoznamUlicLinky.size();i++){
+        autobus->zoznamUlicLinky[i]->ulicaItem->setPen(QPen(Qt::red,6));
+    }
 }
 
 
