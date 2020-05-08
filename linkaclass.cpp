@@ -46,6 +46,14 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
     return;
 
 }
+
+linkaClass::~linkaClass()
+{
+    for(int i = 0; i < busList.size(); i++)
+    {
+        delete busList[i];
+    }
+}
 /**
  * @brief linkaClass::appendBus pridani autobusu, pokud je cas jeho vyjezdu
  * @param seznamBusu seznam autobusu
@@ -92,7 +100,3 @@ void linkaClass::setTime(QList<autobusClass *> *seznamBusu, int time, MyScene *s
         }
     }
 }
-void linkaClass::vytvorJizdniRad(){
-
-}
-

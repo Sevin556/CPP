@@ -7,6 +7,7 @@
 #include "ulicaclass.h"
 #include <QDialogButtonBox>
 #include <QDialog>
+#include "linkaclass.h"
 
 MyScene::MyScene(QObject *parent):
     QGraphicsScene(parent)

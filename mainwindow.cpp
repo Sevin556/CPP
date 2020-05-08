@@ -55,6 +55,15 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    for(auto i = zoznamUlic.begin(); i != zoznamUlic.end(); ++i)
+    {
+        delete i.value();
+    }
+
+    for(auto i = zoznamZastavok.begin(); i != zoznamZastavok.end(); ++i)
+    {
+        delete i.value();
+    }
     delete linky;
     delete ui;
 }
@@ -167,7 +176,8 @@ void MainWindow::vytvorAutobus()
 
 void MainWindow::jizdniRadDialog()
 {
-    QDialog * dialogWindow = new QDialog();
+
+    myDialog * dialogWindow = new myDialog(linky);
     dialogWindow->show();
 }
 
@@ -244,7 +254,7 @@ void MainWindow::generateBusStops()
         int y = splitedLine[2].toInt();
         int ID = splitedLine[3].toInt();
 
-        auto *zastavka =new zastavkaClass(x,y,nazov,ID, scene);
+        auto *zastavka = new zastavkaClass(x,y,nazov,ID, scene);
         zoznamZastavok.insert(ID,zastavka);
 
         line = instream.readLine(50);
