@@ -20,24 +20,26 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    // nastaveni sceny
     ui->setupUi(this);
     scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setRenderHints( QPainter::Antialiasing | QPainter::HighQualityAntialiasing );
     ui->graphicsView->setScene(scene);
 
+
     createMap();
     generateBusStops();
-    linky = new linkaClass();
-
+    linky = new linkaClass(&zoznamUlic, zoznamZastavok, time);
     timer = new QTimer(this);
+
+
     connect(timer, SIGNAL(timeout()), this, SLOT(timerBus()));
     timer->setInterval(20);
     connect(ui->zoomINBtn,&QPushButton::clicked,this,&MainWindow::zoomIN);
     connect(ui->zoomSlider,&QAbstractSlider::valueChanged,this,&MainWindow::zoomSLider);
     connect(ui->resetBtn,&QPushButton::clicked,this,&MainWindow::resetView);
     connect(ui->zoomOUTBtn,&QPushButton::clicked,this,&MainWindow::zoomOUT);
-    connect(ui->startBtn,&QPushButton::clicked,this,&MainWindow::start);
-    connect(ui->stopBtn,&QPushButton::clicked,this,&MainWindow::stop);
+    connect(ui->startstopBtn,&QPushButton::clicked,this,&MainWindow::start_stop);
     connect(ui->speedSlider,&QAbstractSlider::valueChanged,this,&MainWindow::speed);
     connect(ui->lineEditTime, &QLineEdit::textEdited, this, &MainWindow::editTime);
     connect(ui->pridajBtn,&QPushButton::clicked,this,&MainWindow::vytvorAutobus);
@@ -85,18 +87,20 @@ void MainWindow::resetView()
     ui->labelZoom->setText("Zoom: 1.0");
 }
 
-void MainWindow::start()
+void MainWindow::start_stop()
 {
 
-    timer->start();
+    if(timer->isActive()){
+        timer->stop();
+        ui->startstopBtn->setText("Štart");
+    }
+    else{
+        timer->start();
+        ui->startstopBtn->setText("Stop");
+    }
 
       // autobus->pocitajTrasu();
 
-}
-
-void MainWindow::stop()
-{
-    timer->stop();
 }
 
 void MainWindow::speed(int value){
@@ -122,7 +126,6 @@ void MainWindow::timerBus()
       zoznamUlic[i]->vypisInfo();
     }*/
     scene->update();
-    ui->labelTime->setText(QTime::fromMSecsSinceStartOfDay(time * 1000).toString("hh:mm:ss"));
     ui->lineEditTime->setText(QTime::fromMSecsSinceStartOfDay(time * 1000).toString("hh:mm:ss"));
     time = (time + 1) % 86400; //86400 sekund == 1 den
 
@@ -134,12 +137,15 @@ void MainWindow::editTime(QString text){
     time = time + list[1].toInt() * 60; //minuty
     time = time + list[2].toInt(); //sekundy
 
+    // odstaneni aktivnich autobusu na scene
     for (int i =0;i< zoznamAutobusov.size();i++){
         if (zoznamAutobusov[i] != nullptr){
             zoznamAutobusov[i]->autobusItem->hide();
             zoznamAutobusov[i] = nullptr;
         }
     }
+
+    // nastaveni novych autobusu
     linky->setTime(&zoznamAutobusov, &zoznamUlic, zoznamZastavok, time, scene);
 }
 
@@ -193,6 +199,7 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
    qDebug() <<autobus->index;
    text <<"ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y();
    ui->plainTextEdit->setPlainText(textik);
+
 }
 
 

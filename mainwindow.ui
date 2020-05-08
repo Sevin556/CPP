@@ -97,22 +97,11 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <widget class="QPushButton" name="startBtn">
-          <property name="text">
-           <string>Štart</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="stopBtn">
-          <property name="text">
-           <string>Stop</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QPushButton" name="startstopBtn">
+        <property name="text">
+         <string>Štart</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pridajBtn">
@@ -156,16 +145,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="QLabel" name="labelTime">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
       </item>
       <item>
        <widget class="QLineEdit" name="lineEditTime"/>

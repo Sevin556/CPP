@@ -31,6 +31,7 @@ public:
     void generateBusStops();
     void zobrazInfo(QGraphicsItem *kliknutyItem);
 
+
 private:
     Ui::MainWindow *ui;
 
@@ -39,8 +40,7 @@ private slots:
     void zoomOUT();
     void zoomSLider(int value);
     void resetView();
-    void start();
-    void stop();
+    void start_stop();
     void speed(int value);
     void timerBus();
     void vytvorAutobus();

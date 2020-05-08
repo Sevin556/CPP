@@ -6,9 +6,10 @@
 #include <QDebug>
 
 
-linkaClass::linkaClass()
+linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek, int time)
 {
 
+    // nacteni linek ze souboru
     QFile file("linky-seznam.txt");
     if(!file.open(QIODevice::ReadOnly))
     {
@@ -37,6 +38,11 @@ linkaClass::linkaClass()
         line = instream.readLine(50);
     }
     file.close();
+    for (int i = 0; i < seznamLinek.size(); i++){
+        autobusClass *autobus = new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i].first, time, nullptr) ;
+        busList.append(autobus);
+    }
+
     return;
 
 }
@@ -58,7 +64,14 @@ void linkaClass::appendBus(QList<autobusClass *> *seznamBusu, QMap<int, ulicaCla
         }
     }
 }
-
+/**
+ * @brief linkaClass::setTime spusteni simulace do nastaveneho casu
+ * @param seznamBusu seznam aktivnich autobusu
+ * @param seznamUlic parametr predavany tride autobusClass
+ * @param seznamZastavek parametr predavany tride autobusClass
+ * @param time aktualni cas (vnitrni hodiny)
+ * @param scene scena, na kterou se autobus zobrazi
+ */
 void linkaClass::setTime(QList<autobusClass *> *seznamBusu, QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek, int time, MyScene *scene){
     int casLinky;
     for (int i = 0; i < seznamLinek.size(); i++){
@@ -78,5 +91,8 @@ void linkaClass::setTime(QList<autobusClass *> *seznamBusu, QMap<int, ulicaClass
             seznamBusu->append(autobus);
         }
     }
+}
+void linkaClass::vytvorJizdniRad(){
+
 }
 
