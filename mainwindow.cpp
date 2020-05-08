@@ -14,13 +14,13 @@
 #include <QGraphicsLineItem>
 #include <QMap>
 #include <QTime>
+#include <QFont>
 
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    // nastaveni sceny
     ui->setupUi(this);
     scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setRenderHints( QPainter::Antialiasing | QPainter::HighQualityAntialiasing );
@@ -35,7 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
     timer->setInterval(20);
 
     connect(timer, SIGNAL(timeout()), this, SLOT(timerBus()));
-
     connect(ui->zoomINBtn,&QPushButton::clicked,this,&MainWindow::zoomIN);
     connect(ui->zoomSlider,&QAbstractSlider::valueChanged,this,&MainWindow::zoomSLider);
     connect(ui->resetBtn,&QPushButton::clicked,this,&MainWindow::resetView);
@@ -144,7 +143,6 @@ void MainWindow::editTime(QString text)
     time = time + list[1].toInt() * 60; //minuty->sekundy
     time = time + list[2].toInt(); //sekundy
 
-    // odstaneni aktivnich autobusu na scene
     for (int i =0;i< zoznamAutobusov.size();i++){
         if (zoznamAutobusov[i] != nullptr){
             zoznamAutobusov[i]->autobusItem->hide();
@@ -183,7 +181,11 @@ void MainWindow::zmenPopisUlice(ulicaClass *ulica)
     QTextStream text(&textik);
    // qDebug() <<ulica->nazovUlice;
     text <<"ID ulice :" <<ulica->ID_ulice <<"\n Nazov ulice :"<< ulica->nazovUlice <<"\n Zaciatok :" <<ulica->x1 << ulica->y2 <<"\n Koniec :" <<ulica->x2 << ulica->y2<<"\n Rychlost premavky:"<<ulica->rychlostPremavky;
-    ui->plainTextEdit->setPlainText(textik);
+    QFont font;
+    font.setItalic(true);
+    font.setPointSize(20);
+    ui->infoLabel->setFont(font);
+    ui->infoLabel->setText(textik);
 
 }
 
@@ -198,7 +200,7 @@ void MainWindow::zmenPopisZastavky(zastavkaClass *zastavka)
    QTextStream text(&textik);
    qDebug() <<zastavka->ID_zastavky;
    text <<"ID zastavky :" <<zastavka->ID_zastavky <<"\n Nazov zastavky :"<< zastavka->nazovZastavky <<"\n Pozicia :" <<zastavka->X <<zastavka->Y;
-   ui->plainTextEdit->setPlainText(textik);
+  ui->infoLabel->setText(textik);
 }
 
 /**
@@ -211,8 +213,7 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
    QTextStream text(&textik);
    qDebug() <<autobus->index;
    text <<"ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y();
-   ui->plainTextEdit->setPlainText(textik);
-
+  ui->infoLabel->setText(textik);
 }
 
 
