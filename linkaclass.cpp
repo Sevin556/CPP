@@ -74,8 +74,8 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
     int indexAutobusu = 0;
     for (int i = 0; i < seznamLinek.size(); i++){
         for(int j = 0; j < seznamLinek[i]->zoznamOdchodov.size();j++){
-            autobusClass *autobus =  new autobusClass(seznamUlic,seznamZastavek, seznamLinek[i]->trasaLinky, seznamLinek[i]->zoznamOdchodov[j],indexAutobusu++, nullptr);
-            busList.insert(seznamLinek[i]->zoznamOdchodov[j],autobus);
+            autobusClass *autobus =  new autobusClass( seznamLinek[i]->trasaLinky, seznamLinek[i]->zoznamOdchodov[j],indexAutobusu++, nullptr);
+            busList.insert(indexAutobusu,autobus);
 
         }
 
@@ -100,16 +100,15 @@ linkaClass::~linkaClass()
  */
 void linkaClass::appendBus(QList<autobusClass *> *seznamBusu, int time, MyScene *scene)
 {
+    int indexAutobusu = 0;
     for (int i = 0; i < seznamLinek.size(); i++){
         for(int j = 0; j < seznamLinek[i]->zoznamOdchodov.size();j++){
-            if(seznamLinek[i]->zoznamOdchodov[j] == time){
-                QMap<int,autobusClass*>::iterator i = busList.find(time);
-                while (i != busList.end() && i.key() == time) {
-                    autobusClass *autobus = i.value();
-                    scene->addItem(autobus->autobusItem);
-                    seznamBusu->append(autobus);
-                    ++i;
-                }
+            indexAutobusu++;
+
+            if(seznamLinek[i]->zoznamOdchodov[j] == time && busList.find(indexAutobusu) != busList.end()){
+                autobusClass *autobus = busList[indexAutobusu];
+                scene->addItem(autobus->autobusItem);
+                seznamBusu->append(autobus);
 
             }
         }

@@ -58,7 +58,6 @@ myDialog::myDialog(linkaClass* linky, QWidget *parent):
     this->setLayout(dialogLayout);
     this->resize(600, 500);
     QTabWidget* tabWidget = new QTabWidget;
-    QList<QString> list;
 
 
     // pocet (stejnych) linek
@@ -66,11 +65,9 @@ myDialog::myDialog(linkaClass* linky, QWidget *parent):
         if(!list.contains(linky->seznamLinek[i].first)){
             list.append(linky->seznamLinek[i].first);
         }
-    }
+    }*/
 
-
-    int poradi = 0;
-    while(poradi < list.size()) {
+    for( int poradi = 0; poradi < linky->seznamLinek.size(); poradi++) {
 
         // inicializace zalozky s danou linkou
         QWidget* tab = new QWidget;
@@ -79,65 +76,43 @@ myDialog::myDialog(linkaClass* linky, QWidget *parent):
         QTableWidget* table = new QTableWidget(tab);
 
         // nastaveni sloupcu a radku
-        int colCount = 0;
-        int rowCount = 0;
-        for(int i = 0; i < linky->seznamLinek.size(); i++)
-        {
-            if(linky->seznamLinek[i].first == list.at(poradi))
-            {
-                colCount++;
-                if(rowCount == 0){
-                    rowCount = linky->busList[i]->zastavkyNaLince.size();
-                }
-            }
-        }
+        int colCount = linky->seznamLinek[poradi]->zoznamOdchodov.size() + 1;
+        int rowCount = linky->seznamLinek[poradi]->trasaLinky->zastavkyNaLince.size();
         table->setColumnCount(colCount);
         table->setRowCount(rowCount);
 
 
 
-        // pres vsechny radky tabulky
-        int counterCol = 0;
+        // pres vsechny radky tabulky -> zastavky
         for(int indexZastavky = 0; indexZastavky < rowCount; indexZastavky++)
         {
-            //pres vsechny polozky seznamu linek
-            counterCol = 0;
-            for(int indexLinky = 0; indexLinky < linky->seznamLinek.size(); indexLinky++)
+            // nazev zastavky
+            QTableWidgetItem* item = new QTableWidgetItem;
+            item->setText(linky->seznamLinek[poradi]->trasaLinky->zastavkyNaLince[indexZastavky].first->nazovZastavky);
+            table->setItem(indexZastavky, 0, item);
+
+            // jednotlive casy
+            for(int indexOdchodu = 0; indexOdchodu < linky->seznamLinek[poradi]->zoznamOdchodov.size(); indexOdchodu++)
             {
-                // nazev linky se shoduje s hledanou jinkou
-                if(linky->seznamLinek[indexLinky].first == list.at(poradi))
-                {
-                    // vytvoreni polozky
-                    QTableWidgetItem* item = new QTableWidgetItem;
-                    if(counterCol == 0)
-                    {
-                        // nazev zastavky
-                        item->setText(linky->busList[indexLinky]->zastavkyNaLince[indexZastavky].first->nazovZastavky);
-                    }
-                    else
-                    {
-                        // prevedeni sekund na format hh:mm:ss
-                        item->setText(QTime::fromMSecsSinceStartOfDay(linky->busList[indexLinky]->zastavkyNaLince[indexZastavky].second * 1000).toString("hh:mm:ss"));
-                    }
-                    // vlozeni polozky do tabulky
-                    table->setItem(indexZastavky, counterCol, item);
-                    counterCol++;
-                }
+                // vytvoreni polozky
+                QTableWidgetItem* item = new QTableWidgetItem;
+                int cas = linky->seznamLinek[poradi]->zoznamOdchodov[indexOdchodu];
+                cas = cas + linky->seznamLinek[poradi]->trasaLinky->zastavkyNaLince[indexZastavky].second;
+                // prevedeni sekund na format hh:mm:ss
+                item->setText(QTime::fromMSecsSinceStartOfDay(cas * 1000).toString("hh:mm:ss"));
+                // vlozeni polozky do tabulky (indexOdchodu + 1 kvuli nazvu zastavky)
+                table->setItem(indexZastavky, indexOdchodu + 1, item);
             }
         }
-
-
         // zaneseni do listy zalozek
         tabLayout->addWidget(table);
-        tabWidget->addTab(tab, list.at(poradi));
-        poradi++;
+        tabWidget->addTab(tab, linky->seznamLinek[poradi]->nazovLinky);
     }
     dialogLayout->addWidget(tabWidget);
     QPushButton* okBtn = new QPushButton;
     okBtn->setText("Ok");
     dialogLayout->addWidget(okBtn);
     connect(okBtn, SIGNAL(clicked()), this, SLOT(accept()));
-    */
 }
 
 void myDialog::nastavNormalnu()

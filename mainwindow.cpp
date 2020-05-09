@@ -170,7 +170,7 @@ void MainWindow::editTime(QString text)
 //prida autobus do zoznamu aby som otestoval ci to zvlada viac autobusov naraz
 void MainWindow::vytvorAutobus()
 {
-  zoznamAutobusov.append(new autobusClass(&zoznamUlic,zoznamZastavok, nullptr, time,0, nullptr));
+  zoznamAutobusov.append(new autobusClass(nullptr, time,0, nullptr));
    scene->addItem(zoznamAutobusov.last()->autobusItem);
 }
 
@@ -189,7 +189,7 @@ void MainWindow::zmenPopisUlice(ulicaClass *ulica)
 {
     //vytvori dialogove okno s vyberom rychlosti premavky na zadanej ulici
     auto * dialogWindow = new myDialog(ulica);
-    dialogWindow->exec();
+    dialogWindow->show();
      QString textik ;
     QTextStream text(&textik);
    // qDebug() <<ulica->nazovUlice;

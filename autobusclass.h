@@ -43,7 +43,7 @@ public:
     QVector<QPair<zastavkaClass*, int>>zastavkyNaLince;
 
     //funkcie
-    autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,bodyLinky *linka, int time,int ID, QObject * parent);
+    autobusClass(bodyLinky *linka, int time,int ID, QObject * parent);
     void posunAutobus();
     int pocitajTrasu();
     int vykonajTrasu(int time);

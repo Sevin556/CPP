@@ -17,7 +17,7 @@
 * @param zoznam ulic mesta, aby bolo možné načítavať body z nich
 * @param objekt z ktorého sa dedia signaly
 */
-autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok, bodyLinky* linka, int time,int ID, QObject * parent):
+autobusClass::autobusClass(bodyLinky* linka, int time,int ID, QObject * parent):
     QObject(parent)
 {
 
@@ -39,10 +39,12 @@ autobusClass::autobusClass(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaCl
             //bude brat rychlost premavky z tade
     zoznamUlicLinky=linka->zoznamUlicLinky;
 
-    zastavkyNaLince = linka->zastavkyNaLince;
-    for(int i = 0; i < zastavkyNaLince.size(); i++){// projde vsechny zastavky
-    zastavkyNaLince[i].second += time;
-    qDebug()<< "ID JE : "<<MojeID <<" cas "<<zastavkyNaLince[i].second;
+    QPair<zastavkaClass*, int> pair;
+    for(int i = 0; i < linka->zastavkyNaLince.size(); i++){// projde vsechny zastavky
+        pair.first = linka->zastavkyNaLince[i].first;
+        pair.second = linka->zastavkyNaLince[i].second + time;
+        zastavkyNaLince.append(pair);
+    qDebug()<< "ID JE : "<<MojeID <<" cas "<<zastavkyNaLince[i].second + time;
     }
 
     //aby splnilo podmienku v dalsom kroku

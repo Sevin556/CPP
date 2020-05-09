@@ -5,9 +5,18 @@
 #include "ulicaclass.h"
 #include "zastavkaclass.h"
 #include "myscene.h"
-#include "vecitem.h"
+//#include "vecitem.h"
 
-class zoznamLiniekClass;
+class vecItem
+{
+public:
+    QString nazovLinky;
+    QString suborTrasy;
+    QVector<int> zoznamOdchodov;
+    bodyLinky* trasaLinky;
+};
+
+//class zoznamLiniekClass;
 
 class linkaClass
 {
@@ -25,5 +34,7 @@ public:
     QVector<vecItem*> seznamLinek;
 
 };
+
+
 
 #endif // LINKYCLASS_H
