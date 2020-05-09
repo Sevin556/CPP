@@ -16,7 +16,6 @@
 #include <QTime>
 #include <QFont>
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -47,6 +46,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(scene,&MyScene::infoZmeneneUlica,this,&MainWindow::zmenPopisUlice);
     connect(scene,&MyScene::infoZmeneneZastavka,this,&MainWindow::zmenPopisZastavky);
     connect(scene,&MyScene::infoZmeneneAutobus,this,&MainWindow::zmenPopisAutbobusu);
+
+     for (int i =0;i< zoznamAutobusov.size();i++){
+         connect(zoznamAutobusov[i],&autobusClass::meskanieZmenene,this,&MainWindow::zmenPopisAutbobusu);
+
+     }
+
+
 
     //posle informacii o aktualnych zoznamoch objektov na scene
     scene->addInfo(zoznamUlic,zoznamZastavok,&zoznamAutobusov);
@@ -225,7 +231,7 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
     QString textik ;
    QTextStream text(&textik);
    qDebug() <<autobus->index;
-   text <<"ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y()<<"\n Moje ID :" <<autobus->MojeID << autobus->stojim;
+   text <<"ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y()<<"\n Moje meskanie:" << autobus->meskanie <<" minut\n "<< autobus->dalsiaZastavka.x();
   ui->infoLabel->setText(textik);
     for (int i = 0; i < autobus->zoznamUlicLinky.size();i++){
         autobus->zoznamUlicLinky[i]->ulicaItem->setPen(QPen(Qt::red,6));

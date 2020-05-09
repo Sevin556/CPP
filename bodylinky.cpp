@@ -40,6 +40,7 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
             continue;
         }
         QStringList splitedLine = line.split(" ");
+        qDebug() << line;
 
        // qDebug() <<splitedLine.size()<<"index :"<<i;
         if (splitedLine.size() ==1){ // bod nacitavam z ulice
@@ -73,6 +74,7 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
 
         }else { // bod nacitavam zo zastavky
             auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
+            qDebug() << "pridavam zastavku";
             bodyPohybu.insert(i,QPoint(zastavka->X,zastavka->Y));
             //pridani zastavky do seznamu zastavek, kterymi projede bus
             zastavkyNaLince.append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));

@@ -52,7 +52,6 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
             line = instream.readLine(50);
             continue;
         }
-
         vecItem *item =new vecItem();
         item->nazovLinky =  splitedLine[0];
         item->suborTrasy = splitedLine[1];

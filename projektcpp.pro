@@ -46,5 +46,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     linka \
+    linka5.txt \
     test.txt \
     zastavky.txt

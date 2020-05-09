@@ -38,6 +38,10 @@ public:
 
     qreal koeficientX;
     qreal koeficientY;
+    int meskanie =0;
+    int meskanieNaZastavke =0;
+    int indexZastavky =0;
+    QPoint dalsiaZastavka;
 
     //zastavky na dane lince + doba, za kterou by mel vyrazit z dane zastavky
     QVector<QPair<zastavkaClass*, int>>zastavkyNaLince;
@@ -47,10 +51,12 @@ public:
     void posunAutobus();
     int pocitajTrasu();
     int vykonajTrasu(int time);
+signals:
+    void meskanieZmenene(autobusClass* autobus);
 
 private:
     QGraphicsEllipseItem* createBus();
-private slots:
+
 
 };
 

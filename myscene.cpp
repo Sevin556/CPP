@@ -32,6 +32,7 @@ void MyScene::addInfo(QMap<int, ulicaClass*> zoznamUlic,QMap<int, zastavkaClass*
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug() <<items(event->scenePos());
+    qDebug() <<event->scenePos();
     //skusi nacitat itemy na kliknutej pozicii na scene
     QList<QGraphicsItem*>  temp = items(event->scenePos());
     for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){

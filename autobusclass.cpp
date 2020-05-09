@@ -49,6 +49,9 @@ autobusClass::autobusClass(bodyLinky* linka, int time,int ID, QObject * parent):
 
     //aby splnilo podmienku v dalsom kroku
     dalsiBod = aktualnaPozicia;
+    dalsiaZastavka.setX(zastavkyNaLince[0].first->X);
+    dalsiaZastavka.setY(zastavkyNaLince[0].first->Y);
+
 }
 
 /**
@@ -85,7 +88,7 @@ int autobusClass::pocitajTrasu()
 {
     //static int index = 0;
     //qDebug() << "index: " << index << zoznamUlicLinky.size();
-    if (index >= bodyPohybu.size() || index >= zoznamUlicLinky.size()){
+    if (index >= bodyPohybu.size()){
         autobusItem->hide();
         return 1;
     }
@@ -94,14 +97,43 @@ int autobusClass::pocitajTrasu()
     dalsiBod.setX(bodyPohybu.value(index).x());
     dalsiBod.setY(bodyPohybu.value(index).y());
 
+    bool idemDoZastavky = false;
+    for(int i = 0; i < zastavkyNaLince.size(); i++){// projde vsechny zastavky
+        // je na zastavce:
+        if(dalsiBod.x() == zastavkyNaLince[i].first->X && dalsiBod.y() == zastavkyNaLince[i].first->Y){
+            idemDoZastavky = true;
+            qDebug() << "Idem do zastavky";
+        }
+    }
     //rychlost premavyk na zadanej ceste
-    //--------------------Dorobit aby to ignorovalo zastavky a teda nacitalo dalsiu cestu dopredu
-    int premavka = zoznamUlicLinky.value(index)->rychlostPremavky;
+    int premavka ;
+    if (idemDoZastavky){
+        if (index >1){
+             premavka = zoznamUlicLinky.value(index-(indexZastavky+1))->rychlostPremavky;
+             qDebug() <<"spolamenie beriem z " << zoznamUlicLinky.value(index-(indexZastavky+1))->ID_ulice;
+        }else
+            premavka = 1;
+    }else{
+        qDebug() <<"spolamenie beriem z " << zoznamUlicLinky.value(index-(indexZastavky))->ID_ulice;
+
+        premavka = zoznamUlicLinky.value(index-(indexZastavky))->rychlostPremavky;
+    }
+    qDebug() <<"Idem do premavky:" <<index <<" "<<indexZastavky <<" "<<zoznamUlicLinky.size()<<" "<<index-(indexZastavky);
     //pocitanie koeficientu na postup k dalsiemu bodu pod istym uhlom
     qreal trasa = qPow(dalsiBod.x()-aktualnaPozicia.x(),2) + qPow(dalsiBod.y()-aktualnaPozicia.y(),2);
-    trasa = qSqrt(trasa) ;
-    koeficientX = (dalsiBod.x()-aktualnaPozicia.x())/(trasa*premavka);
-    koeficientY =  (dalsiBod.y()-aktualnaPozicia.y())/(trasa*premavka);
+
+    if (trasa >0){
+        trasa = qSqrt(trasa) ;
+        koeficientX = (dalsiBod.x()-aktualnaPozicia.x())/(trasa*premavka);
+        koeficientY =  (dalsiBod.y()-aktualnaPozicia.y())/(trasa*premavka);
+    }else {
+        koeficientX = (dalsiBod.x()-aktualnaPozicia.x())/(premavka);
+            koeficientY =  (dalsiBod.y()-aktualnaPozicia.y())/(premavka);
+
+    }
+
+
+
     //qDebug() <<dalsiBod.x() << aktualnaPozicia.x();
     //qDebug() <<zoznamUlicMesta.value(temp)->x2-aktualnaPozicia.x();
     //qDebug() <<zoznamUlicMesta.value(temp)->y2-aktualnaPozicia.y();
@@ -120,32 +152,65 @@ int autobusClass::vykonajTrasu(int time)
 
     // cekani na zastavce
     QPoint pozice = aktualnaPozicia.toPoint();
+
+
     for(int i = 0; i < zastavkyNaLince.size(); i++){// projde vsechny zastavky
         // je na zastavce:
-        if(pozice.x() == zastavkyNaLince[i].first->X && pozice.y() == zastavkyNaLince[i].first->Y){
-            //ceka (pokud nema zpozdeni)
-            if(time < zastavkyNaLince[i].second){
-                qDebug() <<time << "odchod " <<zastavkyNaLince[i].second <<"ID mam "<<MojeID;
-                return 0;
-            }else if (stojim <50){
-                qDebug() <<stojim;
-                stojim++;
-                return 0;
-            }
-        }
+
+         if(pozice.x() == zastavkyNaLince[i].first->X && pozice.y() == zastavkyNaLince[i].first->Y){
+                     //ceka (pokud nema zpozdeni)
+                    int casMeskania = time - zastavkyNaLince[indexZastavky].second;
+                    if (casMeskania >= 0 ){
+                         meskanieNaZastavke = casMeskania/60;
+                         meskanie = meskanieNaZastavke;
+                    }
+                     if(time < zastavkyNaLince[i].second){
+                         //qDebug() <<time << "odchod " <<zastavkyNaLince[i].second <<"ID mam "<<MojeID;
+                         return 0;
+                     }else if (stojim <50){
+                         qDebug() <<stojim;
+                         stojim++;
+                         return 0;
+                     }
+     }
     }
+
 
     //mozno staci len bod, preistotu je to takto zatial
     if (!(aktualnaPozicia.x() <= dalsiBod.x()+0.5 && aktualnaPozicia.x() >= dalsiBod.x()-0.5  && aktualnaPozicia.y() <= dalsiBod.y()+0.5 && aktualnaPozicia.y() >= dalsiBod.y()-0.5)){
+        //qDebug() <<"IDem Pohol som sa "<<MojeID;
         posunAutobus();
         stojim = 0;
+        return 0;
     }else{
 
         if (pocitajTrasu() == 1){
             return 1;
         }
         index++;
+        qDebug()<<"vypocital som novu trasu";
    }
+
+    qDebug() <<"Idem na meskanie " << MojeID;
+    if (dalsiaZastavka.x() == pozice.x() && dalsiaZastavka.y() == pozice.y()){
+        indexZastavky++;
+        qDebug() <<"Index" << indexZastavky <<" "<<zastavkyNaLince.size()<<" ID "<<MojeID;
+        if (indexZastavky >= zastavkyNaLince.size()){
+
+        }else {
+            qDebug() <<"nastavujem novu zastavku";
+            dalsiaZastavka.setX(zastavkyNaLince[indexZastavky].first->X);
+            dalsiaZastavka.setY(zastavkyNaLince[indexZastavky].first->Y);
+        }
+    }else {
+        int casMeskania = time - zastavkyNaLince[indexZastavky].second;
+        if (casMeskania > 0 && meskanieNaZastavke == 0){
+            meskanie = casMeskania/60;
+        }else if (casMeskania > 0 && meskanieNaZastavke >0){
+            meskanie =meskanieNaZastavke + casMeskania/60;
+            meskanieZmenene(this);
+        }
+    }
 
     return 0;
 }
