@@ -54,9 +54,11 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             }
         }
         for (int i = 0;i<zoznamAutobusov->size();i++){
-            if (temp[0]== zoznamAutobusov->value(i)->autobusItem){
-                qDebug() <<"Autobus kliknuty";
-                infoZmeneneAutobus(zoznamAutobusov->value(i));
+            if(zoznamAutobusov->value(i) != nullptr){
+                if (temp[0]== zoznamAutobusov->value(i)->autobusItem){
+                    qDebug() <<"Autobus kliknuty";
+                    infoZmeneneAutobus(zoznamAutobusov->value(i));
+                }
             }
         }
         qDebug() <<"Skoncil som";

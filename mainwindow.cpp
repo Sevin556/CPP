@@ -189,7 +189,7 @@ void MainWindow::zmenPopisUlice(ulicaClass *ulica)
 {
     //vytvori dialogove okno s vyberom rychlosti premavky na zadanej ulici
     auto * dialogWindow = new myDialog(ulica);
-    dialogWindow->show();
+    dialogWindow->exec();
      QString textik ;
     QTextStream text(&textik);
    // qDebug() <<ulica->nazovUlice;
