@@ -1,0 +1,28 @@
+-500 -300
+Murietova 17 60
+56
+57
+58
+19
+# treti parametr je doba za ktero by mel vyrazit
+# z dane zastavky(od zacatku trasy)
+Jozkova 8 1500
+59
+Kvetinova 13 1800
+60
+Obytna 14 1900
+61
+62
+63
+ObytnaII 15 2020
+64
+Fialkova 10 2200
+65
+66
+Zavodnicka 16 2800
+67
+68
+Skacelova 11 3200
+78
+69
+Murietova 17 3600

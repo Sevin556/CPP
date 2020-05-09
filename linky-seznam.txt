@@ -1,7 +1,8 @@
 # linka zacatek prve -meno linky
+Link5 linka5.txt 00:05:00
 Linka1 linka.txt 00:01:00
-Linka10 linka10.txt 00:00:01
-Linka1 linka.txt 00:10:00
+#Linka10 linka10.txt 00:01:00
+#Linka1 linka.txt 00:10:00
 Linka1 linka.txt 01:00:00
 Linka1 linka.txt 02:00:00
 Linka1 linka.txt 03:00:00
@@ -67,3 +68,6 @@ Linka10 linka10.txt 19:40:00
 Linka10 linka10.txt 20:00:00
 Linka10 linka10.txt 21:00:00
 Linka10 linka10.txt 22:40:00
+Link5 linka5.txt 00:25:00
+Link5 linka5.txt 00:35:00
+Link5 linka5.txt 00:15:00
