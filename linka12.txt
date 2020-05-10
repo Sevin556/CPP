@@ -1,0 +1,48 @@
+Ferkova 1 0
+76
+Ferkona 2 100
+13
+14
+15
+70
+16
+17
+Husitska 5 900
+17
+18
+57
+37
+Nezabudkova 12 1400
+36
+35
+34
+33
+5
+72
+45
+46
+Navratilova 18 2200
+48
+20
+Ferkova 7 2600
+19
+59
+Jozkova 8 3400
+60
+Kvetinova 13 3800
+61
+Obytna 14 4000
+61
+53
+Ferkova 6 4200
+54
+50
+49
+9
+10
+11
+75
+12
+25
+27
+Ferkova 4 5500

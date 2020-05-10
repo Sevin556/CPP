@@ -206,7 +206,7 @@ void MainWindow::zmenPopisUlice(ulicaClass *ulica)
      QString textik ;
     QTextStream text(&textik);
    // qDebug() <<ulica->nazovUlice;
-    text <<"ID ulice :" <<ulica->ID_ulice <<"\n Nazov ulice :"<< ulica->nazovUlice <<"\n Zaciatok :" <<ulica->x1 << ulica->y2 <<"\n Koniec :" <<ulica->x2 << ulica->y2<<"\n Rychlost premavky:"<<ulica->rychlostPremavky;
+    text <<"ID ulice :" <<ulica->ID_ulice <<"\n Nazov ulice :"<< ulica->nazovUlice <<"\n Zaciatok :" <<ulica->x1 << ulica->y1 <<"\n Koniec :" <<ulica->x2 << ulica->y2<<"\n Rychlost premavky:"<<ulica->rychlostPremavky;
     QFont font;
     font.setItalic(true);
     font.setPointSize(20);
@@ -254,7 +254,7 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
     }
     ui->infoLabel->setTextFormat(Qt::RichText);
     ui->infoLabel->setText(textik);
-    //ui->infoLabel->setStyleSheet("QLabel{color: red;}");
+    ui->infoLabel->setTextFormat(Qt::AutoText);
 
 
     for (int i = 0; i < autobus->zoznamUlicLinky.size();i++){
