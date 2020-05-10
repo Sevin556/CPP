@@ -27,7 +27,6 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
             line = instream.readLine(50);
             continue;
         }
-        qDebug() <<line;
 
         //    QVector<QPair<QString,QPair<bodyLinky*,QList<int>>>> seznamLinek;
         QStringList splitedLine= line.split(" ");
@@ -46,34 +45,39 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
                 cas += time[1].toInt() * 60; //minuty
                 cas += time[2].toInt(); //sekundy
                 seznamLinek[i]->zoznamOdchodov.append(cas);
+
             }
         }
-        if (najdene){
-            line = instream.readLine(50);
-            continue;
-        }
-        vecItem *item =new vecItem();
-        item->nazovLinky =  splitedLine[0];
-        item->suborTrasy = splitedLine[1];
-        // cas zahajeni cesty
+        if (!najdene){
 
-        item->trasaLinky = new bodyLinky(seznamUlic,seznamZastavek,item->suborTrasy);
-        QStringList time = splitedLine[2].split(":");
-        int cas = time[0].toInt() * 3600; //hodiny
-        cas += time[1].toInt() * 60; //minuty
-        cas += time[2].toInt(); //sekundy
-        item->zoznamOdchodov.append(cas);
-        seznamLinek.append(item);
+            vecItem *item =new vecItem();
+            item->nazovLinky =  splitedLine[0];
+            item->suborTrasy = splitedLine[1];
+            // cas zahajeni cesty
+
+            item->trasaLinky = new bodyLinky(seznamUlic,seznamZastavek,item->suborTrasy);
+            QStringList time = splitedLine[2].split(":");
+            int cas = time[0].toInt() * 3600; //hodiny
+            cas += time[1].toInt() * 60; //minuty
+            cas += time[2].toInt(); //sekundy
+
+            item->zoznamOdchodov.append(cas);
+            seznamLinek.append(item);
+        }
+
 
         line = instream.readLine(50);
     }
+
+
     qDebug() <<"skoncil som";
     file.close();
     //sluzi na lahsie identifikovanie autobusov
     int indexAutobusu = 0;
     for (int i = 0; i < seznamLinek.size(); i++){
         for(int j = 0; j < seznamLinek[i]->zoznamOdchodov.size();j++){
-            autobusClass *autobus =  new autobusClass( seznamLinek[i]->trasaLinky, seznamLinek[i]->zoznamOdchodov[j],indexAutobusu++, nullptr);
+            indexAutobusu++;
+            autobusClass *autobus =  new autobusClass( seznamLinek[i]->trasaLinky, seznamLinek[i]->zoznamOdchodov[j],indexAutobusu, nullptr);
             busList.insert(indexAutobusu,autobus);
 
         }
@@ -103,8 +107,8 @@ void linkaClass::appendBus(QList<autobusClass *> *seznamBusu, int time, MyScene 
     for (int i = 0; i < seznamLinek.size(); i++){
         for(int j = 0; j < seznamLinek[i]->zoznamOdchodov.size();j++){
             indexAutobusu++;
-
             if(seznamLinek[i]->zoznamOdchodov[j] == time && busList.find(indexAutobusu) != busList.end()){
+                qDebug() << "ID append: " << indexAutobusu;
                 autobusClass *autobus = busList[indexAutobusu];
                 scene->addItem(autobus->autobusItem);
                 seznamBusu->append(autobus);
@@ -135,7 +139,6 @@ void linkaClass::setTime(QList<autobusClass *> *seznamBusu, int time, MyScene *s
             while(autobus != nullptr && casLinky != time){
 
                 if(autobus->vykonajTrasu(casLinky) == 1){
-                    autobus->index = 0;
                     autobus = nullptr;
                 }
                 casLinky = (casLinky+1)%86400;

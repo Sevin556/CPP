@@ -19,6 +19,7 @@ public:
     //inicializacia
     int zaciatokTrasyX;
     int zaciatokTrasyY;
+    int poradi = 0;
     QList<ulicaClass*> zoznamUlicLinky;
     int MojeID;
 

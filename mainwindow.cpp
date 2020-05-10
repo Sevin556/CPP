@@ -155,6 +155,12 @@ void MainWindow::editTime(QString text)
 
     // prevedeni casu z formatu hh:mm:ss na sekundy
     QStringList list = text.split(":");
+    if(list.size() != 3){
+        return;
+    }
+
+
+    qDebug() << list[0] << list[1] << list[2];
     time = list[0].toInt() * 3600; //hodiny->sekundy
     time = time + list[1].toInt() * 60; //minuty->sekundy
     time = time + list[2].toInt(); //sekundy
@@ -167,6 +173,7 @@ void MainWindow::editTime(QString text)
         }
     }
     zoznamAutobusov.clear();
+    qDebug() << time;
 
     // nastaveni novych autobusu
     linky->setTime(&zoznamAutobusov, time, scene);

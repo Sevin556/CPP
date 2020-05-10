@@ -42,9 +42,10 @@ autobusClass::autobusClass(bodyLinky* linka, int time,int ID, QObject * parent):
     QPair<zastavkaClass*, int> pair;
     for(int i = 0; i < linka->zastavkyNaLince.size(); i++){// projde vsechny zastavky
         pair.first = linka->zastavkyNaLince[i].first;
+        //qDebug() << time;
         pair.second = linka->zastavkyNaLince[i].second + time;
         zastavkyNaLince.append(pair);
-    qDebug()<< "ID JE : "<<MojeID <<" cas "<<zastavkyNaLince[i].second + time;
+        //qDebug()<< "ID JE : "<<MojeID <<" cas "<<zastavkyNaLince[i].second;
     }
 
     //aby splnilo podmienku v dalsom kroku
@@ -90,6 +91,8 @@ int autobusClass::pocitajTrasu()
     //qDebug() << "index: " << index << zoznamUlicLinky.size();
     if (index >= bodyPohybu.size()){
         autobusItem->hide();
+        index = 0;
+        indexZastavky = 0;
         return 1;
     }
    // int temp = zoznamUlicLinky[index];
@@ -152,28 +155,23 @@ int autobusClass::vykonajTrasu(int time)
 
     // cekani na zastavce
     QPoint pozice = aktualnaPozicia.toPoint();
-
-
-    for(int i = 0; i < zastavkyNaLince.size(); i++){// projde vsechny zastavky
-        // je na zastavce:
-
-         if(pozice.x() == zastavkyNaLince[i].first->X && pozice.y() == zastavkyNaLince[i].first->Y){
-                     //ceka (pokud nema zpozdeni)
-                    int casMeskania = time - zastavkyNaLince[indexZastavky].second;
-                    if (casMeskania >= 0 ){
-                         meskanieNaZastavke = casMeskania/60;
-                         meskanie = meskanieNaZastavke;
-                    }
-                     if(time < zastavkyNaLince[i].second){
-                         //qDebug() <<time << "odchod " <<zastavkyNaLince[i].second <<"ID mam "<<MojeID;
-                         return 0;
-                     }else if (stojim <50){
-                         qDebug() <<stojim;
-                         stojim++;
-                         return 0;
-                     }
-     }
+    if(pozice.x() == zastavkyNaLince[poradi].first->X && pozice.y() == zastavkyNaLince[poradi].first->Y){
+        int casMeskania = time - zastavkyNaLince[indexZastavky].second;
+        if (casMeskania >= 0 ){
+             meskanieNaZastavke = casMeskania/60;
+             meskanie = meskanieNaZastavke;
+        }
+        if(time < zastavkyNaLince[poradi].second){
+            return 0;
+        }else if (stojim < 30){
+            stojim++;
+            return 0;
+        }
+        else{
+            poradi = (poradi+1)%zastavkyNaLince.size();
+        }
     }
+
 
 
     //mozno staci len bod, preistotu je to takto zatial
@@ -196,7 +194,7 @@ int autobusClass::vykonajTrasu(int time)
         indexZastavky++;
         qDebug() <<"Index" << indexZastavky <<" "<<zastavkyNaLince.size()<<" ID "<<MojeID;
         if (indexZastavky >= zastavkyNaLince.size()){
-
+            indexZastavky = 0;
         }else {
             qDebug() <<"nastavujem novu zastavku";
             dalsiaZastavka.setX(zastavkyNaLince[indexZastavky].first->X);

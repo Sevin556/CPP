@@ -1,5 +1,4 @@
--500 -300
-Murietova 17 60
+Murietova 17 10
 56
 57
 58

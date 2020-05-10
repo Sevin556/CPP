@@ -24,8 +24,14 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
 
 
     //-10 kvoli tomu aby bol v strede cesty, kedze objekt ma 20x20 pixelov
-    zaciatokX = splitedLine[0].toInt()-10;
-    zaciatokY = splitedLine[1].toInt()-10;
+    //zaciatokX = splitedLine[0].toInt()-10;
+    //zaciatokY = splitedLine[1].toInt()-10;
+    auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
+    zaciatokX = zastavka->X - 10;
+    zaciatokY = zastavka->Y - 10;
+    //pridani zastavky do seznamu zastavek, kterymi projede bus
+    zastavkyNaLince.append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
+    qDebug() << "prvni zastavka - cas: " << zastavkyNaLince[0].second;
     //tu treba priratat to co sa odcitalo aby sedeli stredy bodov a cesty
 
 
@@ -40,7 +46,6 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
             continue;
         }
         QStringList splitedLine = line.split(" ");
-        qDebug() << line;
 
        // qDebug() <<splitedLine.size()<<"index :"<<i;
         if (splitedLine.size() ==1){ // bod nacitavam z ulice
@@ -74,7 +79,6 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
 
         }else { // bod nacitavam zo zastavky
             auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
-            qDebug() << "pridavam zastavku";
             bodyPohybu.insert(i,QPoint(zastavka->X,zastavka->Y));
             //pridani zastavky do seznamu zastavek, kterymi projede bus
             zastavkyNaLince.append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
