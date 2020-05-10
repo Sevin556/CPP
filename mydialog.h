@@ -12,12 +12,22 @@ class myDialog:public QDialog
 public:
     explicit myDialog(ulicaClass * ulica,QWidget *parent = nullptr);
     explicit myDialog(linkaClass * linky,QWidget *parent = nullptr);
+    explicit myDialog(bool nastavujemObchadzku,ulicaClass * ulica,QWidget *parent = nullptr);
+    explicit myDialog(vecItem *linka,QWidget* parent =nullptr);
     ulicaClass * ulica;
+
+
+signals:
+    void naklikajUlicu(ulicaClass *ulica);
+    void obchadzkaUkoncena();
+
 
 private slots:
     void nastavNormalnu();
     void nastavSpicku();
     void nastavZapchu();
+    void nastavObchadzku();
+    void obchadzkaHotova();
 };
 
 #endif // MYDIALOG_H

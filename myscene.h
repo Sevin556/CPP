@@ -5,6 +5,7 @@
 #include <ulicaclass.h>
 #include "zastavkaclass.h"
 #include "autobusclass.h"
+#include "vecitem.h"
 
 class MyScene;
 
@@ -22,6 +23,10 @@ public:
     QMap<int, zastavkaClass*> zoznamZastavok;
     QList<autobusClass*> *zoznamAutobusov;
 
+    bool klikamObchadzku = false;
+    bool uzatvaramCesty = false;
+    int indexPridavanejUlice =0;
+    vecItem* menenaLinka;
   //  QMap<int, autobusClass> zoznamAutobusov;
 
     //QMainWindow * main;
@@ -33,6 +38,8 @@ signals:
     void infoZmeneneZastavka(zastavkaClass *zastavka);
     void infoZmeneneAutobus(autobusClass* autobus);
     void zobrazModal(autobusClass*);
+    void rightClick(ulicaClass*);
+    void pridajUlicuDoLinky(int index,vecItem* linka,ulicaClass*ulica);
 
 private slots:
 

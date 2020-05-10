@@ -38,13 +38,34 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
         i.value()->ulicaItem->setPen(QPen(Qt::black,4));
     }
+
+
+    if (klikamObchadzku && temp.size() >0){
+        for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
+            if (temp[0]== i.value()->ulicaItem){
+
+                pridajUlicuDoLinky(indexPridavanejUlice,menenaLinka,i.value());
+                indexPridavanejUlice++;
+                QGraphicsScene::mousePressEvent(event);
+                return;
+            }
+        }
+    }
+
+
     //ak je temp nenulove znamena ze nasiel nejake itemy, ak ich je viac tak pouziva ten najvrchensi (posledny vykresleny)
     if (temp.size()>0){
         qDebug()<<"idem porovnavat";
         for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
             if (temp[0]== i.value()->ulicaItem){
                 qDebug() <<"ID ULICE JE :" <<i.value()->ID_ulice<<i.value()->nazovUlice;
-                infoZmeneneUlica(i.value());
+                if (event->button()==Qt::RightButton){
+                    rightClick(i.value());
+                }else{
+                    infoZmeneneUlica(i.value());
+                }
+                QGraphicsScene::mousePressEvent(event);
+                return;
             }
         }
 
@@ -52,6 +73,9 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             if (temp[0]== i.value()->zastavkaItem){
                 qDebug() <<"ID zastavkyJE :" <<i.value()->ID_zastavky<<i.value()->nazovZastavky;
                 infoZmeneneZastavka(i.value());
+
+                QGraphicsScene::mousePressEvent(event);
+                return;
             }
         }
         for (int i = 0;i<zoznamAutobusov->size();i++){

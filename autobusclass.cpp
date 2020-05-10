@@ -37,7 +37,7 @@ autobusClass::autobusClass(bodyLinky* linka, int time,int ID, QObject * parent):
     //nacitanie vsetkych ulic zo zoznamu a ulozenie do QList odkial sa budu brat pri hladani dalsieho bodu
     bodyPohybu=linka->bodyPohybu;
             //bude brat rychlost premavky z tade
-    zoznamUlicLinky=linka->zoznamUlicLinky;
+    zoznamUlicLinky= linka->zoznamUlicLinky;
 
     QPair<zastavkaClass*, int> pair;
     for(int i = 0; i < linka->zastavkyNaLince.size(); i++){// projde vsechny zastavky
@@ -112,16 +112,16 @@ int autobusClass::pocitajTrasu()
     int premavka ;
     if (idemDoZastavky){
         if (index >1){
-             premavka = zoznamUlicLinky.value(index-(indexZastavky+1))->rychlostPremavky;
-             qDebug() <<"spolamenie beriem z " << zoznamUlicLinky.value(index-(indexZastavky+1))->ID_ulice;
+             premavka = zoznamUlicLinky->value(index-(indexZastavky+1))->rychlostPremavky;
+             qDebug() <<"spolamenie beriem z " << zoznamUlicLinky->value(index-(indexZastavky+1))->ID_ulice;
         }else
             premavka = 1;
     }else{
-        qDebug() <<"spolamenie beriem z " << zoznamUlicLinky.value(index-(indexZastavky))->ID_ulice;
+        qDebug() <<"spolamenie beriem z " << zoznamUlicLinky->value(index-(indexZastavky))->ID_ulice;
 
-        premavka = zoznamUlicLinky.value(index-(indexZastavky))->rychlostPremavky;
+        premavka = zoznamUlicLinky->value(index-(indexZastavky))->rychlostPremavky;
     }
-    qDebug() <<"Idem do premavky:" <<index <<" "<<indexZastavky <<" "<<zoznamUlicLinky.size()<<" "<<index-(indexZastavky);
+    qDebug() <<"Idem do premavky:" <<index <<" "<<indexZastavky <<" "<<zoznamUlicLinky->size()<<" "<<index-(indexZastavky);
     //pocitanie koeficientu na postup k dalsiemu bodu pod istym uhlom
     qreal trasa = qPow(dalsiBod.x()-aktualnaPozicia.x(),2) + qPow(dalsiBod.y()-aktualnaPozicia.y(),2);
 

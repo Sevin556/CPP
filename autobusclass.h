@@ -20,7 +20,7 @@ public:
     int zaciatokTrasyX;
     int zaciatokTrasyY;
     int poradi = 0;
-    QList<ulicaClass*> zoznamUlicLinky;
+    QList<ulicaClass*> *zoznamUlicLinky;
     int MojeID;
 
     QMap<int,ulicaClass*>zoznamUlicMesta;

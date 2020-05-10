@@ -15,7 +15,7 @@ public:
     int zaciatokX;
     int zaciatokY;
     QList<QPoint> bodyPohybu;
-    QList<ulicaClass*> zoznamUlicLinky;
+    QList<ulicaClass*> *zoznamUlicLinky = new QList<ulicaClass*>();
 
     //zastavky na dane lince + doba, za kterou by mel vyrazit z dane zastavky
     QVector<QPair<zastavkaClass*, int>>zastavkyNaLince;

@@ -27,6 +27,8 @@ public:
     QMap <int,ulicaClass*>zoznamUlic;
     QList<autobusClass*> zoznamAutobusov;
     QMap <int,zastavkaClass*>zoznamZastavok;
+
+    bool nenaklikane;
     void createMap();
     void generateBusStops();
     void zobrazInfo(QGraphicsItem *kliknutyItem);
@@ -49,5 +51,9 @@ private slots:
     void zmenPopisAutbobusu(autobusClass *autobus);
     void editTime(QString string);
     void jizdniRadDialog();
+    void uzavriCestu(ulicaClass* ulica);
+    void naklikajObchadzku(ulicaClass* uzavretaUlica);
+    void pridajUlicu(int index,vecItem* linka,ulicaClass * ulica);
+    void ukonciPridavanieObchadzky();
 };
 #endif // MAINWINDOW_H

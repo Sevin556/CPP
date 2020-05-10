@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QWidget>
 #include <QGraphicsRectItem>
-#include "myscene.h"
 
 class MyScene;
 
@@ -16,7 +15,7 @@ public:
     QString nazovZastavky;
     int ID_zastavky;
     QGraphicsRectItem *zastavkaItem;
-    zastavkaClass(int startX, int startY,QString nazov, int ID,MyScene *scene);
+    zastavkaClass(int startX, int startY,QString nazov, int ID);
 };
 
 #endif // ZASTAVKACLASS_H

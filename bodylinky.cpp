@@ -74,8 +74,9 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
                 }
 
             }
+
             //bude brat rychlost premavky z tade
-            zoznamUlicLinky.append(ulica);
+            zoznamUlicLinky->append(ulica);
 
         }else { // bod nacitavam zo zastavky
             auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());

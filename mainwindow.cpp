@@ -46,6 +46,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(scene,&MyScene::infoZmeneneUlica,this,&MainWindow::zmenPopisUlice);
     connect(scene,&MyScene::infoZmeneneZastavka,this,&MainWindow::zmenPopisZastavky);
     connect(scene,&MyScene::infoZmeneneAutobus,this,&MainWindow::zmenPopisAutbobusu);
+    connect(scene,&MyScene::rightClick,this,&MainWindow::uzavriCestu);
+    connect(scene,&MyScene::pridajUlicuDoLinky,this,&MainWindow::pridajUlicu);
+
 
      for (int i =0;i< zoznamAutobusov.size();i++){
          connect(zoznamAutobusov[i],&autobusClass::meskanieZmenene,this,&MainWindow::zmenPopisAutbobusu);
@@ -216,6 +219,50 @@ void MainWindow::zmenPopisUlice(ulicaClass *ulica)
 }
 
 
+void MainWindow::uzavriCestu(ulicaClass* ulica)
+{
+    myDialog *dialog = new myDialog(true,ulica);
+    dialog->show();
+    connect(dialog,&myDialog::naklikajUlicu,this,&MainWindow::naklikajObchadzku);
+
+
+}
+
+void MainWindow::naklikajObchadzku(ulicaClass* uzavretaUlica)
+{
+    for (int i = 0 ;i<linky->seznamLinek.size();i++){
+        for (int j = 0 ; j< linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->size();j++){
+            if (uzavretaUlica == linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->value(j)){
+                for (int k = 0 ; k< linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->size();k++){
+                    linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->value(k)->ulicaItem->setPen(QPen(Qt::yellow,6));
+                }
+                uzavretaUlica->ulicaItem->setPen(QPen(Qt::red));
+                myDialog *dialog = new myDialog(linky->seznamLinek[i]);
+                dialog->show();
+                connect(dialog,&myDialog::obchadzkaUkoncena,this,&MainWindow::ukonciPridavanieObchadzky);
+                linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->removeAt(j);
+                scene->klikamObchadzku = true;
+                scene->menenaLinka = linky->seznamLinek[i];
+                scene->indexPridavanejUlice = j;
+                nenaklikane = true;
+
+            }
+        }
+    }
+}
+
+void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
+{
+    linka->trasaLinky->zoznamUlicLinky->insert(index,ulica);
+}
+
+void MainWindow::ukonciPridavanieObchadzky()
+{
+    nenaklikane=false;
+    scene->klikamObchadzku = false;
+}
+
+
 /**
 * Slot, ktory zachytava signal o kliknuti na ulicu, zobrazi info o ulici
 * @param trieda kliknutej zastavky
@@ -257,8 +304,8 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
     //ui->infoLabel->setStyleSheet("QLabel{color: red;}");
 
 
-    for (int i = 0; i < autobus->zoznamUlicLinky.size();i++){
-        autobus->zoznamUlicLinky[i]->ulicaItem->setPen(QPen(Qt::red,6));
+    for (int i = 0; i < autobus->zoznamUlicLinky->size();i++){
+        autobus->zoznamUlicLinky->value(i)->ulicaItem->setPen(QPen(Qt::red,6));
     }
 }
 
@@ -287,7 +334,8 @@ void MainWindow::generateBusStops()
         int y = splitedLine[2].toInt();
         int ID = splitedLine[3].toInt();
 
-        auto *zastavka = new zastavkaClass(x,y,nazov,ID, scene);
+        auto *zastavka = new zastavkaClass(x,y,nazov,ID);
+        scene->addItem(zastavka->zastavkaItem);
         zoznamZastavok.insert(ID,zastavka);
 
         line = instream.readLine(50);

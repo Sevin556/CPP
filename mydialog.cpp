@@ -115,6 +115,52 @@ myDialog::myDialog(linkaClass* linky, QWidget *parent):
     connect(okBtn, SIGNAL(clicked()), this, SLOT(accept()));
 }
 
+
+
+myDialog::myDialog(bool nastavujemObchadzku, ulicaClass *ulica, QWidget *parent):
+    QDialog(parent)
+{
+    this->ulica = ulica;
+    setWindowTitle(ulica->nazovUlice);
+
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    this->setLayout(layout);
+
+    QLabel *label1 = new QLabel;
+    label1->setText("Uzavrie cestu a zacne pridavat obchadzku (prave kliknutie na cestu");
+    layout->addWidget(label1);
+    QPushButton *button = new QPushButton();
+    button->setText("Uzavri cestu a nastav obchádzku");
+    layout->addWidget(button);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    layout->addWidget(buttonBox);
+
+        //prepojenie signalov tlacitok na sloty
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(button,&QPushButton::clicked,this,&myDialog::nastavObchadzku);
+}
+
+
+myDialog::myDialog(vecItem *linka, QWidget *parent):
+    QDialog(parent)
+{
+    QVBoxLayout *layout = new QVBoxLayout;
+    this->setLayout(layout);
+
+    QLabel * label = new QLabel;
+    label->setText("Naklikaj obchádzku na linke "+linka->nazovLinky);
+    layout->addWidget(label);
+
+    QPushButton *button = new QPushButton();
+    button->setText("Hotovo");
+    layout->addWidget(button);
+    connect(button,&QPushButton::clicked,this,&myDialog::obchadzkaHotova);
+}
+
+
 void myDialog::nastavNormalnu()
 {
     ulica->rychlostPremavky = 1;
@@ -132,3 +178,16 @@ void myDialog::nastavZapchu()
     ulica->rychlostPremavky = 5;
     accept();
 }
+
+void myDialog::nastavObchadzku()
+{
+    naklikajUlicu(ulica);
+    accept();
+}
+
+void myDialog::obchadzkaHotova()
+{
+    obchadzkaUkoncena();
+    accept();
+}
+

@@ -24,6 +24,7 @@ SOURCES += \
     mydialog.cpp \
     myscene.cpp \
     ulicaclass.cpp \
+    vecitem.cpp \
     zastavkaclass.cpp
 
 HEADERS += \
@@ -34,6 +35,7 @@ HEADERS += \
     mydialog.h \
     myscene.h \
     ulicaclass.h \
+    vecitem.h \
     zastavkaclass.h
 
 FORMS += \
