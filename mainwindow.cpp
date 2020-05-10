@@ -209,7 +209,7 @@ void MainWindow::zmenPopisUlice(ulicaClass *ulica)
      QString textik ;
     QTextStream text(&textik);
    // qDebug() <<ulica->nazovUlice;
-    text <<"ID ulice :" <<ulica->ID_ulice <<"\n Nazov ulice :"<< ulica->nazovUlice <<"\n Zaciatok :" <<ulica->x1 << ulica->y2 <<"\n Koniec :" <<ulica->x2 << ulica->y2<<"\n Rychlost premavky:"<<ulica->rychlostPremavky;
+    text <<"ID ulice :" <<ulica->ID_ulice <<"<br> Nazov ulice :"<< ulica->nazovUlice <<"<br> Zaciatok :" <<ulica->x1 << ulica->y1 <<"<br> Koniec :" <<ulica->x2 << ulica->y2<<"<br> Rychlost premavky:"<<ulica->rychlostPremavky;
     QFont font;
     font.setItalic(true);
     font.setPointSize(20);
@@ -233,33 +233,118 @@ void MainWindow::naklikajObchadzku(ulicaClass* uzavretaUlica)
     for (int i = 0 ;i<linky->seznamLinek.size();i++){
         for (int j = 0 ; j< linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->size();j++){
             if (uzavretaUlica == linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->value(j)){
-                for (int k = 0 ; k< linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->size();k++){
-                    linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->value(k)->ulicaItem->setPen(QPen(Qt::yellow,6));
-                }
-                uzavretaUlica->ulicaItem->setPen(QPen(Qt::red));
-                myDialog *dialog = new myDialog(linky->seznamLinek[i]);
-                dialog->show();
-                connect(dialog,&myDialog::obchadzkaUkoncena,this,&MainWindow::ukonciPridavanieObchadzky);
-                linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->removeAt(j);
-                scene->klikamObchadzku = true;
-                scene->menenaLinka = linky->seznamLinek[i];
-                scene->indexPridavanejUlice = j;
-                nenaklikane = true;
+                zmenLinkuItems itemy;
+                itemy.uzatvaranaUlica = uzavretaUlica;
+                itemy.linka = linky->seznamLinek[i];
+                itemy.indexUliceNaLinke = j;
+                linkyNaZmenu.append(itemy);
+
 
             }
         }
     }
+
+
+    if (linkyNaZmenu.size() >0){
+        for (int k = 0 ; k< linkyNaZmenu[0].linka->trasaLinky->zoznamUlicLinky->size();k++){
+            linkyNaZmenu[0].linka->trasaLinky->zoznamUlicLinky->value(k)->ulicaItem->setPen(QPen(Qt::yellow,6));
+        }
+        uzavretaUlica->ulicaItem->setPen(QPen(Qt::red));
+        scene->addLine((uzavretaUlica->x1+uzavretaUlica->x2)/2+10,(uzavretaUlica->y1+uzavretaUlica->y2)/2+10,(uzavretaUlica->x1+uzavretaUlica->x2)/2-10,(uzavretaUlica->y1+uzavretaUlica->y2)/2-10,QPen(Qt::red,3));
+        scene->addLine((uzavretaUlica->x1+uzavretaUlica->x2)/2-10,(uzavretaUlica->y1+uzavretaUlica->y2)/2+10,(uzavretaUlica->x1+uzavretaUlica->x2)/2+10,(uzavretaUlica->y1+uzavretaUlica->y2)/2-10,QPen(Qt::red,3));
+
+        int pocetZastavok = 0;
+        for (int i = 0 ;i < linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok;i++){
+            for (int j = 0;j < linkyNaZmenu[0].linka->trasaLinky->zastavkyNaLince.size();j++){
+                if (linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->value(i).x() == linkyNaZmenu[0].linka->trasaLinky->zastavkyNaLince.value(j).first->X
+                        && linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->value(i).y() == linkyNaZmenu[0].linka->trasaLinky->zastavkyNaLince.value(j).first->Y){
+                    pocetZastavok++;
+                    qDebug() << linkyNaZmenu[0].linka->trasaLinky->zastavkyNaLince.value(j).first->nazovZastavky;
+                }
+
+            }
+        }
+        linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->removeAt(linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok);
+    }
+        myDialog *dialog = new myDialog(linkyNaZmenu[0].linka);
+        dialog->show();
+        connect(dialog,&myDialog::obchadzkaUkoncena,this,&MainWindow::ukonciPridavanieObchadzky);
+        linkyNaZmenu[0].linka->trasaLinky->zoznamUlicLinky->removeAt(linkyNaZmenu[0].indexUliceNaLinke);
+        scene->klikamObchadzku = true;
+        scene->menenaLinka = linkyNaZmenu[0].linka;
+        scene->indexPridavanejUlice = linkyNaZmenu[0].indexUliceNaLinke;
+        nenaklikane = true;
+
 }
 
 void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
 {
+    ulica->ulicaItem->setPen(QPen(Qt::yellow,6));
     linka->trasaLinky->zoznamUlicLinky->insert(index,ulica);
+    int pocetZastavok = 0;
+    for (int i = 0 ;i < index+pocetZastavok;i++){
+        for (int j = 0;j<linka->trasaLinky->zastavkyNaLince.size();j++){
+            if (linka->trasaLinky->bodyPohybu->value(i).x() == linka->trasaLinky->zastavkyNaLince.value(j).first->X
+                    && linka->trasaLinky->bodyPohybu->value(i).y() == linka->trasaLinky->zastavkyNaLince.value(j).first->Y)
+                pocetZastavok++;
+        }
+    }
+    int miestoVlozenia = index+pocetZastavok;
+        if (miestoVlozenia > 2){
+            if ((linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).x() == ulica->x1 && linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).y() == ulica->y1) ||
+                    (linka->trasaLinky->bodyPohybu->value(miestoVlozenia-2).x() == ulica->x1 && linka->trasaLinky->bodyPohybu->value(miestoVlozenia-2).y() == ulica->y1) ){
+                linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x2,ulica->y2));
+            }else {
+                linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x1,ulica->y1));
+            }
+        }else {//druha ulica...nemoze byt i-2
+            if (linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).x() == ulica->x1 && linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).y() == ulica->y1){
+                linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x2,ulica->y2));
+            }else {
+                linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x1,ulica->y1));
+            }
+        }
 }
 
 void MainWindow::ukonciPridavanieObchadzky()
 {
     nenaklikane=false;
     scene->klikamObchadzku = false;
+    linkyNaZmenu.removeFirst();
+    for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
+        i.value()->ulicaItem->setPen(QPen(Qt::black,4));
+    }
+
+
+    if (linkyNaZmenu.size() >0){
+        for (int k = 0 ; k< linkyNaZmenu[0].linka->trasaLinky->zoznamUlicLinky->size();k++){
+            linkyNaZmenu[0].linka->trasaLinky->zoznamUlicLinky->value(k)->ulicaItem->setPen(QPen(Qt::yellow,6));
+        }
+        linkyNaZmenu[0].uzatvaranaUlica->ulicaItem->setPen(QPen(Qt::red));
+        scene->addLine((linkyNaZmenu[0].uzatvaranaUlica->x1+linkyNaZmenu[0].uzatvaranaUlica->x2)/2+10,(linkyNaZmenu[0].uzatvaranaUlica->y1+linkyNaZmenu[0].uzatvaranaUlica->y2)/2+10,(linkyNaZmenu[0].uzatvaranaUlica->x1+linkyNaZmenu[0].uzatvaranaUlica->x2)/2-10,(linkyNaZmenu[0].uzatvaranaUlica->y1+linkyNaZmenu[0].uzatvaranaUlica->y2)/2-10,QPen(Qt::red,3));
+        scene->addLine((linkyNaZmenu[0].uzatvaranaUlica->x1+linkyNaZmenu[0].uzatvaranaUlica->x2)/2-10,(linkyNaZmenu[0].uzatvaranaUlica->y1+linkyNaZmenu[0].uzatvaranaUlica->y2)/2+10,(linkyNaZmenu[0].uzatvaranaUlica->x1+linkyNaZmenu[0].uzatvaranaUlica->x2)/2+10,(linkyNaZmenu[0].uzatvaranaUlica->y1+linkyNaZmenu[0].uzatvaranaUlica->y2)/2-10,QPen(Qt::red,3));
+
+        myDialog *dialog = new myDialog(linkyNaZmenu[0].linka);
+        dialog->show();
+        connect(dialog,&myDialog::obchadzkaUkoncena,this,&MainWindow::ukonciPridavanieObchadzky);
+        linkyNaZmenu[0].linka->trasaLinky->zoznamUlicLinky->removeAt(linkyNaZmenu[0].indexUliceNaLinke);
+        scene->klikamObchadzku = true;
+        scene->menenaLinka = linkyNaZmenu[0].linka;
+        scene->indexPridavanejUlice = linkyNaZmenu[0].indexUliceNaLinke;
+        nenaklikane = true;
+
+        int pocetZastavok = 0;
+        for (int i = 0 ;i < linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok;i++){
+            for (int j = 0;j < linkyNaZmenu[0].linka->trasaLinky->zastavkyNaLince.size();j++){
+                if (linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->value(i).x() == linkyNaZmenu[0].linka->trasaLinky->zastavkyNaLince.value(j).first->X
+                        && linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->value(i).y() == linkyNaZmenu[0].linka->trasaLinky->zastavkyNaLince.value(j).first->Y)
+                    pocetZastavok++;
+            }
+        }
+        linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->removeAt(linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok);
+    }
+
+
 }
 
 
@@ -272,7 +357,7 @@ void MainWindow::zmenPopisZastavky(zastavkaClass *zastavka)
    QString textik ;
    QTextStream text(&textik);
    qDebug() <<zastavka->ID_zastavky;
-   text <<"ID zastavky :" <<zastavka->ID_zastavky <<"\n Nazov zastavky :"<< zastavka->nazovZastavky <<"\n Pozicia :" <<zastavka->X <<zastavka->Y;
+   text <<"ID zastavky :" <<zastavka->ID_zastavky <<"<br> Nazov zastavky :"<< zastavka->nazovZastavky <<"<br>Pozicia :" <<zastavka->X <<zastavka->Y;
     ui->infoLabel->setText(textik);
 }
 
@@ -285,7 +370,7 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
     QString textik ;
     QTextStream text(&textik);
 
-    text << "ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y()<< "<br> Moje meskanie: " << autobus->meskanie <<" minut<br>";
+    text << "ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y()<< "<br> Moje meskanie: " << autobus->meskanie <<" minut<br>"<<"Idem po ulici" << autobus->zoznamUlicLinky->value(autobus->index-autobus->indexZastavky)->ID_ulice;
     text << "<br>Linka: " << linky->linkaBusu(autobus->MojeID) << "<br>Zastavky:<br>";
 
     for(int i = 0; i < autobus->zastavkyNaLince.size(); i++){

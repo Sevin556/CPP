@@ -134,11 +134,10 @@ myDialog::myDialog(bool nastavujemObchadzku, ulicaClass *ulica, QWidget *parent)
     button->setText("Uzavri cestu a nastav obchádzku");
     layout->addWidget(button);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Cancel);
     layout->addWidget(buttonBox);
 
         //prepojenie signalov tlacitok na sloty
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     connect(button,&QPushButton::clicked,this,&myDialog::nastavObchadzku);
 }
@@ -151,7 +150,7 @@ myDialog::myDialog(vecItem *linka, QWidget *parent):
     this->setLayout(layout);
 
     QLabel * label = new QLabel;
-    label->setText("Naklikaj obchádzku na linke "+linka->nazovLinky);
+    label->setText("Naklikaj obchádzku na linke "+linka->nazovLinky+" a po skonceni stlac Hotovo");
     layout->addWidget(label);
 
     QPushButton *button = new QPushButton();

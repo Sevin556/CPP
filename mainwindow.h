@@ -28,6 +28,13 @@ public:
     QList<autobusClass*> zoznamAutobusov;
     QMap <int,zastavkaClass*>zoznamZastavok;
 
+    struct zmenLinkuItems{
+        ulicaClass* uzatvaranaUlica;
+        vecItem* linka;
+        int indexUliceNaLinke;
+    };
+    QVector<zmenLinkuItems> linkyNaZmenu;
+
     bool nenaklikane;
     void createMap();
     void generateBusStops();

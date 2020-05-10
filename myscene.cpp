@@ -35,9 +35,7 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     qDebug() <<event->scenePos();
     //skusi nacitat itemy na kliknutej pozicii na scene
     QList<QGraphicsItem*>  temp = items(event->scenePos());
-    for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
-        i.value()->ulicaItem->setPen(QPen(Qt::black,4));
-    }
+
 
 
     if (klikamObchadzku && temp.size() >0){
@@ -49,6 +47,10 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 QGraphicsScene::mousePressEvent(event);
                 return;
             }
+        }
+    }else if (!klikamObchadzku) {
+        for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
+            i.value()->ulicaItem->setPen(QPen(Qt::black,4));
         }
     }
 

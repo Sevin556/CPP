@@ -52,24 +52,24 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
             auto * ulica = zoznamUlic->value(splitedLine[0].toInt());
             if (i == 0){
                 if (zaciatokX+10 == ulica->x1 && (zaciatokY+10 == ulica->y1)){
-                    bodyPohybu.insert(i,QPoint(ulica->x2,ulica->y2));
+                    bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
                 }else {
-                    bodyPohybu.insert(i,QPoint(ulica->x1,ulica->y1));
+                    bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
                 }
             }else {
                 if (i > 2){
 
-                    if ((bodyPohybu[i-1].x() == ulica->x1 && bodyPohybu[i-1].y() == ulica->y1) ||
-                            (bodyPohybu[i-2].x() == ulica->x1 && bodyPohybu[i-2].y() == ulica->y1) ){
-                        bodyPohybu.insert(i,QPoint(ulica->x2,ulica->y2));
+                    if ((bodyPohybu->value(i-1).x() == ulica->x1 && bodyPohybu->value(i-1).y() == ulica->y1) ||
+                            (bodyPohybu->value(i-2).x() == ulica->x1 && bodyPohybu->value(i-2).y() == ulica->y1) ){
+                        bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
                     }else {
-                        bodyPohybu.insert(i,QPoint(ulica->x1,ulica->y1));
+                        bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
                     }
                 }else {//druha ulica...nemoze byt i-2
-                    if (bodyPohybu[i-1].x() == ulica->x1 && bodyPohybu[i-1].y() == ulica->y1){
-                        bodyPohybu.insert(i,QPoint(ulica->x2,ulica->y2));
+                    if (bodyPohybu->value(i-1).x() == ulica->x1 && bodyPohybu->value(i-1).y() == ulica->y1){
+                        bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
                     }else {
-                        bodyPohybu.insert(i,QPoint(ulica->x1,ulica->y1));
+                        bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
                     }
                 }
 
@@ -80,7 +80,7 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
 
         }else { // bod nacitavam zo zastavky
             auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
-            bodyPohybu.insert(i,QPoint(zastavka->X,zastavka->Y));
+            bodyPohybu->insert(i,QPoint(zastavka->X,zastavka->Y));
             //pridani zastavky do seznamu zastavek, kterymi projede bus
             zastavkyNaLince.append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
         }

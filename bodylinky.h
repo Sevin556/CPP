@@ -14,7 +14,7 @@ public:
     bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,QString subor);
     int zaciatokX;
     int zaciatokY;
-    QList<QPoint> bodyPohybu;
+    QList<QPoint> *bodyPohybu = new QList<QPoint>();
     QList<ulicaClass*> *zoznamUlicLinky = new QList<ulicaClass*>();
 
     //zastavky na dane lince + doba, za kterou by mel vyrazit z dane zastavky

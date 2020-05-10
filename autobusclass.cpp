@@ -89,7 +89,7 @@ int autobusClass::pocitajTrasu()
 {
     //static int index = 0;
     //qDebug() << "index: " << index << zoznamUlicLinky.size();
-    if (index >= bodyPohybu.size()){
+    if (index >= bodyPohybu->size()){
         autobusItem->hide();
         index = 0;
         indexZastavky = 0;
@@ -97,8 +97,8 @@ int autobusClass::pocitajTrasu()
     }
    // int temp = zoznamUlicLinky[index];
    // qDebug() <<"ID je :"<< zoznamUlicMesta.value(temp)->ID_ulice << "a I je :" << i;
-    dalsiBod.setX(bodyPohybu.value(index).x());
-    dalsiBod.setY(bodyPohybu.value(index).y());
+    dalsiBod.setX(bodyPohybu->value(index).x());
+    dalsiBod.setY(bodyPohybu->value(index).y());
 
     bool idemDoZastavky = false;
     for(int i = 0; i < zastavkyNaLince.size(); i++){// projde vsechny zastavky
