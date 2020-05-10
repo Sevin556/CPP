@@ -236,10 +236,27 @@ void MainWindow::zmenPopisZastavky(zastavkaClass *zastavka)
 void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
 {
     QString textik ;
-   QTextStream text(&textik);
-   qDebug() <<autobus->index;
-   text <<"ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y()<<"\n Moje meskanie:" << autobus->meskanie <<" minut\n "<< autobus->dalsiaZastavka.x();
-  ui->infoLabel->setText(textik);
+    QTextStream text(&textik);
+
+    text << "ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y()<< "<br> Moje meskanie: " << autobus->meskanie <<" minut<br>";
+    text << "<br>Linka: " << linky->linkaBusu(autobus->MojeID) << "<br>Zastavky:<br>";
+
+    for(int i = 0; i < autobus->zastavkyNaLince.size(); i++){
+        if(autobus->zastavkyNaLince[i].second < time){
+            text << "<font color = 'gray'>";
+            text << QTime::fromMSecsSinceStartOfDay(autobus->zastavkyNaLince[i].second * 1000).toString("hh:mm:ss");
+            text << autobus->zastavkyNaLince[i].first->nazovZastavky << "</font><br>";
+        }
+        else{
+            text << QTime::fromMSecsSinceStartOfDay(autobus->zastavkyNaLince[i].second * 1000).toString("hh:mm:ss");
+            text << autobus->zastavkyNaLince[i].first->nazovZastavky << "<br>";
+        }
+    }
+    ui->infoLabel->setTextFormat(Qt::RichText);
+    ui->infoLabel->setText(textik);
+    //ui->infoLabel->setStyleSheet("QLabel{color: red;}");
+
+
     for (int i = 0; i < autobus->zoznamUlicLinky.size();i++){
         autobus->zoznamUlicLinky[i]->ulicaItem->setPen(QPen(Qt::red,6));
     }

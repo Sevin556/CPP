@@ -33,6 +33,7 @@ public:
 
     QVector<vecItem*> seznamLinek;
 
+    QString linkaBusu(int id);
 };
 
 

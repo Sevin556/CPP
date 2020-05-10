@@ -153,3 +153,16 @@ void linkaClass::setTime(QList<autobusClass *> *seznamBusu, int time, MyScene *s
 
     }
 }
+
+QString linkaClass::linkaBusu(int id){
+    int indexAutobusu=0;
+    for (int i = 0; i < seznamLinek.size(); i++){
+        for(int j = 0; j < seznamLinek[i]->zoznamOdchodov.size();j++){
+            indexAutobusu++;
+            if (indexAutobusu == id){
+                return seznamLinek[i]->nazovLinky;
+            }
+        }
+    }
+    return "";
+}
