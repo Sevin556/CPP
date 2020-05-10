@@ -40,6 +40,7 @@ signals:
     void zobrazModal(autobusClass*);
     void rightClick(ulicaClass*);
     void pridajUlicuDoLinky(int index,vecItem* linka,ulicaClass*ulica);
+    void odoberUlicu(vecItem* linka,ulicaClass * ulica);
 
 private slots:
 

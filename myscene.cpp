@@ -41,9 +41,13 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if (klikamObchadzku && temp.size() >0){
         for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
             if (temp[0]== i.value()->ulicaItem){
+                if (event->button() == Qt::RightButton){
+                   odoberUlicu(menenaLinka,i.value());
+                }else{
+                    pridajUlicuDoLinky(indexPridavanejUlice,menenaLinka,i.value());
+                    indexPridavanejUlice++;
+                }
 
-                pridajUlicuDoLinky(indexPridavanejUlice,menenaLinka,i.value());
-                indexPridavanejUlice++;
                 QGraphicsScene::mousePressEvent(event);
                 return;
             }

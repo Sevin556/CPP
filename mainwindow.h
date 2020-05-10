@@ -62,5 +62,6 @@ private slots:
     void naklikajObchadzku(ulicaClass* uzavretaUlica);
     void pridajUlicu(int index,vecItem* linka,ulicaClass * ulica);
     void ukonciPridavanieObchadzky();
+    void odoberUlicuZLinky(vecItem* linka, ulicaClass *ulica);
 };
 #endif // MAINWINDOW_H
