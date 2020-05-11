@@ -224,8 +224,6 @@ void MainWindow::uzavriCestu(ulicaClass* ulica)
     myDialog *dialog = new myDialog(true,ulica);
     dialog->show();
     connect(dialog,&myDialog::naklikajUlicu,this,&MainWindow::naklikajObchadzku);
-
-
 }
 
 void MainWindow::naklikajObchadzku(ulicaClass* uzavretaUlica)
@@ -289,8 +287,7 @@ void MainWindow::naklikajObchadzku(ulicaClass* uzavretaUlica)
 
 void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
 {
-    ulica->ulicaItem->setPen(QPen(Qt::yellow,6));
-    linka->trasaLinky->zoznamUlicLinky->insert(index,ulica);
+
     int pocetZastavok = 0;
     for (int i = 0 ;i < index+pocetZastavok;i++){
         for (int j = 1;j < linka->trasaLinky->zastavkyNaLince.size()-1;j++){
@@ -309,9 +306,15 @@ void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
             if (((linka->trasaLinky->zaciatokX+10) == ulica->x1 && (linka->trasaLinky->zaciatokY+10) == ulica->y1)){
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x2,ulica->y2));
                 qDebug() << "mam " << linka->trasaLinky->zaciatokX <<" " <<linka->trasaLinky->zaciatokY <<" vkladam "<<ulica->x2 <<ulica->y2;
-            }else   {
+            }else if ((linka->trasaLinky->zaciatokX+10) == ulica->x2 && (linka->trasaLinky->zaciatokY+10) == ulica->y2) {
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x1,ulica->y1));
                 qDebug() << "mam " << linka->trasaLinky->zaciatokX <<" " <<linka->trasaLinky->zaciatokY <<" vkladam x1 "<<ulica->x1<<ulica->y1;
+
+            }else{
+                myDialog *dialog = new myDialog();
+                dialog->exec();
+                delete dialog;
+                return;
 
             }
         } else if (miestoVlozenia > 2){
@@ -320,9 +323,16 @@ void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x2,ulica->y2));
                 qDebug() <<" vkladam "<<ulica->x2 <<ulica->y2;
 
-            }else {
+            }else if((linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).x() == ulica->x2 && linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).y() == ulica->y2) ||
+                     (linka->trasaLinky->bodyPohybu->value(miestoVlozenia-2).x() == ulica->x2 && linka->trasaLinky->bodyPohybu->value(miestoVlozenia-2).y() == ulica->y2)) {
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x1,ulica->y1));
                 qDebug() <<" vkladam "<<ulica->x1 <<ulica->y1;
+
+            } else {
+                myDialog *dialog = new myDialog();
+                dialog->exec();
+                delete dialog;
+                return;
 
             }
         }else {//druha ulica...nemoze byt i-2
@@ -330,12 +340,20 @@ void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x2,ulica->y2));
                 qDebug() <<" vkladam "<<ulica->x2 <<ulica->y2;
 
-            }else {
+            }else if (linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).x() == ulica->x2 && linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).y() == ulica->y2){
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x1,ulica->y1));
                 qDebug() <<" vkladam "<<ulica->x1 <<ulica->y1;
 
+            }else {
+                myDialog *dialog = new myDialog();
+                dialog->exec();
+                delete dialog;
+                return;
             }
+
         }
+        ulica->ulicaItem->setPen(QPen(Qt::yellow,6));
+        linka->trasaLinky->zoznamUlicLinky->insert(index,ulica);
 }
 
 void MainWindow::ukonciPridavanieObchadzky()

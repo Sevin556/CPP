@@ -14,6 +14,7 @@ public:
     explicit myDialog(linkaClass * linky,QWidget *parent = nullptr);
     explicit myDialog(bool nastavujemObchadzku,ulicaClass * ulica,QWidget *parent = nullptr);
     explicit myDialog(vecItem *linka,QWidget* parent =nullptr);
+    explicit myDialog(QWidget *parent=nullptr);
     ulicaClass * ulica;
 
 

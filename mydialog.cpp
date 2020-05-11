@@ -159,6 +159,22 @@ myDialog::myDialog(vecItem *linka, QWidget *parent):
     connect(button,&QPushButton::clicked,this,&myDialog::obchadzkaHotova);
 }
 
+myDialog::myDialog(QWidget *parent):
+    QDialog(parent)
+{
+    QVBoxLayout *layout = new QVBoxLayout;
+    this->setLayout(layout);
+
+    QLabel * label = new QLabel;
+    label->setText("Ulica nenadväzuje na predchádzajúcu, skús znovu ");
+    layout->addWidget(label);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
+    layout->addWidget(buttonBox);
+        //prepojenie signalov tlacitok na sloty
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+}
+
 
 void myDialog::nastavNormalnu()
 {
