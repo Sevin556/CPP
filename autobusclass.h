@@ -22,6 +22,7 @@ public:
     int poradi = 0;
     QList<ulicaClass*> *zoznamUlicLinky;
     int MojeID;
+    QString nazovLinky;
 
     QMap<int,ulicaClass*>zoznamUlicMesta;
     QGraphicsEllipseItem *autobusItem;
@@ -48,7 +49,7 @@ public:
     QVector<QPair<zastavkaClass*, int>>zastavkyNaLince;
 
     //funkcie
-    autobusClass(bodyLinky *linka, int time,int ID, QObject * parent);
+    autobusClass(bodyLinky *linka, int time,int ID,QString nazovLinky, QObject * parent);
     void posunAutobus();
     int pocitajTrasu();
     int vykonajTrasu(int time);

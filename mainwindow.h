@@ -32,6 +32,7 @@ public:
         ulicaClass* uzatvaranaUlica;
         vecItem* linka;
         int indexUliceNaLinke;
+        int miestoVLozenia;
     };
     QVector<zmenLinkuItems> linkyNaZmenu;
 

@@ -77,7 +77,7 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
     for (int i = 0; i < seznamLinek.size(); i++){
         for(int j = 0; j < seznamLinek[i]->zoznamOdchodov.size();j++){
             indexAutobusu++;
-            autobusClass *autobus =  new autobusClass( seznamLinek[i]->trasaLinky, seznamLinek[i]->zoznamOdchodov[j],indexAutobusu, nullptr);
+            autobusClass *autobus =  new autobusClass( seznamLinek[i]->trasaLinky, seznamLinek[i]->zoznamOdchodov[j],indexAutobusu,seznamLinek[i]->nazovLinky, nullptr);
             busList.insert(indexAutobusu,autobus);
 
         }

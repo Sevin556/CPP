@@ -17,11 +17,11 @@
 * @param zoznam ulic mesta, aby bolo možné načítavať body z nich
 * @param objekt z ktorého sa dedia signaly
 */
-autobusClass::autobusClass(bodyLinky* linka, int time,int ID, QObject * parent):
+autobusClass::autobusClass(bodyLinky* linka, int time,int ID,QString nazovLinky, QObject * parent):
     QObject(parent)
 {
 
-
+    this->nazovLinky = nazovLinky;
     MojeID = ID;
 
     //-10 kvoli tomu aby bol v strede cesty, kedze objekt ma 20x20 pixelov

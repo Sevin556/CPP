@@ -186,7 +186,7 @@ void MainWindow::editTime(QString text)
 //prida autobus do zoznamu aby som otestoval ci to zvlada viac autobusov naraz
 void MainWindow::vytvorAutobus()
 {
-  zoznamAutobusov.append(new autobusClass(nullptr, time,0, nullptr));
+  zoznamAutobusov.append(new autobusClass(nullptr, time,0,nullptr, nullptr));
    scene->addItem(zoznamAutobusov.last()->autobusItem);
 }
 
@@ -354,12 +354,27 @@ void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
         }
         ulica->ulicaItem->setPen(QPen(Qt::yellow,6));
         linka->trasaLinky->zoznamUlicLinky->insert(index,ulica);
+        linkyNaZmenu[0].miestoVLozenia = miestoVlozenia;
+        for (int i = 0 ; i<zoznamAutobusov.size();i++){
+            if (zoznamAutobusov.value(i)->nazovLinky == linka->nazovLinky){
+                if (zoznamAutobusov.value(i)->index > miestoVlozenia){
+                    zoznamAutobusov.value(i)->index++;
+                }
+            }
+        }
 }
 
 void MainWindow::ukonciPridavanieObchadzky()
 {
     nenaklikane=false;
     scene->klikamObchadzku = false;
+    for (int i = 0 ; i<zoznamAutobusov.size();i++){
+        if (zoznamAutobusov.value(i)->nazovLinky == linkyNaZmenu[0].linka->nazovLinky){
+            if (zoznamAutobusov.value(i)->index >linkyNaZmenu[0].miestoVLozenia){
+                zoznamAutobusov.value(i)->index--;
+            }
+        }
+    }
     linkyNaZmenu.removeFirst();
     for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
         i.value()->ulicaItem->setPen(QPen(Qt::black,4));
@@ -403,6 +418,9 @@ void MainWindow::ukonciPridavanieObchadzky()
         qDebug() << "Mazem bod " <<linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->value(linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok) <<" s indexom "<<linkyNaZmenu[0].indexUliceNaLinke  <<" "<<pocetZastavok;
 
         linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->removeAt(linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok);
+
+
+
     }
 
 
