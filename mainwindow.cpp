@@ -119,7 +119,6 @@ void MainWindow::start_stop()
         ui->startstopBtn->setText("Stop");
     }
 
-      // autobus->pocitajTrasu();
 }
 
 void MainWindow::speed(int value){
@@ -294,25 +293,47 @@ void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
     linka->trasaLinky->zoznamUlicLinky->insert(index,ulica);
     int pocetZastavok = 0;
     for (int i = 0 ;i < index+pocetZastavok;i++){
-        for (int j = 0;j<linka->trasaLinky->zastavkyNaLince.size();j++){
+        for (int j = 1;j < linka->trasaLinky->zastavkyNaLince.size()-1;j++){
             if (linka->trasaLinky->bodyPohybu->value(i).x() == linka->trasaLinky->zastavkyNaLince.value(j).first->X
-                    && linka->trasaLinky->bodyPohybu->value(i).y() == linka->trasaLinky->zastavkyNaLince.value(j).first->Y)
+                    && linka->trasaLinky->bodyPohybu->value(i).y() == linka->trasaLinky->zastavkyNaLince.value(j).first->Y){
                 pocetZastavok++;
+                qDebug() << "Mam zastavku "<<linka->trasaLinky->zastavkyNaLince.value(j).first->nazovZastavky;
+            }
+
         }
     }
     int miestoVlozenia = index+pocetZastavok;
-        if (miestoVlozenia > 2){
+    qDebug() <<"Idem vkladat na " <<miestoVlozenia << " z indexov " <<index << " "<<pocetZastavok;
+
+        if (miestoVlozenia == 0){
+            if (((linka->trasaLinky->zaciatokX+10) == ulica->x1 && (linka->trasaLinky->zaciatokY+10) == ulica->y1)){
+                linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x2,ulica->y2));
+                qDebug() << "mam " << linka->trasaLinky->zaciatokX <<" " <<linka->trasaLinky->zaciatokY <<" vkladam "<<ulica->x2 <<ulica->y2;
+            }else   {
+                linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x1,ulica->y1));
+                qDebug() << "mam " << linka->trasaLinky->zaciatokX <<" " <<linka->trasaLinky->zaciatokY <<" vkladam x1 "<<ulica->x1<<ulica->y1;
+
+            }
+        } else if (miestoVlozenia > 2){
             if ((linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).x() == ulica->x1 && linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).y() == ulica->y1) ||
                     (linka->trasaLinky->bodyPohybu->value(miestoVlozenia-2).x() == ulica->x1 && linka->trasaLinky->bodyPohybu->value(miestoVlozenia-2).y() == ulica->y1) ){
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x2,ulica->y2));
+                qDebug() <<" vkladam "<<ulica->x2 <<ulica->y2;
+
             }else {
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x1,ulica->y1));
+                qDebug() <<" vkladam "<<ulica->x1 <<ulica->y1;
+
             }
         }else {//druha ulica...nemoze byt i-2
             if (linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).x() == ulica->x1 && linka->trasaLinky->bodyPohybu->value(miestoVlozenia-1).y() == ulica->y1){
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x2,ulica->y2));
+                qDebug() <<" vkladam "<<ulica->x2 <<ulica->y2;
+
             }else {
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x1,ulica->y1));
+                qDebug() <<" vkladam "<<ulica->x1 <<ulica->y1;
+
             }
         }
 }
@@ -378,6 +399,9 @@ void MainWindow::odoberUlicuZLinky(vecItem *linka, ulicaClass *ulica)
         }
     }
     ulica->ulicaItem->setPen(QPen(Qt::red));
+    scene->addLine((ulica->x1+ulica->x2)/2+10,(ulica->y1+ulica->y2)/2+10,(ulica->x1+ulica->x2)/2-10,(ulica->y1+ulica->y2)/2-10,QPen(Qt::red,3));
+    scene->addLine((ulica->x1+ulica->x2)/2-10,(ulica->y1+ulica->y2)/2+10,(ulica->x1+ulica->x2)/2+10,(ulica->y1+ulica->y2)/2-10,QPen(Qt::red,3));
+
     linka->trasaLinky->zoznamUlicLinky->removeAt(indexUliceNaLinke);
     int pocetZastavok = 0;
     for (int i = 0 ;i < indexUliceNaLinke+pocetZastavok;i++){
@@ -389,6 +413,9 @@ void MainWindow::odoberUlicuZLinky(vecItem *linka, ulicaClass *ulica)
     }
     qDebug() << "Mazem bod " <<linka->trasaLinky->bodyPohybu->value(indexUliceNaLinke+pocetZastavok) <<" s indexom "<<indexUliceNaLinke  <<" "<<pocetZastavok;
     linka->trasaLinky->bodyPohybu->removeAt(indexUliceNaLinke+pocetZastavok);
+    if (scene->indexPridavanejUlice >indexUliceNaLinke+pocetZastavok){
+        scene->indexPridavanejUlice = indexUliceNaLinke+pocetZastavok;
+    }
 }
 
 

@@ -27,8 +27,8 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
     //zaciatokX = splitedLine[0].toInt()-10;
     //zaciatokY = splitedLine[1].toInt()-10;
     auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
-    zaciatokX = zastavka->X - 10;
-    zaciatokY = zastavka->Y - 10;
+    zaciatokX = zastavka->X -10;
+    zaciatokY = zastavka->Y -10;
     //pridani zastavky do seznamu zastavek, kterymi projede bus
     zastavkyNaLince.append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
     qDebug() << "prvni zastavka - cas: " << zastavkyNaLince[0].second;
