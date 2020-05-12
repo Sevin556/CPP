@@ -111,6 +111,7 @@ void linkaClass::appendBus(QList<autobusClass *> *seznamBusu, int time, MyScene 
                 qDebug() << "ID append: " << indexAutobusu;
                 autobusClass *autobus = busList[indexAutobusu];
                 scene->addItem(autobus->autobusItem);
+                autobus->autobusItem->show();
                 seznamBusu->append(autobus);
 
             }
