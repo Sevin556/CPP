@@ -1,6 +1,14 @@
 #include "zastavkaclass.h"
 #include "myscene.h"
 
+/**
+ * @brief vytvorí triedu zastávky
+ * @details vytvorí grafický objekt, ktorý reálne začína inde ako zadané súradnice, no je vykreslený aby stred ležal na ulici
+ * @param startX X-sová súradnica ľavého horného rohu objektu na ulici
+ * @param startY Y-ová súradnica ľavého horného rohu objektu na ulici
+ * @param nazov názov zastávky
+ * @param ID ID zastávky
+ */
 zastavkaClass::zastavkaClass(int startX, int startY, QString nazov, int ID)
 {
 

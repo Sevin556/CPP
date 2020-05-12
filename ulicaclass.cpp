@@ -5,6 +5,16 @@
 #include <QGraphicsSceneMouseEvent>
 #include<QDebug>
 
+
+/**
+ * @brief Vytvorí triedu ulice
+ * @param startX začiatočná X-sová súradnica
+ * @param startY začiatočná Y-ová súradnica
+ * @param endX koncová X-sová súradnica
+ * @param endY koncová Y-ová súradnica
+ * @param nazov názov ulice
+ * @param ID ID ulice
+ */
 ulicaClass::ulicaClass(int startX, int startY, int endX, int endY, QString nazov, int ID)
 {
     x1 = startX;
