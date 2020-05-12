@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     timer->setInterval(20);
 
     connect(timer, SIGNAL(timeout()), this, SLOT(timerBus()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(obnovInfo()));
     connect(ui->zoomINBtn,&QPushButton::clicked,this,&MainWindow::zoomIN);
     connect(ui->zoomSlider,&QAbstractSlider::valueChanged,this,&MainWindow::zoomSLider);
     connect(ui->resetBtn,&QPushButton::clicked,this,&MainWindow::resetView);
@@ -215,6 +216,7 @@ void MainWindow::zmenPopisUlice(ulicaClass *ulica)
     font.setPointSize(20);
     ui->infoLabel->setFont(font);
     ui->infoLabel->setText(textik);
+    autobusInfo = nullptr;
 
 }
 
@@ -466,6 +468,18 @@ void MainWindow::zmenPopisZastavky(zastavkaClass *zastavka)
    qDebug() <<zastavka->ID_zastavky;
    text <<"ID zastavky :" <<zastavka->ID_zastavky <<"<br> Nazov zastavky :"<< zastavka->nazovZastavky <<"<br>Pozicia :" <<zastavka->X <<zastavka->Y;
     ui->infoLabel->setText(textik);
+    autobusInfo = nullptr;
+}
+
+void MainWindow::obnovInfo()
+{
+    if(autobusInfo != nullptr && aktualniZastavka != nullptr)
+    {
+        if(aktualniZastavka->second < time){
+            zmenPopisAutbobusu(autobusInfo);
+        }
+
+    }
 }
 
 /**
@@ -474,6 +488,7 @@ void MainWindow::zmenPopisZastavky(zastavkaClass *zastavka)
 */
 void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
 {
+    autobusInfo = autobus;
     QString textik ;
     QTextStream text(&textik);
 
@@ -485,6 +500,12 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
             text << "<font color = 'gray'>";
             text << QTime::fromMSecsSinceStartOfDay(autobus->zastavkyNaLince[i].second * 1000).toString("hh:mm:ss");
             text << autobus->zastavkyNaLince[i].first->nazovZastavky << "</font><br>";
+            if(i + 1 != autobus->zastavkyNaLince.size()){
+                aktualniZastavka = &(autobus->zastavkyNaLince[i+1]);
+            }
+            else{
+                aktualniZastavka = nullptr;
+            }
         }
         else{
             text << QTime::fromMSecsSinceStartOfDay(autobus->zastavkyNaLince[i].second * 1000).toString("hh:mm:ss");

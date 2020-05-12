@@ -20,7 +20,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     MyScene *scene ;
-    autobusClass *autobus ;
+    autobusClass *autobusInfo = nullptr;
+    QPair<zastavkaClass*, int> *aktualniZastavka = nullptr;
     int time = 0;
     linkaClass *linky;
     QTimer *timer;
@@ -64,5 +65,6 @@ private slots:
     void pridajUlicu(int index,vecItem* linka,ulicaClass * ulica);
     void ukonciPridavanieObchadzky();
     void odoberUlicuZLinky(vecItem* linka, ulicaClass *ulica);
+    void obnovInfo();
 };
 #endif // MAINWINDOW_H
