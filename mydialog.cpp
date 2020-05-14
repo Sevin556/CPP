@@ -10,6 +10,11 @@
 #include <QTime>
 #include <QDebug>
 
+/**
+ * @brief myDialog::myDialog Konštruktor pre dialógové okno pri určovaní premavky na ulici
+ * @param ulica kliknutá ulica, o ktorej má byť zobrazené info/zmenená rýchlosť premávky
+ * @param parent objekt z ktorého dedí
+ */
 myDialog::myDialog(ulicaClass *ulica, QWidget *parent):
     QDialog(parent)
 {
@@ -49,6 +54,11 @@ myDialog::myDialog(ulicaClass *ulica, QWidget *parent):
     layout->addWidget(buttonBox);
 }
 
+/**
+ * @brief myDialog::myDialog  Konštruktor pre dialógové okno, ktoré zobrazí informácie o jízdnom řáde
+ * @param linky zoznam všetkých autobusových liniek o ktorých chcem zobraziť informácie
+ * @param parent objekt z ktorého dedí
+ */
 myDialog::myDialog(linkaClass* linky, QWidget *parent):
     QDialog(parent)
 {
@@ -116,7 +126,12 @@ myDialog::myDialog(linkaClass* linky, QWidget *parent):
 }
 
 
-
+/**
+ * @brief myDialog::myDialog  Konštruktor pre dialógové okno pre uzavretie ulice a začatie obchádzky
+ * @param nastavujemObchadzku slúži na rozlíšenie od konštruktora pre rýchlosť premávky
+ * @param ulica kliknutá ulica, ktorá môže byť uzavretá
+ * @param parent objekt z ktorého dedí
+ */
 myDialog::myDialog(bool nastavujemObchadzku, ulicaClass *ulica, QWidget *parent):
     QDialog(parent)
 {
@@ -142,7 +157,11 @@ myDialog::myDialog(bool nastavujemObchadzku, ulicaClass *ulica, QWidget *parent)
     connect(button,&QPushButton::clicked,this,&myDialog::nastavObchadzku);
 }
 
-
+/**
+ * @brief myDialog::myDialog  Konštruktor pre dialógové okno pre zobrazenie a ukončenie nastavovania obchádzky na určitej linke
+ * @param linka linka na ktorej sa obchádzka nastavuje
+ * @param parent objekt z ktorého dedí
+ */
 myDialog::myDialog(vecItem *linka, QWidget *parent):
     QDialog(parent)
 {
@@ -175,31 +194,44 @@ myDialog::myDialog(QString text,QWidget *parent):
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 }
 
-
+/**
+ * @brief myDialog::nastavNormalnu nastaví normálnu rýchlosť premávky
+ */
 void myDialog::nastavNormalnu()
 {
     ulica->rychlostPremavky = 1;
     accept();
 }
-
+/**
+ * @brief myDialog::nastavSpicku nastaví spomalenú rýchlosť premávky
+ */
 void myDialog::nastavSpicku()
 {
     ulica->rychlostPremavky = 3;
     accept();
 }
 
+/**
+ * @brief myDialog::nastavZapchu nastaví najpomalšíu rýchlosť premávky
+ */
 void myDialog::nastavZapchu()
 {
     ulica->rychlostPremavky = 5;
     accept();
 }
 
+/**
+ * @brief myDialog::nastavObchadzku signál, slúži na oznámenie hlavnému oknu, že sa ide nastavovať obchádzka
+ */
 void myDialog::nastavObchadzku()
 {
     naklikajUlicu(ulica);
     accept();
 }
 
+/**
+ * @brief myDialog::obchadzkaHotova signál, slúži na oznámenie hlavnému oknu, že obchádzka je ukončená
+ */
 void myDialog::obchadzkaHotova()
 {
     obchadzkaUkoncena();

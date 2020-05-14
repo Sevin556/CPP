@@ -26,7 +26,6 @@ public:
 
     QMap<int,ulicaClass*>zoznamUlicMesta;
     QGraphicsEllipseItem *autobusItem;
-   // MyScene *scene;
 
     //pohyb
     int smerX;

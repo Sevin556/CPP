@@ -16,6 +16,11 @@
 #include <QTime>
 #include <QFont>
 
+/**
+ * @brief MainWindow::MainWindow Konštruktor zobrazeného okna
+ * @details vytvorí scénu,vykreslí ulice a zastávky,vytvorí timer a začne zachytávať všetky potrebné signály
+ * @param parent prvok z ktorého dedí
+ */
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -64,7 +69,9 @@ MainWindow::MainWindow(QWidget *parent)
     scene->addInfo(zoznamUlic,zoznamZastavok,&zoznamAutobusov);
 }
 
-
+/**
+ * @brief MainWindow::~MainWindow Deštruktor
+ */
 MainWindow::~MainWindow()
 {
     for(auto i = zoznamUlic.begin(); i != zoznamUlic.end(); ++i)
@@ -201,7 +208,9 @@ void MainWindow::editTime(QString text)
     linky->setTime(&zoznamAutobusov, time, scene);
 }
 
-
+/**
+ * @brief MainWindow::jizdniRadDialog zobrazí informácie o všetkých linkách
+ */
 void MainWindow::jizdniRadDialog()
 {
 
@@ -242,7 +251,12 @@ void MainWindow::uzavriCestu(ulicaClass* ulica)
     connect(dialog,&myDialog::naklikajUlicu,this,&MainWindow::naklikajObchadzku);
 }
 
-
+/**
+ * @brief MainWindow::naklikajObchadzku spracuje uzavretie ulice
+ * @details zístí a uloží informácie o všetkých linkách v ktorých sa vyskytuje uzatváraná ulica, nakreslí krížik a odstráni ulicu z linky, zobrazí ukončovacie dialógové okno.
+ * Ak je na rušenej ulici zastávky postará sa aj o jej odstránenie
+ * @param uzavretaUlica ulica ktorá bola uzavretá
+ */
 void MainWindow::naklikajObchadzku(ulicaClass* uzavretaUlica)
 {
     for (int i = 0 ;i<linky->seznamLinek.size();i++){
@@ -320,6 +334,14 @@ void MainWindow::naklikajObchadzku(ulicaClass* uzavretaUlica)
 
 }
 
+/**
+ * @brief MainWindow::pridajUlicu pridáva ulicu do aktuálne menenej linky
+ * @details vypočíta koľko zastávok bude na danej linke pred pridávanou ulicou a postará sa o vloženie správneho konca ulice do vectora bodov, po ktorých sa autobus pohybuje.
+ *  Prekreslí pridávanú ulicu na žlto.
+ * @param index index na ktorý vloží kliknutú ulicu
+ * @param linka linka do ktorej sa pridáva ulica
+ * @param ulica pridávaná ulica
+ */
 void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
 {
 
@@ -399,7 +421,11 @@ void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
             }
         }
 }
-
+/**
+ * @brief MainWindow::ukonciPridavanieObchadzky Ukončí pridávanie ulíc do linky
+ *  @details Ak nie je linka prepojená ( obchádzka nespojila ulice ktoré boli rozdelené) tak užívateľovi nedovolí ukončiť pridávanie obchadzky. Inak skontroluje či ide o poslednú linku
+ *  na ktorej vznikla prekážka a ak nie tak začne nový cyklus pridávania uĺic do obchádzky.
+ */
 void MainWindow::ukonciPridavanieObchadzky()
 {
     bool pokracuj = false;
@@ -499,6 +525,11 @@ void MainWindow::ukonciPridavanieObchadzky()
 
 }
 
+/**
+ * @brief MainWindow::odoberUlicuZLinky odoberie ulicu z linky
+ * @param linka linka z ktorej sa odoberá daná ulica
+ * @param ulica odoberaná ulica
+ */
 void MainWindow::odoberUlicuZLinky(vecItem *linka, ulicaClass *ulica)
 {
     int indexUliceNaLinke;
@@ -536,6 +567,11 @@ void MainWindow::odoberUlicuZLinky(vecItem *linka, ulicaClass *ulica)
     }
 }
 
+/**
+ * @brief MainWindow::odoberZastavkuZLinky odoberie zastávku z linky pri vytváraní obchadzky
+ * @param linka linka z ktorej sa odoberie zastávka
+ * @param zastavka odoberaná zastávka
+ */
 void MainWindow::odoberZastavkuZLinky(vecItem *linka, zastavkaClass * zastavka)
 {
     for (int i = 0;i < linka->trasaLinky->zastavkyNaLince->size();i++){
@@ -578,8 +614,8 @@ void MainWindow::obnovInfo()
 }
 
 /**
-* Slot, ktory zachytava signal o kliknuti na autobus, zobrazi info o autobuse
-* @param trieda kliknuteho autobusu
+* @brief MainWindow::zmenPopisAutbobusu  zobrazi info o kliknutom autobuse
+* @param autobus kliknuty autobus
 */
 void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
 {
@@ -617,10 +653,9 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
     }
 }
 
-
 /**
-* Nacita a prida do sceny a zoznamu zastavok autobusove zastavky
-*/
+ * @brief MainWindow::generateBusStops pridá  do scény a zoznamu zastávok autobusové zastávky
+ */
 void MainWindow::generateBusStops()
 {
     QFile file("zastavky.txt");
@@ -655,9 +690,8 @@ void MainWindow::generateBusStops()
 
 
 /**
-* Vytvorenie zoznamu ulíc a ich zakreslenie na mapu
-* ulice načítava zo súboru
-*/
+ * @brief MainWindow::createMap pridá na scénu ulice zo súboru
+ */
 void MainWindow::createMap()
 {
     QFile file("test.txt");
