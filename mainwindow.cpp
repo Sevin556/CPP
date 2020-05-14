@@ -596,7 +596,7 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
             text << QTime::fromMSecsSinceStartOfDay(autobus->zastavkyNaLince->value(i).second * 1000).toString("hh:mm:ss");
             text << autobus->zastavkyNaLince->value(i).first->nazovZastavky << "</font><br>";
             if(i + 1 != autobus->zastavkyNaLince->size()){
-               // aktualniZastavka = &(autobus->zastavkyNaLince->value(i+1));
+                aktualniZastavka = &((*autobus->zastavkyNaLince)[i+1]);
             }
             else{
                 aktualniZastavka = nullptr;
