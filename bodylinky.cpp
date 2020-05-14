@@ -46,6 +46,7 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
             continue;
         }
         QStringList splitedLine = line.split(" ");
+        qDebug() << splitedLine.size();
 
        // qDebug() <<splitedLine.size()<<"index :"<<i;
         if (splitedLine.size() ==1){ // bod nacitavam z ulice
@@ -61,6 +62,7 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
                 }*/
             }else {
                 if (i >= 2){
+                    qDebug() << "dalsi ulice";
                     if ((bodyPohybu->value(i-1).x() == ulica->x1 && bodyPohybu->value(i-1).y() == ulica->y1) ||
                             (bodyPohybu->value(i-2).x() == ulica->x1 && bodyPohybu->value(i-2).y() == ulica->y1) ){
                         bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
@@ -97,10 +99,16 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
             zoznamUlicLinky->append(ulica);
 
         }else { // bod nacitavam zo zastavky
-            auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
-            bodyPohybu->insert(i,QPoint(zastavka->X,zastavka->Y));
-            //pridani zastavky do seznamu zastavek, kterymi projede bus
-            zastavkyNaLince->append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
+
+            if(zoznamZastavok.contains(splitedLine[1].toInt())){
+                auto * zastavka = zoznamZastavok[splitedLine[1].toInt()];
+                bodyPohybu->insert(i,QPoint(zastavka->X,zastavka->Y));
+                //pridani zastavky do seznamu zastavek, kterymi projede bus
+                zastavkyNaLince->append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
+            }
+            else{
+                qDebug() << "zastavka s id "<< splitedLine[1].toInt() << "nenalezena";
+            }
         }
         line = instream.readLine(50);
         i++;

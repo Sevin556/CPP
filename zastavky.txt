@@ -15,3 +15,8 @@ Obytna 270 500 14
 ObytnaII 400 350 15
 Zavodnicka 400 -175 16
 Murietova -500 -300 17
+Navratilova -400 180 18
+Svobodna -230 -200 19
+Uzka -70 120 20
+Soud -200 170 21
+Vodnikova 200 70 22

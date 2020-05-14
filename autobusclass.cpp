@@ -95,6 +95,11 @@ int autobusClass::pocitajTrasu()
         autobusItem->hide();
         index = 0;
         indexZastavky = 0;
+        aktualnaPozicia.setX(zaciatokTrasyX+10);
+        aktualnaPozicia.setY(zaciatokTrasyY+10);
+        dalsiBod = aktualnaPozicia;
+        dalsiaZastavka.setX(zastavkyNaLince->value(0).first->X);
+        dalsiaZastavka.setY(zastavkyNaLince->value(0).first->Y);
         return 1;
     }
    // int temp = zoznamUlicLinky[index];

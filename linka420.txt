@@ -1,0 +1,39 @@
+Uzka 20 0
+6
+73
+23
+Ferkova 3 300
+13
+14
+15
+15
+4
+42
+Svobodna 19 800
+69
+Murietova 17 1200
+56
+18
+Husitska 5 1600
+17
+16
+70
+15
+14
+13
+Ferkova 2 2300
+76
+Ferkova 1 2400
+25
+27
+Ferkova 4 2900
+26
+25
+25
+12
+75
+Vodnikova 22 3600
+31
+30
+29
+Fialkova 10 4000

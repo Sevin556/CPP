@@ -1,21 +1,39 @@
-Fialkova 10 10
+Fialkova 10 0
+65
 66
+Zavodnicka 16 480
 67
 68
-78
-Skacelova 11 1600
+Skacelova 11 1120
 78
 43
+Svobodna 19 1500
 42
 4
 71
 5
 73
-6
+Uzka 20 2200
 7
 8
 60
 61
+Obytna 14 2900
+61
 53
-Ferkova 6 2600
-
+Ferkova 6 3200
+54
+77
+ObytnaII 15 3600
+64
+52
+80
+Kvetinova 13 3800
+60
+8
+7
+44
+Soud 21 4600
+72
+23
+Ferkova 3 4800
