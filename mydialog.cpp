@@ -77,7 +77,7 @@ myDialog::myDialog(linkaClass* linky, QWidget *parent):
 
         // nastaveni sloupcu a radku
         int colCount = linky->seznamLinek[poradi]->zoznamOdchodov.size() + 1;
-        int rowCount = linky->seznamLinek[poradi]->trasaLinky->zastavkyNaLince.size();
+        int rowCount = linky->seznamLinek[poradi]->trasaLinky->zastavkyNaLince->size();
         table->setColumnCount(colCount);
         table->setRowCount(rowCount);
 
@@ -88,7 +88,7 @@ myDialog::myDialog(linkaClass* linky, QWidget *parent):
         {
             // nazev zastavky
             QTableWidgetItem* item = new QTableWidgetItem;
-            item->setText(linky->seznamLinek[poradi]->trasaLinky->zastavkyNaLince[indexZastavky].first->nazovZastavky);
+            item->setText(linky->seznamLinek[poradi]->trasaLinky->zastavkyNaLince->value(indexZastavky).first->nazovZastavky);
             table->setItem(indexZastavky, 0, item);
 
             // jednotlive casy
@@ -97,7 +97,7 @@ myDialog::myDialog(linkaClass* linky, QWidget *parent):
                 // vytvoreni polozky
                 QTableWidgetItem* item = new QTableWidgetItem;
                 int cas = linky->seznamLinek[poradi]->zoznamOdchodov[indexOdchodu];
-                cas = cas + linky->seznamLinek[poradi]->trasaLinky->zastavkyNaLince[indexZastavky].second;
+                cas = cas + linky->seznamLinek[poradi]->trasaLinky->zastavkyNaLince->value(indexZastavky).second;
                 // prevedeni sekund na format hh:mm:ss
                 item->setText(QTime::fromMSecsSinceStartOfDay(cas * 1000).toString("hh:mm:ss"));
                 // vlozeni polozky do tabulky (indexOdchodu + 1 kvuli nazvu zastavky)
@@ -159,14 +159,14 @@ myDialog::myDialog(vecItem *linka, QWidget *parent):
     connect(button,&QPushButton::clicked,this,&myDialog::obchadzkaHotova);
 }
 
-myDialog::myDialog(QWidget *parent):
+myDialog::myDialog(QString text,QWidget *parent):
     QDialog(parent)
 {
     QVBoxLayout *layout = new QVBoxLayout;
     this->setLayout(layout);
 
     QLabel * label = new QLabel;
-    label->setText("Ulica nenadväzuje na predchádzajúcu, skús znovu ");
+    label->setText(text);
     layout->addWidget(label);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);

@@ -54,7 +54,6 @@ private slots:
     void start_stop();
     void speed(int value);
     void timerBus();
-    void vytvorAutobus();
     void zmenPopisUlice(ulicaClass* ulica);
     void zmenPopisZastavky(zastavkaClass *zastavka);
     void zmenPopisAutbobusu(autobusClass *autobus);
@@ -65,6 +64,7 @@ private slots:
     void pridajUlicu(int index,vecItem* linka,ulicaClass * ulica);
     void ukonciPridavanieObchadzky();
     void odoberUlicuZLinky(vecItem* linka, ulicaClass *ulica);
+    void odoberZastavkuZLinky(vecItem* linka,zastavkaClass * zastavka);
     void obnovInfo();
 };
 #endif // MAINWINDOW_H

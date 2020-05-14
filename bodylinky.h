@@ -18,7 +18,7 @@ public:
     QList<ulicaClass*> *zoznamUlicLinky = new QList<ulicaClass*>();
 
     //zastavky na dane lince + doba, za kterou by mel vyrazit z dane zastavky
-    QVector<QPair<zastavkaClass*, int>>zastavkyNaLince;
+    QVector<QPair<zastavkaClass*, int>> *zastavkyNaLince = new QVector<QPair<zastavkaClass*,int>>();
 };
 
 #endif // BODYLINKY_H

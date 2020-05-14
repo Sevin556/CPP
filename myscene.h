@@ -41,6 +41,7 @@ signals:
     void rightClick(ulicaClass*);
     void pridajUlicuDoLinky(int index,vecItem* linka,ulicaClass*ulica);
     void odoberUlicu(vecItem* linka,ulicaClass * ulica);
+    void odoberZastavku(vecItem* linka,zastavkaClass *zastavka);
 
 private slots:
 

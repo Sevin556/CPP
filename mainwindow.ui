@@ -106,13 +106,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pridajBtn">
-          <property name="text">
-           <string>Pridaj Autobus</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="jizdniRadBtn">
           <property name="text">
            <string>Jízdní řád</string>

@@ -7,7 +7,7 @@
 
 
 /**
- * @brief Vytvorí triedu ulice
+ * @brief ulicaClass::ulicaClass Vytvorí triedu ulice
  * @param startX začiatočná X-sová súradnica
  * @param startY začiatočná Y-ová súradnica
  * @param endX koncová X-sová súradnica

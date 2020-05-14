@@ -15,7 +15,7 @@ MyScene::MyScene(QObject *parent):
 }
 
 /**
-* @brief Prida do triedy informacie o jej objektoch, ktore neboli dostupne pri jej inicializacii
+* @brief MyScene::addInfo Prida do triedy informacie o jej objektoch, ktore neboli dostupne pri jej inicializacii
 * @param zoznamUlic zoznam tried ulic vykreslenych na scene
 * @param zoznamZastavok tried zastavok vykreslenych na scene
 * @param zoznamAutobusov autobusom, ktore su momentalne vykreslene na scene
@@ -28,8 +28,8 @@ void MyScene::addInfo(QMap<int, ulicaClass*> zoznamUlic,QMap<int, zastavkaClass*
 }
 
 /**
-*@brief spracuje mouse event a rozhodne kam ho ďalej preposlať
-* @details zistí či sa kliklo na nejaký objekt scény, či je mód pridávania ulíc do obchádzky zapnutý, preiteruje zoznamy objektov na scéne a
+*@brief MyScene::mousePressEvent spracuje mouse event a rozhodne kam ho ďalej preposlať
+*@details zistí či sa kliklo na nejaký objekt scény, či je mód pridávania ulíc do obchádzky zapnutý, preiteruje zoznamy objektov na scéne a
 *  ak sa rovná pointer kliknutého a v pointer zozname tak ho pošle signálom dalšej funckii na spracovanie. Nakoniec prepošle event do QGraphicsScene::mousePressEvent
 *@param event ukazateľ na mouse event, ktorý vyvolal signál
 */
@@ -49,11 +49,15 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                    odoberUlicu(menenaLinka,i.value());
                 }else{
                     pridajUlicuDoLinky(indexPridavanejUlice,menenaLinka,i.value());
-                    indexPridavanejUlice++;
                 }
 
                 QGraphicsScene::mousePressEvent(event);
                 return;
+            }
+        }
+        for (int i = 0 ;i < zoznamZastavok.size();i++){
+            if (temp[0] == zoznamZastavok.value(i)->zastavkaItem && event->button() == Qt::RightButton){
+
             }
         }
     }else if (!klikamObchadzku) {

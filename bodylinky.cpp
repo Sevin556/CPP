@@ -30,10 +30,10 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
     zaciatokX = zastavka->X -10;
     zaciatokY = zastavka->Y -10;
     //pridani zastavky do seznamu zastavek, kterymi projede bus
-    zastavkyNaLince.append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
-    qDebug() << "prvni zastavka - cas: " << zastavkyNaLince[0].second;
+    zastavkyNaLince->append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
+    qDebug() << "prvni zastavka - cas: " << zastavkyNaLince->value(0).second;
     //tu treba priratat to co sa odcitalo aby sedeli stredy bodov a cesty
-
+    ulicaClass * prvaUlica;
 
    // qDebug() <<zaciatokX <<zaciatokY;
    // qDebug() <<zaciatokX <<zaciatokY;
@@ -51,14 +51,16 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
         if (splitedLine.size() ==1){ // bod nacitavam z ulice
             auto * ulica = zoznamUlic->value(splitedLine[0].toInt());
             if (i == 0){
-                if (zaciatokX+10 == ulica->x1 && (zaciatokY+10 == ulica->y1)){
+                prvaUlica = ulica;
+                qDebug() <<"prva ulica ";
+               /* if (zaciatokX+10 == ulica->x1 && (zaciatokY+10 == ulica->y1)){
                     bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
+
                 }else {
                     bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
-                }
+                }*/
             }else {
-                if (i > 2){
-
+                if (i >= 2){
                     if ((bodyPohybu->value(i-1).x() == ulica->x1 && bodyPohybu->value(i-1).y() == ulica->y1) ||
                             (bodyPohybu->value(i-2).x() == ulica->x1 && bodyPohybu->value(i-2).y() == ulica->y1) ){
                         bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
@@ -66,11 +68,27 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
                         bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
                     }
                 }else {//druha ulica...nemoze byt i-2
-                    if (bodyPohybu->value(i-1).x() == ulica->x1 && bodyPohybu->value(i-1).y() == ulica->y1){
+                    qDebug() << "Idem na druu ulicu";
+                    if (prvaUlica->x1 == ulica->x1 && prvaUlica->y1 == ulica->y1){
+                        bodyPohybu->insert(i-1,QPoint(prvaUlica->x1,prvaUlica->y1));
+                        bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
+                    } else if (prvaUlica->x1 == ulica->x2 && prvaUlica->y1 == ulica->y2){
+                        bodyPohybu->insert(i-1,QPoint(prvaUlica->x1,prvaUlica->y1));
+                        bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
+
+                    } else if (prvaUlica->x2 == ulica->x1 && prvaUlica->y2 == ulica->y1){
+                        bodyPohybu->insert(i-1,QPoint(prvaUlica->x2,prvaUlica->y2));
+                        bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
+                    } else {
+                        bodyPohybu->insert(i-1,QPoint(prvaUlica->x2,prvaUlica->y2));
+                        bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
+                    }
+
+                    /*if (bodyPohybu->value(i-1).x() == ulica->x1 && bodyPohybu->value(i-1).y() == ulica->y1){
                         bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
                     }else {
                         bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
-                    }
+                    }*/
                 }
 
             }
@@ -82,7 +100,7 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
             auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
             bodyPohybu->insert(i,QPoint(zastavka->X,zastavka->Y));
             //pridani zastavky do seznamu zastavek, kterymi projede bus
-            zastavkyNaLince.append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
+            zastavkyNaLince->append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
         }
         line = instream.readLine(50);
         i++;
