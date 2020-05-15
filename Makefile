@@ -3,6 +3,7 @@ PROJ=projektcpp
 ARCHIVE=xlogin00-xsovam00
 EXAMPLES=./examples
 DOC=./doc
+QMAKE=qmake
 
 make: qmake
 	make --directory=$(SRC)
@@ -21,4 +22,4 @@ run: qmake
 	make --directory=$(SRC)
 	cd $(SRC) && ./$(PROJ)
 qmake:
-	qmake-qt5 $(SRC)/$(PROJ).pro -o $(SRC)/Makefile
+	$(QMAKE) $(SRC)/$(PROJ).pro -o $(SRC)/Makefile
