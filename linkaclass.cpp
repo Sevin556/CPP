@@ -8,7 +8,12 @@
 #include <QVector>
 #include <QMap>
 
-
+/**
+ * @brief linkaClass::linkaClass Konštruktor triedy
+ * @details zo súboru načíta a vytvorí jednotlivé linky a vytvorí autobus pre každú jazdu linky
+ * @param seznamUlic zoznam ulíc na scéne
+ * @param seznamZastavek zoznam zastávok na scéne
+ */
 linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek)
 {
 
@@ -28,14 +33,15 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
             continue;
         }
 
-        //    QVector<QPair<QString,QPair<bodyLinky*,QList<int>>>> seznamLinek;
         QStringList splitedLine= line.split(" ");
-        // nazev souboru s trasou linky
         bool najdene = false;
 
         for (int i =0; i<seznamLinek.size();i++){
             if (seznamLinek[i]->nazovLinky==splitedLine[0]){
+                // uz existuje linka s dany nazvom
                 najdene = true;
+
+                //preistotu kontrola ci nie je linka definovana inym suborom ako naposledy
                 if (seznamLinek[i]->suborTrasy != splitedLine[1]){
                     qDebug() << "chybne zadany subor--linka uz je definovana z ineho suboru";
                     exit(1);
@@ -50,6 +56,7 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
         }
         if (!najdene){
 
+            //linka s danym nazvom este neexistuje a treba ju vytvorit
             vecItem *item =new vecItem();
             item->nazovLinky =  splitedLine[0];
             item->suborTrasy = splitedLine[1];
@@ -70,10 +77,10 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
     }
 
 
-    qDebug() <<"skoncil som";
     file.close();
     //sluzi na lahsie identifikovanie autobusov
     int indexAutobusu = 0;
+    // vytvori autobus pre kazdu jazdu linky
     for (int i = 0; i < seznamLinek.size(); i++){
         for(int j = 0; j < seznamLinek[i]->zoznamOdchodov.size();j++){
             indexAutobusu++;
@@ -87,7 +94,9 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
     return;
 
 }
-
+/**
+ * @brief linkaClass::~linkaClass deštruktor
+ */
 linkaClass::~linkaClass()
 {
     for(int i = 0; i < busList.size(); i++)
@@ -155,6 +164,11 @@ void linkaClass::setTime(QList<autobusClass *> *seznamBusu, int time, MyScene *s
     }
 }
 
+/**
+ * @brief linkaClass::linkaBusu nájde linku konkretneho autobusu
+ * @param id id hľadaného autobusu
+ * @return názov linky, ktorej hľadaný autobus patrí
+ */
 QString linkaClass::linkaBusu(int id){
     int indexAutobusu=0;
     for (int i = 0; i < seznamLinek.size(); i++){

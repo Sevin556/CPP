@@ -6,11 +6,17 @@
 #include "zastavkaclass.h"
 #include <QTime>
 
+/**
+ * @brief bodyLinky::bodyLinky vytvorí zoznam bodov pohybu pre autobusovú linku
+ * @details načíta súbor, z ktorého postupne získava ulice a zastávky, po ktorých sa bude pohybovať a následne počíta z nich jednotlivé body pohybu
+ * @param zoznamUlic zoznam ulíc na scéne
+ * @param zoznamZastavok zoznam zastávok na scéne
+ * @param subor meno súboru z ktorého číta informácie
+ */
 bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>zoznamZastavok,QString subor)
 {
 
     QFile file(subor);
-    //zoznamUlicMesta = *zoznamUlic;
     if(!file.open(QIODevice::ReadOnly))
     {
         qDebug() << "error opening file: " << file.error();
@@ -24,19 +30,15 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
 
 
     //-10 kvoli tomu aby bol v strede cesty, kedze objekt ma 20x20 pixelov
-    //zaciatokX = splitedLine[0].toInt()-10;
-    //zaciatokY = splitedLine[1].toInt()-10;
     auto * zastavka = zoznamZastavok.value(splitedLine[1].toInt());
     zaciatokX = zastavka->X -10;
     zaciatokY = zastavka->Y -10;
     //pridani zastavky do seznamu zastavek, kterymi projede bus
     zastavkyNaLince->append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
     qDebug() << "prvni zastavka - cas: " << zastavkyNaLince->value(0).second;
-    //tu treba priratat to co sa odcitalo aby sedeli stredy bodov a cesty
     ulicaClass * prvaUlica;
 
-   // qDebug() <<zaciatokX <<zaciatokY;
-   // qDebug() <<zaciatokX <<zaciatokY;
+
     line = instream.readLine(50);
     //nacitanie vsetkych ulic zo zoznamu a ulozenie do QList odkial sa budu brat pri hladani dalsieho bodu
     int i =0;
@@ -52,17 +54,13 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
         if (splitedLine.size() ==1){ // bod nacitavam z ulice
             auto * ulica = zoznamUlic->value(splitedLine[0].toInt());
             if (i == 0){
+                //prva ulica a teda nevieme ktory smerom po nej pojdeme
                 prvaUlica = ulica;
-                qDebug() <<"prva ulica ";
-               /* if (zaciatokX+10 == ulica->x1 && (zaciatokY+10 == ulica->y1)){
-                    bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
 
-                }else {
-                    bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
-                }*/
             }else {
                 if (i >= 2){
                     qDebug() << "dalsi ulice";
+                    //zistujeme ktorym smerom ideme po ulici podla koncoveho bodu predchadzajucejj
                     if ((bodyPohybu->value(i-1).x() == ulica->x1 && bodyPohybu->value(i-1).y() == ulica->y1) ||
                             (bodyPohybu->value(i-2).x() == ulica->x1 && bodyPohybu->value(i-2).y() == ulica->y1) ){
                         bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
@@ -70,7 +68,7 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
                         bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
                     }
                 }else {//druha ulica...nemoze byt i-2
-                    qDebug() << "Idem na druu ulicu";
+                    // ak rovnaju dva a dva body tak na seba nadvazuju a teda vieme urcite ktorym smerom ideme po prvej ulici
                     if (prvaUlica->x1 == ulica->x1 && prvaUlica->y1 == ulica->y1){
                         bodyPohybu->insert(i-1,QPoint(prvaUlica->x1,prvaUlica->y1));
                         bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
@@ -86,11 +84,6 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
                         bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
                     }
 
-                    /*if (bodyPohybu->value(i-1).x() == ulica->x1 && bodyPohybu->value(i-1).y() == ulica->y1){
-                        bodyPohybu->insert(i,QPoint(ulica->x2,ulica->y2));
-                    }else {
-                        bodyPohybu->insert(i,QPoint(ulica->x1,ulica->y1));
-                    }*/
                 }
 
             }
