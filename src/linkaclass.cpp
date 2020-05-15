@@ -18,10 +18,13 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
 {
 
     // nacteni linek ze souboru
-    QFile file("linky-seznam.txt");
+    QString basedir = "../examples/";
+    QString seznam = basedir + "linky-seznam.txt";
+    qDebug() << "seznam: " << seznam;
+    QFile file(seznam);
     if(!file.open(QIODevice::ReadOnly))
     {
-        qDebug() << "error opening file: " << file.error();
+        qDebug() << "error opening file: " << seznam;
         return;
     }
 
@@ -42,7 +45,7 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
                 najdene = true;
 
                 //preistotu kontrola ci nie je linka definovana inym suborom ako naposledy
-                if (seznamLinek[i]->suborTrasy != splitedLine[1]){
+                if (seznamLinek[i]->suborTrasy != basedir + splitedLine[1]){
                     qDebug() << "chybne zadany subor--linka uz je definovana z ineho suboru";
                     exit(1);
                 }
@@ -59,7 +62,7 @@ linkaClass::linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaCl
             //linka s danym nazvom este neexistuje a treba ju vytvorit
             vecItem *item =new vecItem();
             item->nazovLinky =  splitedLine[0];
-            item->suborTrasy = splitedLine[1];
+            item->suborTrasy = basedir + splitedLine[1];
             // cas zahajeni cesty
 
             item->trasaLinky = new bodyLinky(seznamUlic,seznamZastavek,item->suborTrasy);

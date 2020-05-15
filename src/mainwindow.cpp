@@ -658,7 +658,7 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
  */
 void MainWindow::generateBusStops()
 {
-    QFile file("zastavky.txt");
+    QFile file("../examples/zastavky.txt");
     if(!file.open(QIODevice::ReadOnly))
     {
         qDebug() << "error opening file: " << file.error();
@@ -694,7 +694,7 @@ void MainWindow::generateBusStops()
  */
 void MainWindow::createMap()
 {
-    QFile file("ulice.txt");
+    QFile file("../examples/ulice.txt");
 
     if(!file.open(QIODevice::ReadOnly))
     {
