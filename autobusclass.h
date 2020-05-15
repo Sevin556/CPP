@@ -45,7 +45,7 @@ public:
     QPoint dalsiaZastavka;
 
     //zastavky na dane lince + doba, za kterou by mel vyrazit z dane zastavky
-    QVector<QPair<zastavkaClass*, int>>*zastavkyNaLince;
+    QVector<QPair<zastavkaClass*, int>>zastavkyNaLince;
 
     //funkcie
     autobusClass(bodyLinky *linka, int time,int ID,QString nazovLinky, QObject * parent);

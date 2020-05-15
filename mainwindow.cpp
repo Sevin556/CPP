@@ -628,21 +628,21 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
     text << "ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y()<< "<br> Moje meskanie: " << autobus->meskanie <<" minut<br>"<<"Idem po ulici" << autobus->zoznamUlicLinky->value(autobus->index-autobus->indexZastavky)->ID_ulice;
     text << "<br>Linka: " << linky->linkaBusu(autobus->MojeID) << "<br>Zastavky:<br>";
 
-    for(int i = 0; i < autobus->zastavkyNaLince->size(); i++){
-        if(autobus->zastavkyNaLince->value(i).second < time){
+    for(int i = 0; i < autobus->zastavkyNaLince.size(); i++){
+        if(autobus->zastavkyNaLince.value(i).second < time){
             text << "<font color = 'gray'>";
-            text << QTime::fromMSecsSinceStartOfDay(autobus->zastavkyNaLince->value(i).second * 1000).toString("hh:mm:ss");
-            text << autobus->zastavkyNaLince->value(i).first->nazovZastavky << "</font><br>";
-            if(i + 1 != autobus->zastavkyNaLince->size()){
-                aktualniZastavka = &((*autobus->zastavkyNaLince)[i+1]);
+            text << QTime::fromMSecsSinceStartOfDay(autobus->zastavkyNaLince.value(i).second * 1000).toString("hh:mm:ss");
+            text << autobus->zastavkyNaLince.value(i).first->nazovZastavky << "</font><br>";
+            if(i + 1 != autobus->zastavkyNaLince.size()){
+                aktualniZastavka = &(autobus->zastavkyNaLince[i+1]);
             }
             else{
                 aktualniZastavka = nullptr;
             }
         }
         else{
-            text << QTime::fromMSecsSinceStartOfDay(autobus->zastavkyNaLince->value(i).second * 1000).toString("hh:mm:ss");
-            text << autobus->zastavkyNaLince->value(i).first->nazovZastavky << "<br>";
+            text << QTime::fromMSecsSinceStartOfDay(autobus->zastavkyNaLince.value(i).second * 1000).toString("hh:mm:ss");
+            text << autobus->zastavkyNaLince.value(i).first->nazovZastavky << "<br>";
         }
     }
     ui->infoLabel->setTextFormat(Qt::RichText);
