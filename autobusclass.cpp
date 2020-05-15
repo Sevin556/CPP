@@ -25,7 +25,6 @@ autobusClass::autobusClass(bodyLinky* linka, int time,int ID,QString nazovLinky,
 
     this->nazovLinky = nazovLinky;
     MojeID = ID;
-
     //-10 kvoli tomu aby bol v strede cesty, kedze objekt ma 20x20 pixelov
     zaciatokTrasyX = linka->zaciatokX;
     zaciatokTrasyY = linka->zaciatokY;
@@ -88,8 +87,6 @@ int autobusClass::pocitajTrasu()
         qDebug() << "here";
         autobusItem->hide();
         index = 0;
-        stojim =0;
-        poradi = 0;
         indexZastavky = 0;
         aktualnaPozicia.setX(zaciatokTrasyX+10);
         aktualnaPozicia.setY(zaciatokTrasyY+10);
@@ -110,6 +107,7 @@ int autobusClass::pocitajTrasu()
         // je na zastavce:
         if(dalsiBod.x() == zastavkyNaLince->value(i).first->X && dalsiBod.y() == zastavkyNaLince->value(i).first->Y){
             idemDoZastavky = true;
+            qDebug() << "Idem do zastavky";
         }
     }
 
@@ -118,12 +116,14 @@ int autobusClass::pocitajTrasu()
     if (idemDoZastavky){
         if (index >1){
             // spomalnie berie z predchadzajucej cesty
-             premavka = zoznamUlicLinky->value(index-(indexZastavky+1))->rychlostPremavky;
+             premavka = zoznamUlicLinky->value(index-(indexZastavky))->rychlostPremavky;
         }else
             premavka = 1;
     }else{
-
-        premavka = zoznamUlicLinky->value(index-(indexZastavky))->rychlostPremavky;
+        if (indexZastavky == 0){
+            premavka = zoznamUlicLinky->value(index)->rychlostPremavky;
+        }else
+        premavka = zoznamUlicLinky->value(index-(indexZastavky-1))->rychlostPremavky;
     }
     qDebug() << "heeeeeereeee";
     //pocitanie koeficientu na postup k dalsiemu bodu pod istym uhlom

@@ -69,13 +69,13 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     //ak je temp nenulove znamena ze nasiel nejake itemy, ak ich je viac tak pouziva ten najvrchensi (posledny vykresleny)
     if (temp.size()>0){
-        qDebug()<<"idem porovnavat";
         for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
             if (temp[0]== i.value()->ulicaItem){
                 qDebug() <<"ID ULICE JE :" <<i.value()->ID_ulice<<i.value()->nazovUlice;
                 if (event->button()==Qt::RightButton){
                     rightClick(i.value());
                 }else{
+                    i.value()->ulicaItem->setPen(QPen(Qt::green,5));
                     infoZmeneneUlica(i.value());
                 }
                 QGraphicsScene::mousePressEvent(event);

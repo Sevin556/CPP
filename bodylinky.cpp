@@ -35,6 +35,7 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
     zaciatokY = zastavka->Y -10;
     //pridani zastavky do seznamu zastavek, kterymi projede bus
     zastavkyNaLince->append(qMakePair(zastavka, (splitedLine[2].toInt()) % 86400));
+    qDebug() << "prvni zastavka - cas: " << zastavkyNaLince->value(0).second;
     ulicaClass * prvaUlica;
 
 
@@ -47,6 +48,7 @@ bodyLinky::bodyLinky(QMap<int,ulicaClass*> *zoznamUlic,QMap<int,zastavkaClass*>z
             continue;
         }
         QStringList splitedLine = line.split(" ");
+        qDebug() << splitedLine.size();
 
        // qDebug() <<splitedLine.size()<<"index :"<<i;
         if (splitedLine.size() ==1){ // bod nacitavam z ulice
