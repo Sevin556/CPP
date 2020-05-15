@@ -186,6 +186,7 @@ void MainWindow::editTime(QString text)
     time = list[0].toInt() * 3600; //hodiny->sekundy
     time = time + list[1].toInt() * 60; //minuty->sekundy
     time = time + list[2].toInt(); //sekundy
+    time = time%86400;
 
     for (int i =0;i< zoznamAutobusov.size();i++){
         if (zoznamAutobusov[i] != nullptr){
@@ -199,6 +200,7 @@ void MainWindow::editTime(QString text)
 
     // nastaveni novych autobusu
     linky->setTime(&zoznamAutobusov, time, scene);
+    scene->update();
 }
 
 

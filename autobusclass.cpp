@@ -94,12 +94,16 @@ int autobusClass::pocitajTrasu()
     if (index >= bodyPohybu->size()){
         autobusItem->hide();
         index = 0;
+        stojim =0;
+        poradi = 0;
         indexZastavky = 0;
         aktualnaPozicia.setX(zaciatokTrasyX+10);
         aktualnaPozicia.setY(zaciatokTrasyY+10);
         dalsiBod = aktualnaPozicia;
         dalsiaZastavka.setX(zastavkyNaLince->value(0).first->X);
         dalsiaZastavka.setY(zastavkyNaLince->value(0).first->Y);
+        autobusItem->setPos(QPointF(0, 0));
+        qDebug() << endl << autobusItem->scenePos().x() << zaciatokTrasyX << endl;
         return 1;
     }
    // int temp = zoznamUlicLinky[index];
