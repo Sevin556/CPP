@@ -20,6 +20,7 @@ public:
     int zaciatokTrasyX;
     int zaciatokTrasyY;
     int poradi = 0;
+    int pocatecniCas = 0;
     QList<ulicaClass*> *zoznamUlicLinky;
     int MojeID;
     QString nazovLinky;
@@ -45,7 +46,7 @@ public:
     QPoint dalsiaZastavka;
 
     //zastavky na dane lince + doba, za kterou by mel vyrazit z dane zastavky
-    QVector<QPair<zastavkaClass*, int>>zastavkyNaLince;
+    QVector<QPair<zastavkaClass*, int>>*zastavkyNaLince;
 
     //funkcie
     autobusClass(bodyLinky *linka, int time,int ID,QString nazovLinky, QObject * parent);
