@@ -3,13 +3,14 @@ Uzka 20 0
 73
 23
 Ferkova 3 300
+24
 13
 14
-15
 15
 4
 42
 Svobodna 19 800
+43
 69
 Murietova 17 1200
 56
@@ -27,6 +28,7 @@ Ferkova 1 2400
 25
 27
 Ferkova 4 2900
+28
 26
 25
 25

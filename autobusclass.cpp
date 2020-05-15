@@ -81,10 +81,10 @@ void autobusClass::posunAutobus()
 */
 int autobusClass::pocitajTrasu()
 {
-    qDebug() << index << bodyPohybu->size();
+
     // ak uz nie je dalsi bod tak vrati 1
     if (index >= bodyPohybu->size()){
-        qDebug() << "here";
+
         autobusItem->hide();
         index = 0;
         indexZastavky = 0;
@@ -107,7 +107,7 @@ int autobusClass::pocitajTrasu()
         // je na zastavce:
         if(dalsiBod.x() == zastavkyNaLince->value(i).first->X && dalsiBod.y() == zastavkyNaLince->value(i).first->Y){
             idemDoZastavky = true;
-            qDebug() << "Idem do zastavky";
+
         }
     }
 
@@ -125,7 +125,7 @@ int autobusClass::pocitajTrasu()
         }else
         premavka = zoznamUlicLinky->value(index-(indexZastavky-1))->rychlostPremavky;
     }
-    qDebug() << "heeeeeereeee";
+
     //pocitanie koeficientu na postup k dalsiemu bodu pod istym uhlom
     qreal trasa = qPow(dalsiBod.x()-aktualnaPozicia.x(),2) + qPow(dalsiBod.y()-aktualnaPozicia.y(),2);
 
@@ -195,7 +195,7 @@ int autobusClass::vykonajTrasu(int time)
         if (indexZastavky >= zastavkyNaLince->size()){
             indexZastavky = 0;
         }else {
-            qDebug() <<"nastavujem novu zastavku";
+
             dalsiaZastavka.setX(zastavkyNaLince->value(indexZastavky).first->X);
             dalsiaZastavka.setY(zastavkyNaLince->value(indexZastavky).first->Y);
         }
