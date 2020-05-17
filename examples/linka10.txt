@@ -36,4 +36,4 @@ Kvetinova 13 3800
 Soud 21 4600
 72
 23
-Ferkova 3 4800
+Divadlo 3 4800

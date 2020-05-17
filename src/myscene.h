@@ -1,3 +1,11 @@
+
+/*
+ *Autori súboru:
+ * Ivan Halomi xhalom00
+ * Michal Sova xsovam00
+ * Projekt do ICP 2019/2020
+ */
+
 #ifndef MYSCENE_H
 #define MYSCENE_H
 
@@ -18,18 +26,36 @@ class MyScene : public QGraphicsScene
     Q_OBJECT
 public:
     explicit MyScene(QObject *parent =nullptr);
-//    QMap<int, zastavkaClass *> zoznamZastavok;
+
+    /**
+     * @brief zoznamUlic zoznam ukazateľov všetkých ulíc na scéne
+     */
     QMap<int, ulicaClass*> zoznamUlic;
+    /**
+     * @brief zoznamZastavok zoznam ukazateľov všetkých ulíc na scéne
+     */
     QMap<int, zastavkaClass*> zoznamZastavok;
+    /**
+     * @brief zoznamAutobusov zoznam ukazateľov všetkých autobusov
+     */
     QList<autobusClass*> *zoznamAutobusov;
 
+    /**
+     * @brief klikamObchadzku ak je @value true dovoľuje klikať obchádzku
+     */
     bool klikamObchadzku = false;
-    bool uzatvaramCesty = false;
-    int indexPridavanejUlice =0;
-    vecItem* menenaLinka;
-  //  QMap<int, autobusClass> zoznamAutobusov;
 
-    //QMainWindow * main;
+    /**
+     * @brief indexPridavanejUlice index na ktorým pridám novokliknutú ulicu do linky @see myscene::menenaLinka
+     */
+    int indexPridavanejUlice =0;
+    /**
+     * @brief menenaLinka informácie o aktuálne menenej linke
+     */
+    vecItem* menenaLinka;
+
+
+    //funkcie
     void addInfo(QMap<int,ulicaClass*> zoznamUlic,QMap<int, zastavkaClass*>zoznamZastavok,QList<autobusClass*> *zoznamAutobusov);
     void zobrazInfo(QGraphicsItem *item);
 

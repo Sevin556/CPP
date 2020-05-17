@@ -1,3 +1,11 @@
+
+/*
+ *Autori súboru:
+ * Ivan Halomi xhalom00
+ * Michal Sova xsovam00
+ * Projekt do ICP 2019/2020
+ */
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "autobusclass.h"
@@ -230,7 +238,7 @@ void MainWindow::zmenPopisUlice(ulicaClass *ulica)
      QString textik ;
     QTextStream text(&textik);
    // qDebug() <<ulica->nazovUlice;
-    text <<"ID ulice :" <<ulica->ID_ulice <<"<br> Nazov ulice :"<< ulica->nazovUlice <<"<br> Zaciatok :" <<ulica->x1 << ulica->y1 <<"<br> Koniec :" <<ulica->x2 << ulica->y2<<"<br> Rychlost premavky:"<<ulica->rychlostPremavky;
+    text <<"ID ulice :" <<ulica->ID_ulice <<"<br> Nazov ulice : <br>"<< ulica->nazovUlice <<"<br> Zaciatok :" <<ulica->x1 <<" " << ulica->y1 <<"<br> Koniec :" <<ulica->x2 <<" "<< ulica->y2<<"<br> Rychlost premavky:"<<ulica->rychlostPremavky;
     QFont font;
     font.setItalic(true);
     font.setPointSize(20);
@@ -267,7 +275,6 @@ void MainWindow::naklikajObchadzku(ulicaClass* uzavretaUlica)
                 itemy.linka = linky->seznamLinek[i];
                 itemy.indexUliceNaLinke = j;
                 linkyNaZmenu.append(itemy);
-                qDebug() << "Pridavam do zoznamu "<< linky->seznamLinek.value(i)->nazovLinky << " index J "<<j << "ID " <<linky->seznamLinek[i]->trasaLinky->zoznamUlicLinky->value(j)->ID_ulice;
 
             }
         }
@@ -313,7 +320,6 @@ void MainWindow::naklikajObchadzku(ulicaClass* uzavretaUlica)
 
                 linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->removeAt(linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok -1);
                 linkyNaZmenu[0].linka->trasaLinky->zastavkyNaLince->removeAt(i);
-                qDebug() << "VYMAZAL SOM ZASTAVKU "<<linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->value(linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok -1);
             }
         }
 
@@ -362,10 +368,8 @@ void MainWindow::pridajUlicu(int index, vecItem *linka, ulicaClass *ulica)
         if (miestoVlozenia == 0){
             if (((linka->trasaLinky->zaciatokX+10) == ulica->x1 && (linka->trasaLinky->zaciatokY+10) == ulica->y1)){
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x2,ulica->y2));
-                qDebug() << "mam " << linka->trasaLinky->zaciatokX <<" " <<linka->trasaLinky->zaciatokY <<" vkladam "<<ulica->x2 <<ulica->y2;
             }else if ((linka->trasaLinky->zaciatokX+10) == ulica->x2 && (linka->trasaLinky->zaciatokY+10) == ulica->y2) {
                 linka->trasaLinky->bodyPohybu->insert(miestoVlozenia,QPoint(ulica->x1,ulica->y1));
-                qDebug() << "mam " << linka->trasaLinky->zaciatokX <<" " <<linka->trasaLinky->zaciatokY <<" vkladam x1 "<<ulica->x1<<ulica->y1;
 
             }else{
                 myDialog *dialog = new myDialog("Ulica nenadväzuje na predchádzajúcu, skús znovu ");
@@ -461,7 +465,7 @@ void MainWindow::ukonciPridavanieObchadzky()
         }
     }
     linkyNaZmenu.removeFirst();
-    qDebug() << "Mazem prve zo zonamu" << linkyNaZmenu.size();
+    qDebug() << "Mazem prve zo zonamu upravovanych liniek" << linkyNaZmenu.size();
     for (QMap<int,ulicaClass*>::const_iterator i = zoznamUlic.constBegin();i !=zoznamUlic.constEnd();++i){
         i.value()->ulicaItem->setPen(QPen(Qt::black,4));
     }
@@ -501,7 +505,6 @@ void MainWindow::ukonciPridavanieObchadzky()
             linkyNaZmenu[0].indexUliceNaLinke =0;
         }
 
-        qDebug() << "Mazem bod " <<linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->value(linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok) <<" s indexom "<<linkyNaZmenu[0].indexUliceNaLinke  <<" "<<pocetZastavok;
 
         linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->removeAt(linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok);
 
@@ -512,7 +515,6 @@ void MainWindow::ukonciPridavanieObchadzky()
                 linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->removeAt(linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok -1);
                 linkyNaZmenu[0].linka->trasaLinky->zastavkyNaLince->removeAt(i);
                 scene->indexPridavanejUlice = (linkyNaZmenu[0].indexUliceNaLinke)-1;
-                qDebug() << "VYMAZAL SOM ZASTAVKU "<<linkyNaZmenu[0].linka->trasaLinky->bodyPohybu->value(linkyNaZmenu[0].indexUliceNaLinke+pocetZastavok -1);
 
 
             }
@@ -551,7 +553,6 @@ void MainWindow::odoberUlicuZLinky(vecItem *linka, ulicaClass *ulica)
                 pocetZastavok++;
         }
     }
-    qDebug() << "Mazem bod " <<linka->trasaLinky->bodyPohybu->value(indexUliceNaLinke+pocetZastavok) <<" s indexom "<<indexUliceNaLinke  <<" "<<pocetZastavok;
     linka->trasaLinky->bodyPohybu->removeAt(indexUliceNaLinke+pocetZastavok);
     if (scene->indexPridavanejUlice > indexUliceNaLinke+pocetZastavok){
         scene->indexPridavanejUlice = indexUliceNaLinke+pocetZastavok;
@@ -597,7 +598,7 @@ void MainWindow::zmenPopisZastavky(zastavkaClass *zastavka)
    QString textik ;
    QTextStream text(&textik);
    qDebug() <<zastavka->ID_zastavky;
-   text <<"ID zastavky :" <<zastavka->ID_zastavky <<"<br> Nazov zastavky :"<< zastavka->nazovZastavky <<"<br>Pozicia :" <<zastavka->X <<zastavka->Y;
+   text <<"ID zastavky :" <<zastavka->ID_zastavky <<"<br> Nazov zastavky :<br>"<< zastavka->nazovZastavky <<"<br>Pozicia :" <<zastavka->X<< " " <<zastavka->Y;
     ui->infoLabel->setText(textik);
     autobusInfo = nullptr;
 }
@@ -623,7 +624,7 @@ void MainWindow::zmenPopisAutbobusu(autobusClass *autobus)
     QString textik ;
     QTextStream text(&textik);
 
-    text << "ID dalsieho bodu:" <<autobus->dalsiBod.x() << autobus->dalsiBod.y()<< "<br> Moje meskanie: " << autobus->meskanie <<" minut<br>"<<"Idem po ulici" << autobus->zoznamUlicLinky->value(autobus->index-autobus->indexZastavky)->ID_ulice;
+    text << "Moje meskanie: " << autobus->meskanie <<" minut<br>";
     text << "<br>Linka: " << linky->linkaBusu(autobus->MojeID) << "<br>Zastavky:<br>";
 
     for(int i = 0; i < autobus->zastavkyNaLince->size(); i++){
@@ -723,7 +724,7 @@ void MainWindow::createMap()
         int ID_Ulice = splitedLine[4].toInt();
 
         //vytvori objekt triedy ulicaClass aby ho mohol pridat na scenu a ulozit do zoznamu
-        ulicaClass * ulica = new ulicaClass(x1,y1,x2,y2,"Ferkova",ID_Ulice);
+        ulicaClass * ulica = new ulicaClass(x1,y1,x2,y2,splitedLine[5],ID_Ulice);
         scene->addItem(ulica->ulicaItem);
         //uklada do zoznamu ulic - asi vyuzijeme pri obchadzach a spomaleniach
         zoznamUlic.insert(ID_Ulice,ulica);

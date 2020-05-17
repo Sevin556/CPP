@@ -1,3 +1,11 @@
+
+/*
+ *Autori súboru:
+ * Ivan Halomi xhalom00
+ * Michal Sova xsovam00
+ * Projekt do ICP 2019/2020
+ */
+
 #ifndef MYDIALOG_H
 #define MYDIALOG_H
 
@@ -15,6 +23,9 @@ public:
     explicit myDialog(bool nastavujemObchadzku,ulicaClass * ulica,QWidget *parent = nullptr);
     explicit myDialog(vecItem *linka,QWidget* parent =nullptr);
     explicit myDialog(QString text,QWidget *parent=nullptr);
+    /**
+     * @brief ulica kliknutá ulica, či už pri obchádzke alebo zmene premávky
+     */
     ulicaClass * ulica;
 
 

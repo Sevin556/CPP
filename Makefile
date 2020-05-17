@@ -1,7 +1,7 @@
 SRC=src
 BUILD=build
 PROJ=icp
-ARCHIVE=xlogin00-xsovam00
+ARCHIVE=xhalom00-xsovam00
 EXAMPLES=examples
 DOC=doc
 QMAKE=qmake

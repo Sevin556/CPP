@@ -1,3 +1,11 @@
+
+/*
+ *Autori súboru:
+ * Ivan Halomi xhalom00
+ * Michal Sova xsovam00
+ * Projekt do ICP 2019/2020
+ */
+
 #ifndef LINKYCLASS_H
 #define LINKYCLASS_H
 #include <QObject>
@@ -17,16 +25,22 @@ public:
     linkaClass(QMap<int, ulicaClass *> *seznamUlic, QMap<int, zastavkaClass *> seznamZastavek);
     ~linkaClass();
 
-    // list vsech autobusu (aktivnich i neaktivnich)
+    /**
+     * @brief busList list vsech autobusu (aktivnich i neaktivnich)
+     */
     QMap<int,autobusClass*> busList;
 
-    void appendBus(QList<autobusClass *> *seznamBusu, int time, MyScene *scene);
-    void setTime(QList<autobusClass *> *seznamBusu, int time, MyScene *scene);
 
 
+    /**
+     * @brief seznamLinek zoznam všetkých vytvorených liniek
+     */
     QVector<vecItem*> seznamLinek;
 
+    //funkcie
     QString linkaBusu(int id);
+    void appendBus(QList<autobusClass *> *seznamBusu, int time, MyScene *scene);
+    void setTime(QList<autobusClass *> *seznamBusu, int time, MyScene *scene);
 };
 
 

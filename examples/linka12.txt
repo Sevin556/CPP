@@ -24,7 +24,7 @@ Nezabudkova 12 1400
 Navratilova 18 2200
 48
 20
-Ferkova 7 2600
+Kolejni 7 2600
 19
 59
 Jozkova 8 3400
