@@ -1,12 +1,13 @@
-SRC=./src
+SRC=src
+BUILD=build
 PROJ=projektcpp
 ARCHIVE=xlogin00-xsovam00
-EXAMPLES=./examples
-DOC=./doc
+EXAMPLES=examples
+DOC=doc
 QMAKE=qmake
 
 make: qmake
-	make --directory=$(SRC)
+	make --directory=$(BUILD)
 
 pack: clean-all
 	zip -r $(ARCHIVE).zip $(SRC) Makefile $(EXAMPLES) $(DOC)
@@ -15,11 +16,11 @@ clean-all: clean
 	rm -rf $(DOC)/*
 
 clean: qmake
-	make --directory=$(SRC) clean
-	rm -f $(SRC)/Makefile $(SRC)/$(PROJ) $(SRC)/$(PROJ).pro.user*
+	rm -rf $(BUILD)
 
 run: qmake
-	make --directory=$(SRC)
-	cd $(SRC) && ./$(PROJ)
+	make --directory=$(BUILD)
+	cd $(BUILD) && ./$(PROJ)
 qmake:
-	$(QMAKE) $(SRC)/$(PROJ).pro -o $(SRC)/Makefile
+	mkdir -p $(BUILD)
+	$(QMAKE) $(SRC)/$(PROJ).pro -o $(BUILD)/Makefile 
