@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projekt do ICP: Zdrojový súbor src/autobusclass.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projekt do ICP
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generované programom Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Hľadať');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Hľadať');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">autobusclass.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="autobusclass_8h.html">Zobraziť dokumentáciu tohoto súboru.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef AUTOBUSCLASS_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define AUTOBUSCLASS_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QWidget&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QGraphicsEllipseItem&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ulicaclass_8h.html">ulicaclass.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="zastavkaclass_8h.html">zastavkaclass.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bodylinky_8h.html">bodylinky.h</a>&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span><a class="code" href="classzastavkaClass.html">zastavkaClass</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span><a class="code" href="classbodyLinky.html">bodyLinky</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classautobusClass.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classautobusClass.html">autobusClass</a>: <span class="keyword">public</span> QObject</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">//inicializacia</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classautobusClass.html#a065a9b4239d3c2d620595cc599c86cb6">   20</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a065a9b4239d3c2d620595cc599c86cb6">zaciatokTrasyX</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classautobusClass.html#a5fdda6d7d4f5b2e51690473a4bc2b87e">   21</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a5fdda6d7d4f5b2e51690473a4bc2b87e">zaciatokTrasyY</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classautobusClass.html#ad94d023c9d59bbf272c03d738afea765">   22</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#ad94d023c9d59bbf272c03d738afea765">poradi</a> = 0;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classautobusClass.html#a21f9d51d49e9ebde47c7b28bb756b526">   23</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a21f9d51d49e9ebde47c7b28bb756b526">pocatecniCas</a> = 0;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classautobusClass.html#a6956b704241bd560d18cc0a784d89978">   24</a></span>&#160;    QList&lt;ulicaClass*&gt; *<a class="code" href="classautobusClass.html#a6956b704241bd560d18cc0a784d89978">zoznamUlicLinky</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classautobusClass.html#a1ab6450627843011c9d394d55bd2e9b3">   25</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a1ab6450627843011c9d394d55bd2e9b3">MojeID</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classautobusClass.html#a6ebde953447e4857e4012b95629af889">   26</a></span>&#160;    QString <a class="code" href="classautobusClass.html#a6ebde953447e4857e4012b95629af889">nazovLinky</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classautobusClass.html#afb385c89c97343d9cf4a6d779a68e369">   28</a></span>&#160;    QMap&lt;int,ulicaClass*&gt;<a class="code" href="classautobusClass.html#afb385c89c97343d9cf4a6d779a68e369">zoznamUlicMesta</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classautobusClass.html#aa478e75fb5669d3c44e312aa31806001">   29</a></span>&#160;    QGraphicsEllipseItem *<a class="code" href="classautobusClass.html#aa478e75fb5669d3c44e312aa31806001">autobusItem</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">//pohyb</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classautobusClass.html#a80ec165dd6f9a0e088b86df4967c9b8f">   32</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a80ec165dd6f9a0e088b86df4967c9b8f">smerX</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classautobusClass.html#a0f7273ff3598d865ac7fa5b0d8f7c705">   33</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a0f7273ff3598d865ac7fa5b0d8f7c705">smerY</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classautobusClass.html#a0062001be601543b9a5d4616193f6cc6">   34</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a0062001be601543b9a5d4616193f6cc6">index</a> =0;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classautobusClass.html#a6d22bb8c32eb9cc2acf4110b1b9cf136">   35</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a6d22bb8c32eb9cc2acf4110b1b9cf136">stojim</a> =0;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classautobusClass.html#a33db63c5743458c36dc5510084279e16">   37</a></span>&#160;    QList&lt;QPoint&gt; *<a class="code" href="classautobusClass.html#a33db63c5743458c36dc5510084279e16">bodyPohybu</a>;<span class="comment">//mozno by bolo dobre ulozit body dopredu a len ich nacitavat doradu z tohoto zoznamu...zatial ho nevyuzivvam</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classautobusClass.html#a06f7bdfdca45414a0ccee91d83129458">   38</a></span>&#160;    QPointF <a class="code" href="classautobusClass.html#a06f7bdfdca45414a0ccee91d83129458">aktualnaPozicia</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classautobusClass.html#a00779f0a4af32239b562ee11cb595227">   39</a></span>&#160;    QPointF <a class="code" href="classautobusClass.html#a00779f0a4af32239b562ee11cb595227">dalsiBod</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classautobusClass.html#acd30dddb8f3ef7e46b693483adc5de3b">   41</a></span>&#160;    qreal <a class="code" href="classautobusClass.html#acd30dddb8f3ef7e46b693483adc5de3b">koeficientX</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classautobusClass.html#ab0216cb50c29a4a9bd9cbbb717697afd">   42</a></span>&#160;    qreal <a class="code" href="classautobusClass.html#ab0216cb50c29a4a9bd9cbbb717697afd">koeficientY</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classautobusClass.html#a35e794c5259fca518409bcb0e3297922">   43</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a35e794c5259fca518409bcb0e3297922">meskanie</a> =0;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classautobusClass.html#a71c527446eb011255a227b4e8c45503e">   44</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a71c527446eb011255a227b4e8c45503e">meskanieNaZastavke</a> =0;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classautobusClass.html#a78872a4f2422b6699d499b47a8a91f0b">   45</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a78872a4f2422b6699d499b47a8a91f0b">indexZastavky</a> =0;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classautobusClass.html#ae06eb02a66bee1d2326fe69da29cf333">   46</a></span>&#160;    QPoint <a class="code" href="classautobusClass.html#ae06eb02a66bee1d2326fe69da29cf333">dalsiaZastavka</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">//zastavky na dane lince + doba, za kterou by mel vyrazit z dane zastavky</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classautobusClass.html#a6c6070d8f6b8f7254419c4ea27e81865">   49</a></span>&#160;    QVector&lt;QPair&lt;zastavkaClass*, int&gt;&gt;*<a class="code" href="classautobusClass.html#a6c6070d8f6b8f7254419c4ea27e81865">zastavkyNaLince</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">//funkcie</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="classautobusClass.html#a0d246721d3d42ab1dc21c84b5b27def4">autobusClass</a>(<a class="code" href="classbodyLinky.html">bodyLinky</a> *linka, <span class="keywordtype">int</span> time,<span class="keywordtype">int</span> ID,QString <a class="code" href="classautobusClass.html#a6ebde953447e4857e4012b95629af889">nazovLinky</a>, QObject * parent);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classautobusClass.html#a8ffbd0def7a46e15ebd73986cf18a451">posunAutobus</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a69c36c073bec3549687b3df3474395d9">pocitajTrasu</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classautobusClass.html#a79e6916b83b2a5d1a74b3271ea7093cf">vykonajTrasu</a>(<span class="keywordtype">int</span> time);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;signals:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classautobusClass.html#a107114a70f936cb2c2fb24eed5f2c343">meskanieZmenene</a>(<a class="code" href="classautobusClass.html">autobusClass</a>* autobus);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    QGraphicsEllipseItem* createBus();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif // AUTOBUSCLASS_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclassautobusClass_html_a79e6916b83b2a5d1a74b3271ea7093cf"><div class="ttname"><a href="classautobusClass.html#a79e6916b83b2a5d1a74b3271ea7093cf">autobusClass::vykonajTrasu</a></div><div class="ttdeci">int vykonajTrasu(int time)</div><div class="ttdoc">autobusClass::vykonajTrasu Volana timerom, zistuje co ma autobus vykonat v nasledujucom intervale</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8cpp_source.html#l00153">autobusclass.cpp:153</a></div></div>
+<div class="ttc" id="azastavkaclass_8h_html"><div class="ttname"><a href="zastavkaclass_8h.html">zastavkaclass.h</a></div></div>
+<div class="ttc" id="aclassautobusClass_html"><div class="ttname"><a href="classautobusClass.html">autobusClass</a></div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00014">autobusclass.h:14</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a0d246721d3d42ab1dc21c84b5b27def4"><div class="ttname"><a href="classautobusClass.html#a0d246721d3d42ab1dc21c84b5b27def4">autobusClass::autobusClass</a></div><div class="ttdeci">autobusClass(bodyLinky *linka, int time, int ID, QString nazovLinky, QObject *parent)</div><div class="ttdoc">autobusClass::autobusClass Konštruktor triedy</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8cpp_source.html#l00022">autobusclass.cpp:22</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a5fdda6d7d4f5b2e51690473a4bc2b87e"><div class="ttname"><a href="classautobusClass.html#a5fdda6d7d4f5b2e51690473a4bc2b87e">autobusClass::zaciatokTrasyY</a></div><div class="ttdeci">int zaciatokTrasyY</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00021">autobusclass.h:21</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_aa478e75fb5669d3c44e312aa31806001"><div class="ttname"><a href="classautobusClass.html#aa478e75fb5669d3c44e312aa31806001">autobusClass::autobusItem</a></div><div class="ttdeci">QGraphicsEllipseItem * autobusItem</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00029">autobusclass.h:29</a></div></div>
+<div class="ttc" id="aulicaclass_8h_html"><div class="ttname"><a href="ulicaclass_8h.html">ulicaclass.h</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a1ab6450627843011c9d394d55bd2e9b3"><div class="ttname"><a href="classautobusClass.html#a1ab6450627843011c9d394d55bd2e9b3">autobusClass::MojeID</a></div><div class="ttdeci">int MojeID</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00025">autobusclass.h:25</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a0f7273ff3598d865ac7fa5b0d8f7c705"><div class="ttname"><a href="classautobusClass.html#a0f7273ff3598d865ac7fa5b0d8f7c705">autobusClass::smerY</a></div><div class="ttdeci">int smerY</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00033">autobusclass.h:33</a></div></div>
+<div class="ttc" id="aclassbodyLinky_html"><div class="ttname"><a href="classbodyLinky.html">bodyLinky</a></div><div class="ttdef"><b>Definition:</b> <a href="bodylinky_8h_source.html#l00011">bodylinky.h:11</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a80ec165dd6f9a0e088b86df4967c9b8f"><div class="ttname"><a href="classautobusClass.html#a80ec165dd6f9a0e088b86df4967c9b8f">autobusClass::smerX</a></div><div class="ttdeci">int smerX</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00032">autobusclass.h:32</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_afb385c89c97343d9cf4a6d779a68e369"><div class="ttname"><a href="classautobusClass.html#afb385c89c97343d9cf4a6d779a68e369">autobusClass::zoznamUlicMesta</a></div><div class="ttdeci">QMap&lt; int, ulicaClass * &gt; zoznamUlicMesta</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00028">autobusclass.h:28</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a6956b704241bd560d18cc0a784d89978"><div class="ttname"><a href="classautobusClass.html#a6956b704241bd560d18cc0a784d89978">autobusClass::zoznamUlicLinky</a></div><div class="ttdeci">QList&lt; ulicaClass * &gt; * zoznamUlicLinky</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00024">autobusclass.h:24</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a8ffbd0def7a46e15ebd73986cf18a451"><div class="ttname"><a href="classautobusClass.html#a8ffbd0def7a46e15ebd73986cf18a451">autobusClass::posunAutobus</a></div><div class="ttdeci">void posunAutobus()</div><div class="ttdoc">autobusClass::posunAutobus posúva grafický objekt autobusu po scéne o koeficient počítany v autobusCl...</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8cpp_source.html#l00067">autobusclass.cpp:67</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_ae06eb02a66bee1d2326fe69da29cf333"><div class="ttname"><a href="classautobusClass.html#ae06eb02a66bee1d2326fe69da29cf333">autobusClass::dalsiaZastavka</a></div><div class="ttdeci">QPoint dalsiaZastavka</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00046">autobusclass.h:46</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a0062001be601543b9a5d4616193f6cc6"><div class="ttname"><a href="classautobusClass.html#a0062001be601543b9a5d4616193f6cc6">autobusClass::index</a></div><div class="ttdeci">int index</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00034">autobusclass.h:34</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a065a9b4239d3c2d620595cc599c86cb6"><div class="ttname"><a href="classautobusClass.html#a065a9b4239d3c2d620595cc599c86cb6">autobusClass::zaciatokTrasyX</a></div><div class="ttdeci">int zaciatokTrasyX</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00020">autobusclass.h:20</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a21f9d51d49e9ebde47c7b28bb756b526"><div class="ttname"><a href="classautobusClass.html#a21f9d51d49e9ebde47c7b28bb756b526">autobusClass::pocatecniCas</a></div><div class="ttdeci">int pocatecniCas</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00023">autobusclass.h:23</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a06f7bdfdca45414a0ccee91d83129458"><div class="ttname"><a href="classautobusClass.html#a06f7bdfdca45414a0ccee91d83129458">autobusClass::aktualnaPozicia</a></div><div class="ttdeci">QPointF aktualnaPozicia</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00038">autobusclass.h:38</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a35e794c5259fca518409bcb0e3297922"><div class="ttname"><a href="classautobusClass.html#a35e794c5259fca518409bcb0e3297922">autobusClass::meskanie</a></div><div class="ttdeci">int meskanie</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00043">autobusclass.h:43</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a6c6070d8f6b8f7254419c4ea27e81865"><div class="ttname"><a href="classautobusClass.html#a6c6070d8f6b8f7254419c4ea27e81865">autobusClass::zastavkyNaLince</a></div><div class="ttdeci">QVector&lt; QPair&lt; zastavkaClass *, int &gt; &gt; * zastavkyNaLince</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00049">autobusclass.h:49</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a00779f0a4af32239b562ee11cb595227"><div class="ttname"><a href="classautobusClass.html#a00779f0a4af32239b562ee11cb595227">autobusClass::dalsiBod</a></div><div class="ttdeci">QPointF dalsiBod</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00039">autobusclass.h:39</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_ad94d023c9d59bbf272c03d738afea765"><div class="ttname"><a href="classautobusClass.html#ad94d023c9d59bbf272c03d738afea765">autobusClass::poradi</a></div><div class="ttdeci">int poradi</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00022">autobusclass.h:22</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a33db63c5743458c36dc5510084279e16"><div class="ttname"><a href="classautobusClass.html#a33db63c5743458c36dc5510084279e16">autobusClass::bodyPohybu</a></div><div class="ttdeci">QList&lt; QPoint &gt; * bodyPohybu</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00037">autobusclass.h:37</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a69c36c073bec3549687b3df3474395d9"><div class="ttname"><a href="classautobusClass.html#a69c36c073bec3549687b3df3474395d9">autobusClass::pocitajTrasu</a></div><div class="ttdeci">int pocitajTrasu()</div><div class="ttdoc">autobusCLass::pocitajTrasu Vypocita trasu do nasledujuceho bodu</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8cpp_source.html#l00082">autobusclass.cpp:82</a></div></div>
+<div class="ttc" id="aclasszastavkaClass_html"><div class="ttname"><a href="classzastavkaClass.html">zastavkaClass</a></div><div class="ttdef"><b>Definition:</b> <a href="zastavkaclass_8h_source.html#l00010">zastavkaclass.h:10</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a6d22bb8c32eb9cc2acf4110b1b9cf136"><div class="ttname"><a href="classautobusClass.html#a6d22bb8c32eb9cc2acf4110b1b9cf136">autobusClass::stojim</a></div><div class="ttdeci">int stojim</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00035">autobusclass.h:35</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_acd30dddb8f3ef7e46b693483adc5de3b"><div class="ttname"><a href="classautobusClass.html#acd30dddb8f3ef7e46b693483adc5de3b">autobusClass::koeficientX</a></div><div class="ttdeci">qreal koeficientX</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00041">autobusclass.h:41</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a6ebde953447e4857e4012b95629af889"><div class="ttname"><a href="classautobusClass.html#a6ebde953447e4857e4012b95629af889">autobusClass::nazovLinky</a></div><div class="ttdeci">QString nazovLinky</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00026">autobusclass.h:26</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a71c527446eb011255a227b4e8c45503e"><div class="ttname"><a href="classautobusClass.html#a71c527446eb011255a227b4e8c45503e">autobusClass::meskanieNaZastavke</a></div><div class="ttdeci">int meskanieNaZastavke</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00044">autobusclass.h:44</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a78872a4f2422b6699d499b47a8a91f0b"><div class="ttname"><a href="classautobusClass.html#a78872a4f2422b6699d499b47a8a91f0b">autobusClass::indexZastavky</a></div><div class="ttdeci">int indexZastavky</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00045">autobusclass.h:45</a></div></div>
+<div class="ttc" id="abodylinky_8h_html"><div class="ttname"><a href="bodylinky_8h.html">bodylinky.h</a></div></div>
+<div class="ttc" id="aclassautobusClass_html_a107114a70f936cb2c2fb24eed5f2c343"><div class="ttname"><a href="classautobusClass.html#a107114a70f936cb2c2fb24eed5f2c343">autobusClass::meskanieZmenene</a></div><div class="ttdeci">void meskanieZmenene(autobusClass *autobus)</div></div>
+<div class="ttc" id="aclassautobusClass_html_ab0216cb50c29a4a9bd9cbbb717697afd"><div class="ttname"><a href="classautobusClass.html#ab0216cb50c29a4a9bd9cbbb717697afd">autobusClass::koeficientY</a></div><div class="ttdeci">qreal koeficientY</div><div class="ttdef"><b>Definition:</b> <a href="autobusclass_8h_source.html#l00042">autobusclass.h:42</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generované programom &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

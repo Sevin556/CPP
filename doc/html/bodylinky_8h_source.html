@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projekt do ICP: Zdrojový súbor src/bodylinky.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projekt do ICP
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generované programom Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Hľadať');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Hľadať');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">bodylinky.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="bodylinky_8h.html">Zobraziť dokumentáciu tohoto súboru.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BODYLINKY_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BODYLINKY_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QMap&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ulicaclass_8h.html">ulicaclass.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="zastavkaclass_8h.html">zastavkaclass.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span><a class="code" href="classulicaClass.html">ulicaClass</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">class </span><a class="code" href="classzastavkaClass.html">zastavkaClass</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classbodyLinky.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="classbodyLinky.html">bodyLinky</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="classbodyLinky.html#afe7b4e981f28b734406ec58f6a2b3b3b">bodyLinky</a>(QMap&lt;int,ulicaClass*&gt; *zoznamUlic,QMap&lt;int,zastavkaClass*&gt;zoznamZastavok,QString subor);</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classbodyLinky.html#a01e0466804a099b782b06cc9f435fa65">   15</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classbodyLinky.html#a01e0466804a099b782b06cc9f435fa65">zaciatokX</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classbodyLinky.html#ac4fb1ecb273be0ce5ce2de178bc81eab">   16</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classbodyLinky.html#ac4fb1ecb273be0ce5ce2de178bc81eab">zaciatokY</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classbodyLinky.html#a073b4189e11d3525ce3ca296bda8f4f6">   17</a></span>&#160;    QList&lt;QPoint&gt; *<a class="code" href="classbodyLinky.html#a073b4189e11d3525ce3ca296bda8f4f6">bodyPohybu</a> = <span class="keyword">new</span> QList&lt;QPoint&gt;();</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classbodyLinky.html#a6d2a9fcc327dda5b5f9c1b4839959151">   18</a></span>&#160;    QList&lt;ulicaClass*&gt; *<a class="code" href="classbodyLinky.html#a6d2a9fcc327dda5b5f9c1b4839959151">zoznamUlicLinky</a> = <span class="keyword">new</span> QList&lt;ulicaClass*&gt;();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="comment">//zastavky na dane lince + doba, za kterou by mel vyrazit z dane zastavky</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classbodyLinky.html#afd7eb5734bd8aa9ac3c3b0f7e30f68aa">   21</a></span>&#160;    QVector&lt;QPair&lt;zastavkaClass*, int&gt;&gt; *<a class="code" href="classbodyLinky.html#afd7eb5734bd8aa9ac3c3b0f7e30f68aa">zastavkyNaLince</a> = <span class="keyword">new</span> QVector&lt;QPair&lt;zastavkaClass*,int&gt;&gt;();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif // BODYLINKY_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclassulicaClass_html"><div class="ttname"><a href="classulicaClass.html">ulicaClass</a></div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8h_source.html#l00009">ulicaclass.h:9</a></div></div>
+<div class="ttc" id="aclassbodyLinky_html_a01e0466804a099b782b06cc9f435fa65"><div class="ttname"><a href="classbodyLinky.html#a01e0466804a099b782b06cc9f435fa65">bodyLinky::zaciatokX</a></div><div class="ttdeci">int zaciatokX</div><div class="ttdef"><b>Definition:</b> <a href="bodylinky_8h_source.html#l00015">bodylinky.h:15</a></div></div>
+<div class="ttc" id="azastavkaclass_8h_html"><div class="ttname"><a href="zastavkaclass_8h.html">zastavkaclass.h</a></div></div>
+<div class="ttc" id="aclassbodyLinky_html_afd7eb5734bd8aa9ac3c3b0f7e30f68aa"><div class="ttname"><a href="classbodyLinky.html#afd7eb5734bd8aa9ac3c3b0f7e30f68aa">bodyLinky::zastavkyNaLince</a></div><div class="ttdeci">QVector&lt; QPair&lt; zastavkaClass *, int &gt; &gt; * zastavkyNaLince</div><div class="ttdef"><b>Definition:</b> <a href="bodylinky_8h_source.html#l00021">bodylinky.h:21</a></div></div>
+<div class="ttc" id="aclassbodyLinky_html_afe7b4e981f28b734406ec58f6a2b3b3b"><div class="ttname"><a href="classbodyLinky.html#afe7b4e981f28b734406ec58f6a2b3b3b">bodyLinky::bodyLinky</a></div><div class="ttdeci">bodyLinky(QMap&lt; int, ulicaClass * &gt; *zoznamUlic, QMap&lt; int, zastavkaClass * &gt;zoznamZastavok, QString subor)</div><div class="ttdoc">bodyLinky::bodyLinky vytvorí zoznam bodov pohybu pre autobusovú linku</div><div class="ttdef"><b>Definition:</b> <a href="bodylinky_8cpp_source.html#l00016">bodylinky.cpp:16</a></div></div>
+<div class="ttc" id="aulicaclass_8h_html"><div class="ttname"><a href="ulicaclass_8h.html">ulicaclass.h</a></div></div>
+<div class="ttc" id="aclassbodyLinky_html_a073b4189e11d3525ce3ca296bda8f4f6"><div class="ttname"><a href="classbodyLinky.html#a073b4189e11d3525ce3ca296bda8f4f6">bodyLinky::bodyPohybu</a></div><div class="ttdeci">QList&lt; QPoint &gt; * bodyPohybu</div><div class="ttdef"><b>Definition:</b> <a href="bodylinky_8h_source.html#l00017">bodylinky.h:17</a></div></div>
+<div class="ttc" id="aclassbodyLinky_html"><div class="ttname"><a href="classbodyLinky.html">bodyLinky</a></div><div class="ttdef"><b>Definition:</b> <a href="bodylinky_8h_source.html#l00011">bodylinky.h:11</a></div></div>
+<div class="ttc" id="aclassbodyLinky_html_ac4fb1ecb273be0ce5ce2de178bc81eab"><div class="ttname"><a href="classbodyLinky.html#ac4fb1ecb273be0ce5ce2de178bc81eab">bodyLinky::zaciatokY</a></div><div class="ttdeci">int zaciatokY</div><div class="ttdef"><b>Definition:</b> <a href="bodylinky_8h_source.html#l00016">bodylinky.h:16</a></div></div>
+<div class="ttc" id="aclassbodyLinky_html_a6d2a9fcc327dda5b5f9c1b4839959151"><div class="ttname"><a href="classbodyLinky.html#a6d2a9fcc327dda5b5f9c1b4839959151">bodyLinky::zoznamUlicLinky</a></div><div class="ttdeci">QList&lt; ulicaClass * &gt; * zoznamUlicLinky</div><div class="ttdef"><b>Definition:</b> <a href="bodylinky_8h_source.html#l00018">bodylinky.h:18</a></div></div>
+<div class="ttc" id="aclasszastavkaClass_html"><div class="ttname"><a href="classzastavkaClass.html">zastavkaClass</a></div><div class="ttdef"><b>Definition:</b> <a href="zastavkaclass_8h_source.html#l00010">zastavkaclass.h:10</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generované programom &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

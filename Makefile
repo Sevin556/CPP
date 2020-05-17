@@ -1,6 +1,6 @@
 SRC=src
 BUILD=build
-PROJ=projektcpp
+PROJ=icp
 ARCHIVE=xlogin00-xsovam00
 EXAMPLES=examples
 DOC=doc
@@ -10,7 +10,7 @@ make: qmake
 	make --directory=$(BUILD)
 
 pack: clean-all
-	zip -r $(ARCHIVE).zip $(SRC) Makefile $(EXAMPLES) $(DOC)
+	zip -r $(ARCHIVE).zip $(SRC) Makefile Doxyfile $(EXAMPLES) $(DOC)
 
 clean-all: clean
 	rm -rf $(DOC)/*
@@ -21,6 +21,10 @@ clean: qmake
 run: qmake
 	make --directory=$(BUILD)
 	cd $(BUILD) && ./$(PROJ)
+
+doxygen:
+	doxygen Doxyfile
+
 qmake:
 	mkdir -p $(BUILD)
 	$(QMAKE) $(SRC)/$(PROJ).pro -o $(BUILD)/Makefile 

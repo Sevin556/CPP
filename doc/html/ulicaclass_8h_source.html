@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projekt do ICP: Zdrojový súbor src/ulicaclass.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projekt do ICP
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generované programom Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Hľadať');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Hľadať');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">ulicaclass.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="ulicaclass_8h.html">Zobraziť dokumentáciu tohoto súboru.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ULICACLASS_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define ULICACLASS_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QWidget&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QGraphicsLineItem&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QGraphicsItem&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;QWidget&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classulicaClass.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="classulicaClass.html">ulicaClass</a> :<span class="keyword">public</span> QObject ,QGraphicsLineItem</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="classulicaClass.html#a474b1c62bce0f90f7cdc82124e11d6b1">ulicaClass</a>(<span class="keywordtype">int</span> startX, <span class="keywordtype">int</span> startY, <span class="keywordtype">int</span> endX, <span class="keywordtype">int</span> endY, QString nazov, <span class="keywordtype">int</span> ID);</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classulicaClass.html#a5be3769cec44e66df373bec9c3dd193e">   15</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classulicaClass.html#a5be3769cec44e66df373bec9c3dd193e">x1</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classulicaClass.html#aff680371c7f3c7af79a69a0eac7c86ec">   16</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classulicaClass.html#aff680371c7f3c7af79a69a0eac7c86ec">y1</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classulicaClass.html#a8cb69888c01b3f55e17171cdbcc67ce0">   17</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classulicaClass.html#a8cb69888c01b3f55e17171cdbcc67ce0">x2</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classulicaClass.html#a01fca71b039922a9ad1cc3502601b667">   18</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classulicaClass.html#a01fca71b039922a9ad1cc3502601b667">y2</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classulicaClass.html#a304cc34a048118fb68bd8215ac1739ab">   19</a></span>&#160;    QString <a class="code" href="classulicaClass.html#a304cc34a048118fb68bd8215ac1739ab">nazovUlice</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classulicaClass.html#ac35d140a1686690da8b1a3eab2b503fc">   20</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classulicaClass.html#ac35d140a1686690da8b1a3eab2b503fc">ID_ulice</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classulicaClass.html#adcfecd935f91021d4dcffed84b52cf5b">   21</a></span>&#160;    QGraphicsLineItem * <a class="code" href="classulicaClass.html#adcfecd935f91021d4dcffed84b52cf5b">ulicaItem</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classulicaClass.html#a11dcc1a9f54810e69740678460f73c88">   22</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classulicaClass.html#a11dcc1a9f54810e69740678460f73c88">rychlostPremavky</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="classulicaClass.html">ulicaClass</a> <a class="code" href="classulicaClass.html#a7f65a8c6ac8783c2da1492c9c85f2f45">vytvorUlicu</a>(<span class="keywordtype">int</span> startX,<span class="keywordtype">int</span> startY,<span class="keywordtype">int</span> endX, <span class="keywordtype">int</span> endY,QString nazov, <span class="keywordtype">int</span> ID);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classulicaClass.html#a88e52fbc5f76fd8acbf68d96e31f3745">vypisInfo</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif // ULICACLASS_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclassulicaClass_html"><div class="ttname"><a href="classulicaClass.html">ulicaClass</a></div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8h_source.html#l00009">ulicaclass.h:9</a></div></div>
+<div class="ttc" id="aclassulicaClass_html_aff680371c7f3c7af79a69a0eac7c86ec"><div class="ttname"><a href="classulicaClass.html#aff680371c7f3c7af79a69a0eac7c86ec">ulicaClass::y1</a></div><div class="ttdeci">int y1</div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8h_source.html#l00016">ulicaclass.h:16</a></div></div>
+<div class="ttc" id="aclassulicaClass_html_a304cc34a048118fb68bd8215ac1739ab"><div class="ttname"><a href="classulicaClass.html#a304cc34a048118fb68bd8215ac1739ab">ulicaClass::nazovUlice</a></div><div class="ttdeci">QString nazovUlice</div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8h_source.html#l00019">ulicaclass.h:19</a></div></div>
+<div class="ttc" id="aclassulicaClass_html_a474b1c62bce0f90f7cdc82124e11d6b1"><div class="ttname"><a href="classulicaClass.html#a474b1c62bce0f90f7cdc82124e11d6b1">ulicaClass::ulicaClass</a></div><div class="ttdeci">ulicaClass(int startX, int startY, int endX, int endY, QString nazov, int ID)</div><div class="ttdoc">ulicaClass::ulicaClass Vytvorí triedu ulice</div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8cpp_source.html#l00018">ulicaclass.cpp:18</a></div></div>
+<div class="ttc" id="aclassulicaClass_html_a01fca71b039922a9ad1cc3502601b667"><div class="ttname"><a href="classulicaClass.html#a01fca71b039922a9ad1cc3502601b667">ulicaClass::y2</a></div><div class="ttdeci">int y2</div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8h_source.html#l00018">ulicaclass.h:18</a></div></div>
+<div class="ttc" id="aclassulicaClass_html_a5be3769cec44e66df373bec9c3dd193e"><div class="ttname"><a href="classulicaClass.html#a5be3769cec44e66df373bec9c3dd193e">ulicaClass::x1</a></div><div class="ttdeci">int x1</div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8h_source.html#l00015">ulicaclass.h:15</a></div></div>
+<div class="ttc" id="aclassulicaClass_html_adcfecd935f91021d4dcffed84b52cf5b"><div class="ttname"><a href="classulicaClass.html#adcfecd935f91021d4dcffed84b52cf5b">ulicaClass::ulicaItem</a></div><div class="ttdeci">QGraphicsLineItem * ulicaItem</div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8h_source.html#l00021">ulicaclass.h:21</a></div></div>
+<div class="ttc" id="aclassulicaClass_html_a88e52fbc5f76fd8acbf68d96e31f3745"><div class="ttname"><a href="classulicaClass.html#a88e52fbc5f76fd8acbf68d96e31f3745">ulicaClass::vypisInfo</a></div><div class="ttdeci">void vypisInfo()</div></div>
+<div class="ttc" id="aclassulicaClass_html_ac35d140a1686690da8b1a3eab2b503fc"><div class="ttname"><a href="classulicaClass.html#ac35d140a1686690da8b1a3eab2b503fc">ulicaClass::ID_ulice</a></div><div class="ttdeci">int ID_ulice</div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8h_source.html#l00020">ulicaclass.h:20</a></div></div>
+<div class="ttc" id="aclassulicaClass_html_a11dcc1a9f54810e69740678460f73c88"><div class="ttname"><a href="classulicaClass.html#a11dcc1a9f54810e69740678460f73c88">ulicaClass::rychlostPremavky</a></div><div class="ttdeci">int rychlostPremavky</div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8h_source.html#l00022">ulicaclass.h:22</a></div></div>
+<div class="ttc" id="aclassulicaClass_html_a7f65a8c6ac8783c2da1492c9c85f2f45"><div class="ttname"><a href="classulicaClass.html#a7f65a8c6ac8783c2da1492c9c85f2f45">ulicaClass::vytvorUlicu</a></div><div class="ttdeci">ulicaClass vytvorUlicu(int startX, int startY, int endX, int endY, QString nazov, int ID)</div></div>
+<div class="ttc" id="aclassulicaClass_html_a8cb69888c01b3f55e17171cdbcc67ce0"><div class="ttname"><a href="classulicaClass.html#a8cb69888c01b3f55e17171cdbcc67ce0">ulicaClass::x2</a></div><div class="ttdeci">int x2</div><div class="ttdef"><b>Definition:</b> <a href="ulicaclass_8h_source.html#l00017">ulicaclass.h:17</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generované programom &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>
